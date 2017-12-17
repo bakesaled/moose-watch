@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnChanges } from '@angular/core';
 import { GridModel } from '../core/models';
 import { FlexLayoutShimService } from '../core';
 
@@ -7,14 +7,17 @@ import { FlexLayoutShimService } from '../core';
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss']
 })
-export class MwGridComponent implements OnInit {
-  @HostBinding('attr.fxLayout') fxlayout = 'row';
-  @HostBinding('attr.style') style = this.flexShim.getStyle('fxLayout', 'row');
-  @Input() model: GridModel;
+export class MwGridComponent implements OnChanges {
+  @Input() model: GridModel = GridModel.empty;
+  @HostBinding('attr.fxLayout') fxLayout = 'row';
+  @HostBinding('attr.style') style;
+  @HostBinding('style.backgroundColor') backgroundColor;
   constructor(private flexShim: FlexLayoutShimService) {
   }
 
-  ngOnInit() {
+  ngOnChanges() {
+    this.style = this.flexShim.getStyle('fxLayout', 'row')
+    this.backgroundColor = this.model.backgroundColor;
   }
 
 }

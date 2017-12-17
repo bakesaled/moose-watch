@@ -11,12 +11,16 @@ export class MwCellComponent implements OnInit {
   @Input() model: CellModel = CellModel.empty;
   @HostBinding('attr.fxFlex') fxFlex;
   @HostBinding('attr.style') style;
+  @HostBinding('style.backgroundColor') backgroundColor;
+  @HostBinding('style.margin') margin;
   constructor(private flexShim: FlexLayoutShimService) {
   }
 
   ngOnInit() {
     this.fxFlex = this.model.width;
-    this.style = this.flexShim.getStyle('fxFlex', this.model.width.toString());
+    this.style = this.flexShim.getStyle('fxFlex', this.model.width);
+    this.backgroundColor = this.model.backgroundColor;
+    this.margin = `${this.model.margin}px`;
   }
 
 }

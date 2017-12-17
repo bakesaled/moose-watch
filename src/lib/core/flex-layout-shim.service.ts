@@ -11,7 +11,7 @@ export class FlexLayoutShimService {
   constructor(private sanitizer: DomSanitizer) {
   }
 
-  getStyle(attribute: string, value: string): SafeStyle {
+  getStyle(attribute: string, value: string | number): SafeStyle {
     switch (attribute) {
       case 'fxLayout':
         switch (value) {
