@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import { MwCellComponent } from '../lib/cell';
-import { MwGridComponent } from '../lib/grid';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { NavigationModule } from './navigation/navigation.module';
@@ -16,8 +14,6 @@ import { LayoutViewerModule } from './layout-viewer/layout-viewer.module';
 @NgModule({
   declarations: [
     AppComponent,
-    MwCellComponent,
-    MwGridComponent
   ],
   imports: [
     BrowserModule,

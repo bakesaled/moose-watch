@@ -3,4 +3,8 @@ export class GridModel {
     public id: string,
     public cells: any
   ) {}
+
+  public static get empty(): GridModel {
+    return new GridModel('NONE', []);
+  }
 }

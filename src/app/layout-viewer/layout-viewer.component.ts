@@ -8,7 +8,7 @@ import { LayoutModel } from '../../lib/core/models';
   styleUrls: ['./layout-viewer.component.scss']
 })
 export class LayoutViewerComponent implements OnInit {
-  model: LayoutModel;
+  model: LayoutModel = LayoutModel.empty;
   constructor(private layoutService: LayoutService) { }
 
   ngOnInit() {

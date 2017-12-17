@@ -5,4 +5,8 @@ export class LayoutModel {
     public id: string,
     public grid: GridModel
   ) {}
+
+  public static get empty(): LayoutModel {
+    return new LayoutModel('NONE', GridModel.empty);
+  }
 }
