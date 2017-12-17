@@ -1,10 +1,15 @@
-<mat-list *ngIf="layoutListService.layoutList$ | async as layoutList else loading">
-  <h3 md-subheader>Layouts</h3>
-  <mat-list-item *ngFor="let item of layoutList.items">
-    <h4 matLine>{{ item.name }}</h4>
-  </mat-list-item>
+<mat-nav-list *ngIf="layoutListService.layoutList$ | async as layoutList else loading">
+  <h3 md-subheader>Layout Viewer</h3>
+  <a mat-list-item *ngFor="let item of layoutList.items" routerLink="/layout-viewer">
+    {{ item.name }}
+  </a>
   <mat-divider></mat-divider>
-</mat-list>
+</mat-nav-list>
+<mat-nav-list>
+  <h3 md-subheader>Layout Editor</h3>
+  <a mat-list-item routerLink="/layout-editor">New</a>
+  <mat-divider></mat-divider>
+</mat-nav-list>
 <ng-template #loading>
   <div>Loading ...</div>
 </ng-template>
