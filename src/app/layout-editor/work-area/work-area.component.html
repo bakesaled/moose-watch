@@ -1,0 +1,7 @@
+<div class="mw-work-area-target" dnd-droppable
+      (onDropSuccess)="handleDrop($event)">
+  <div *ngIf="!hasContent" class="mw-work-area-message-container">
+    <div class="mw-work-area-message">Drag a Grid here!</div>
+  </div>
+  <ng-template #dynamic></ng-template>
+</div>
