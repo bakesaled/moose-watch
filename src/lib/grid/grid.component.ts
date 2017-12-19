@@ -1,9 +1,10 @@
 import {
   ChangeDetectionStrategy, Component, ElementRef, HostBinding, Input, OnChanges,
-  ViewContainerRef, ViewEncapsulation
+  ViewEncapsulation
 } from '@angular/core';
 import { GridModel } from '../core/models';
 import { FlexLayoutShimService } from '../core';
+import { MwComponent } from '../core/mw.component';
 
 @Component({
   selector: 'mw-grid',
@@ -12,17 +13,17 @@ import { FlexLayoutShimService } from '../core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MwGridComponent implements OnChanges {
-  private modelVal: GridModel = GridModel.empty;
+export class MwGridComponent implements OnChanges, MwComponent {
+  private gridModel: GridModel = GridModel.empty;
   private isEditMode: boolean;
 
   @Input() get model(): GridModel {
-    return this.modelVal;
+    return this.gridModel;
   }
   set model(value: GridModel) {
-    this.modelVal = value;
+    this.gridModel = value;
     this.style = this.flexShim.getStyle('fxLayout', 'row');
-    this.backgroundColor = this.modelVal.backgroundColor;
+    this.backgroundColor = this.gridModel.backgroundColor;
   }
 
   @HostBinding('class.mw-grid--edit')

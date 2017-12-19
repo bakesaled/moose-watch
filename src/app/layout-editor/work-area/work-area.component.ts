@@ -4,6 +4,8 @@ import {
 } from '@angular/core';
 import { MwGridComponent } from '../../../lib/grid';
 import { GridModel } from '../../../lib/core/models';
+import { MwTextComponent } from '../../../lib/text';
+import { MwComponent } from '../../../lib/core/mw.component';
 
 interface DropEvent {
   dragData: any;
@@ -26,15 +28,24 @@ export class WorkAreaComponent implements OnInit {
 
   handleDrop(event: DropEvent) {
     console.log('drop', event);
-    this.hasContent = true;
+    if (event.dragData === 'grid') {
+      this.hasContent = true;
 
+      const gridComponent = this.createComponent(MwGridComponent);
+      gridComponent.model = GridModel.empty;
+      gridComponent.editMode = true;
+    } else if (event.dragData === 'text') {
+      const textComponent = this.createComponent(MwTextComponent);
+      textComponent.editMode = true;
+    }
+  }
+
+  private createComponent<T>(type: T): MwComponent {
     const factory = this.factoryResolver
-      .resolveComponentFactory(MwGridComponent);
+      .resolveComponentFactory(type);
     const componentRef = factory
       .create(this.viewContainerRef.parentInjector);
     this.viewContainerRef.insert(componentRef.hostView);
-    const gridComponent = componentRef.instance as MwGridComponent;
-    gridComponent.model = GridModel.empty;
-    gridComponent.editMode = true;
+    return componentRef.instance;
   }
 }
