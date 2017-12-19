@@ -1,11 +1,15 @@
 import {
-  ChangeDetectionStrategy, Component, ElementRef, HostBinding, Input, OnChanges,
+  AfterViewInit,
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Input, OnChanges,
+  Output, QueryList,
+  ViewChildren,
   ViewEncapsulation
 } from '@angular/core';
 import { GridModel } from '../core/models';
 import { FlexLayoutShimService } from '../core';
-import { MwComponent } from '../core/mw.component';
 import { CellModel } from '../core/models/cell.model';
+import { MwCellComponent } from './cell';
+import { MwComponent } from '../core/interfaces';
 
 @Component({
   selector: 'mw-grid',
@@ -14,9 +18,11 @@ import { CellModel } from '../core/models/cell.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class MwGridComponent implements OnChanges, MwComponent {
+export class MwGridComponent implements OnChanges, MwComponent, AfterViewInit {
   private gridModel: GridModel = GridModel.empty;
   private isEditMode: boolean;
+
+  @ViewChildren(MwCellComponent) cellComponents: QueryList<MwCellComponent>;
 
   @Input() get model(): GridModel {
     return this.gridModel;
@@ -37,8 +43,10 @@ export class MwGridComponent implements OnChanges, MwComponent {
       this.model.cells = [
         CellModel.emptyEdit,
         CellModel.emptyEdit
-      ]
+      ];
+      this.changeDetector.markForCheck();
     }
+
   }
   @HostBinding('attr.fxLayout') fxLayout = 'row';
   @HostBinding('attr.style') style;
@@ -46,8 +54,9 @@ export class MwGridComponent implements OnChanges, MwComponent {
   @HostBinding('style.height') height;
   @HostBinding('style.width') width;
 
+  @Output() afterViewInitEmitter = new EventEmitter<void>();
 
-  constructor(private flexShim: FlexLayoutShimService, private el: ElementRef) {
+  constructor(private flexShim: FlexLayoutShimService, private el: ElementRef, private changeDetector: ChangeDetectorRef) {
   }
 
   ngOnChanges() {
@@ -55,5 +64,8 @@ export class MwGridComponent implements OnChanges, MwComponent {
     // this.backgroundColor = this.model.backgroundColor;
   }
 
-
+  ngAfterViewInit() {
+    console.log('after view', this.cellComponents);
+    this.afterViewInitEmitter.emit();
+  }
 }

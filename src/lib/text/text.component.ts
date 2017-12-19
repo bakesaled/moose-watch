@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { TextModel } from '../core/models/text.model';
-import { MwComponent } from '../core/mw.component';
+import { MwComponent } from '../core/interfaces';
 
 @Component({
   selector: 'mw-text',

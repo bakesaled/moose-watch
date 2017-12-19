@@ -1,7 +1,10 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild, ViewContainerRef,
+  ViewEncapsulation
+} from '@angular/core';
 import { CellModel } from '../../core/models/cell.model';
 import { FlexLayoutShimService } from '../../core';
-import { MwComponent } from '../../core/mw.component';
+import { DropEvent, MwComponent } from '../../core/interfaces';
 
 @Component({
   selector: 'mw-cell',
@@ -13,6 +16,10 @@ import { MwComponent } from '../../core/mw.component';
 export class MwCellComponent implements OnInit, MwComponent {
   private cellModel: CellModel = CellModel.empty;
   private isEditMode: boolean;
+
+  @ViewChild('dynamic', { read: ViewContainerRef}) viewContainerRef: ViewContainerRef;
+
+  hasContent: boolean;
 
   @Input() get model(): CellModel {
     return this.cellModel;
@@ -38,10 +45,28 @@ export class MwCellComponent implements OnInit, MwComponent {
     }
   }
 
+  @Output() dropSuccessEmitter = new EventEmitter<DropEvent>();
+
   @HostBinding('attr.fxFlex') fxFlex;
   @HostBinding('attr.style') style;
   @HostBinding('style.backgroundColor') backgroundColor;
   @HostBinding('style.margin') margin;
+
+  handleDrop(event: DropEvent) {
+    console.log('cell drop', event);
+    this.dropSuccessEmitter.emit(event);
+  }
+
+  handleAllowDrop(data: any) {
+    return (dragData: any) => {
+      if (dragData !== data) {
+        console.log('drop not allowed', dragData);
+      }
+
+      return dragData === data;
+    }
+  }
+
   constructor(private flexShim: FlexLayoutShimService) {
   }
 
