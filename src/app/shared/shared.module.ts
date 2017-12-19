@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatListModule, MatSidenavModule } from '@angular/material';
+import { MatIconModule, MatListModule, MatSidenavModule } from '@angular/material';
 import { MwGridModule } from '../../lib/grid/grid.module';
 import { DndModule } from 'ng2-dnd';
 import { MwGridComponent } from '../../lib/grid';
@@ -12,6 +12,7 @@ import { MwTextModule } from '../../lib/text/text.module';
     CommonModule,
     MatSidenavModule,
     MatListModule,
+    MatIconModule,
     MwGridModule,
     MwTextModule,
     DndModule.forRoot()
@@ -19,6 +20,7 @@ import { MwTextModule } from '../../lib/text/text.module';
   exports: [
     MatSidenavModule,
     MatListModule,
+    MatIconModule,
     MwGridModule,
     MwTextModule,
     DndModule
