@@ -5,6 +5,7 @@ import {
 import { GridModel } from '../core/models';
 import { FlexLayoutShimService } from '../core';
 import { MwComponent } from '../core/mw.component';
+import { CellModel } from '../core/models/cell.model';
 
 @Component({
   selector: 'mw-grid',
@@ -32,6 +33,12 @@ export class MwGridComponent implements OnChanges, MwComponent {
   }
   set editMode(value: boolean) {
     this.isEditMode = value;
+    if (this.isEditMode) {
+      this.model.cells = [
+        CellModel.emptyEdit,
+        CellModel.emptyEdit
+      ]
+    }
   }
   @HostBinding('attr.fxLayout') fxLayout = 'row';
   @HostBinding('attr.style') style;
