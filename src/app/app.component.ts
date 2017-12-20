@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { LayoutModel } from '../lib/layout-fetcher';
 import { of } from 'rxjs/observable/of';
 
 @Component({
-  selector: 'app-root',
+  selector: 'mw-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
