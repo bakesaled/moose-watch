@@ -12,8 +12,9 @@ branches:
   only:
     - master
 
+install:
+  - npm i --silent --no-optional -g angular-cli-ghpages
+
 script:
   - ng build --prod --output-path dist
-
-after_success:
-  - npm run deploy
+  - ngh --repo="$GITHUB_ORG/$NAME.git" --name="$GITHUB_NAME" --email="$GITHUB_EMAIL"
