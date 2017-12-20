@@ -8,13 +8,22 @@ cache:
   directories:
     - $HOME/.npm
 
+env:
+  global:
+    - NAME="moose-watch"
+    - GITHUB_ORG="https://$GH_TOKEN@github.com/bakesaled"
+    - GITHUB_NAME="Brandon Eleuterio"
+    - GITHUB_EMAIL="eleuterio@railroad19.com"
+
 branches:
   only:
     - master
 
 install:
+  - npm i --silent --no-optional -g @angular/cli
   - npm i --silent --no-optional -g angular-cli-ghpages
 
 script:
-  - ng build --prod --output-path dist
-  - ngh --repo="$GITHUB_ORG/$NAME.git" --name="$GITHUB_NAME" --email="$GITHUB_EMAIL"
+  - npm i --silent --no-optional
+  - ng build --prod --output-path dist --base-href "https://bakesaled.github.io/$NAME/"
+  - ngh --repo=https://$GH_TOKEN@github.com/bakesaled/moose-watch.git --name="$GITHUB_NAME" --email="$GITHUB_EMAIL"
