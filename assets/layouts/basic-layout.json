@@ -1,0 +1,17 @@
+{
+  "grid": {
+    "id": "1",
+    "backgroundColor": "blue",
+    "cells": [
+      {
+        "id": "1c",
+        "width": 50,
+        "backgroundColor": "red",
+        "margin": 20
+      },
+      {
+        "id": "2c"
+      }
+    ]
+  }
+}
