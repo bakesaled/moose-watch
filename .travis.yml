@@ -13,7 +13,7 @@ branches:
     - master
 
 script:
-  - ng build --prod
+  - ng build --prod --output-path dist
 
 after_success:
   - npm run deploy
