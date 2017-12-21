@@ -1,5 +1,10 @@
 # MooseWatch
 
+[![Build Status][travis-badge]][travis-badge-url]
+
+[travis-badge]: https://travis-ci.org/bakesaled/moose-watch.svg?branch=master
+[travis-badge-url]: https://travis-ci.org/bakesaled/moose-watch
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.0.
 
 ## Development server
