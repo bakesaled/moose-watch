@@ -2,20 +2,21 @@ import {
   Component, ComponentFactoryResolver, ElementRef, Inject, OnInit, QueryList, ViewChild, ViewChildren,
   ViewContainerRef
 } from '@angular/core';
-import { MwGridComponent } from '../../../lib/grid';
-import { GridModel } from '../../../lib/core/models';
-import { MwTextComponent } from '../../../lib/text';
-import { DropEvent, MwComponent } from '../../../lib/core/interfaces';
-import { MwCellComponent } from '../../../lib/grid/cell';
+import { MwTextComponent } from '../../text/index';
+import { MwEditorCellComponent } from '../grid/cell';
+import { MwEditorGridComponent } from '../grid';
+import { MwDesignerComponent } from '../../core/interfaces/mw-designer.component';
+import { DropEvent } from '../../core/interfaces';
+import { CellModel } from '../../core/models/cell.model';
 
 @Component({
   selector: 'mw-work-area',
   templateUrl: './work-area.component.html',
   styleUrls: ['./work-area.component.scss']
 })
-export class WorkAreaComponent implements OnInit {
+export class MwWorkAreaComponent implements OnInit {
   @ViewChild('dynamic', { read: ViewContainerRef}) viewContainerRef: ViewContainerRef;
-  @ViewChildren(MwCellComponent) cellComponents: QueryList<MwCellComponent>;
+  @ViewChildren(MwEditorCellComponent) cellComponents: QueryList<MwEditorCellComponent>;
   hasContent: boolean;
   allowedDropType = 'grid';
 
@@ -29,23 +30,27 @@ export class WorkAreaComponent implements OnInit {
     if (event.dragData === 'grid') {
       this.hasContent = true;
 
-      const gridComponent = this.createComponent(MwGridComponent, this.viewContainerRef) as MwGridComponent;
+      const gridComponent = this.createComponent(MwEditorGridComponent, this.viewContainerRef) as MwEditorGridComponent;
+      gridComponent.cells = [
+        CellModel.emptyEdit,
+        CellModel.emptyEdit
+      ];
+      gridComponent.cells[0].width = 50;
+      gridComponent.cells[1].width = 50;
       gridComponent.afterViewInitEmitter.subscribe(() => {
         console.log('cells', gridComponent.cellComponents);
-        gridComponent.cellComponents.forEach((cell: MwCellComponent) => {
+        gridComponent.cellComponents.forEach((cell: MwEditorCellComponent) => {
           cell.dropSuccessEmitter.subscribe((dropEvent) => {
             console.log('work-area-cell drop', dropEvent);
             const textComponent = this.createComponent(MwTextComponent, cell.viewContainerRef);
-            textComponent.editMode = true;
+            // textComponent.editMode = true;
             cell.hasContent = true;
           });
         });
       });
-      gridComponent.model = GridModel.empty;
-      gridComponent.editMode = true;
     } else if (event.dragData === 'text') {
       const textComponent = this.createComponent(MwTextComponent, this.viewContainerRef);
-      textComponent.editMode = true;
+      // textComponent.editMode = true;
     }
   }
 
@@ -59,7 +64,7 @@ export class WorkAreaComponent implements OnInit {
     }
   }
 
-  private createComponent<T>(type: T, viewContainerRef: ViewContainerRef): MwComponent {
+  private createComponent<T>(type: T, viewContainerRef: ViewContainerRef): MwDesignerComponent {
     const factory = this.factoryResolver
       .resolveComponentFactory(type);
     const componentRef = factory

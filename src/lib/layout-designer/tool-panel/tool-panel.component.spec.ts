@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MwGridComponent } from './grid.component';
+import { MwToolPanelComponent } from './tool-panel.component';
 
-describe('MwEditorGridComponent', () => {
-  let component: MwGridComponent;
-  let fixture: ComponentFixture<MwGridComponent>;
+describe('MwToolPanelComponent', () => {
+  let component: MwToolPanelComponent;
+  let fixture: ComponentFixture<MwToolPanelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MwGridComponent ]
+      declarations: [ MwToolPanelComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MwGridComponent);
+    fixture = TestBed.createComponent(MwToolPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

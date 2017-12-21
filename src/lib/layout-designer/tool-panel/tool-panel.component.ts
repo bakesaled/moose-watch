@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './tool-panel.component.html',
   styleUrls: ['./tool-panel.component.scss']
 })
-export class ToolPanelComponent implements OnInit {
+export class MwToolPanelComponent implements OnInit {
 
   constructor() { }
 

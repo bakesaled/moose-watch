@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { GridModel } from '../core/models';
 import { FlexLayoutShimService } from '../core';
-import { CellModel } from '../core/models/cell.model';
 import { MwCellComponent } from './cell';
 import { MwComponent } from '../core/interfaces';
 
@@ -20,7 +19,6 @@ import { MwComponent } from '../core/interfaces';
 })
 export class MwGridComponent implements OnChanges, MwComponent, AfterViewInit {
   private gridModel: GridModel = GridModel.empty;
-  private isEditMode: boolean;
 
   @ViewChildren(MwCellComponent) cellComponents: QueryList<MwCellComponent>;
 
@@ -33,21 +31,6 @@ export class MwGridComponent implements OnChanges, MwComponent, AfterViewInit {
     this.backgroundColor = this.gridModel.backgroundColor;
   }
 
-  @HostBinding('class.mw-grid--edit')
-  @Input() get editMode(): boolean {
-    return this.isEditMode;
-  }
-  set editMode(value: boolean) {
-    this.isEditMode = value;
-    if (this.isEditMode) {
-      this.model.cells = [
-        CellModel.emptyEdit,
-        CellModel.emptyEdit
-      ];
-      this.changeDetector.markForCheck();
-    }
-
-  }
   @HostBinding('attr.fxLayout') fxLayout = 'row';
   @HostBinding('attr.style') style;
   @HostBinding('style.backgroundColor') backgroundColor;

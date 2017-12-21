@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WorkAreaComponent } from './work-area.component';
+import { MwEditorCellComponent } from './editor-cell.component';
 
-describe('WorkAreaComponent', () => {
-  let component: WorkAreaComponent;
-  let fixture: ComponentFixture<WorkAreaComponent>;
+describe('MwEditorCellComponent', () => {
+  let component: MwEditorCellComponent;
+  let fixture: ComponentFixture<MwEditorCellComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WorkAreaComponent ]
+      declarations: [ MwEditorCellComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WorkAreaComponent);
+    fixture = TestBed.createComponent(MwEditorCellComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

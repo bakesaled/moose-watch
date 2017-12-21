@@ -1,0 +1,17 @@
+.mw-editor-cell {
+  height: 50px;
+  background: #c78626;
+  border: #ccc dashed;
+  margin: 10px;
+
+  .mw-editor-cell-message-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    .mw-editor-cell-message {
+      text-align: center;
+    }
+  }
+}

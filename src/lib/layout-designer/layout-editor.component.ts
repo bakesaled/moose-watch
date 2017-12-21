@@ -6,12 +6,11 @@ import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core
   styleUrls: ['./layout-editor.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class LayoutEditorComponent implements OnInit {
+export class MwLayoutEditorComponent implements OnInit {
   @HostBinding('class.mw-layout-editor') layoutEditorClass = true;
   constructor() { }
 
   ngOnInit() {
   }
-
 
 }

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ToolPanelComponent } from './tool-panel.component';
+import { MwLayoutEditorComponent } from './layout-editor.component';
 
-describe('ToolPanelComponent', () => {
-  let component: ToolPanelComponent;
-  let fixture: ComponentFixture<ToolPanelComponent>;
+describe('MwLayoutEditorComponent', () => {
+  let component: MwLayoutEditorComponent;
+  let fixture: ComponentFixture<MwLayoutEditorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ToolPanelComponent ]
+      declarations: [ MwLayoutEditorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ToolPanelComponent);
+    fixture = TestBed.createComponent(MwLayoutEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

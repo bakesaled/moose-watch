@@ -1,0 +1,5 @@
+<div *ngIf="!hasContent" class="mw-editor-cell-message-container" dnd-droppable
+     (onDropSuccess)="handleDrop($event)">
+  <div class="mw-editor-cell-message">[drop here]</div>
+</div>
+<ng-template #dynamic></ng-template>

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MwGridComponent } from './grid.component';
+import { MwEditorGridComponent } from './editor-grid.component';
 
 describe('MwEditorGridComponent', () => {
-  let component: MwGridComponent;
-  let fixture: ComponentFixture<MwGridComponent>;
+  let component: MwEditorGridComponent;
+  let fixture: ComponentFixture<MwEditorGridComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MwGridComponent ]
+      declarations: [ MwEditorGridComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MwGridComponent);
+    fixture = TestBed.createComponent(MwEditorGridComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
