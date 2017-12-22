@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DropEvent } from '../../core/interfaces';
 
 @Component({
   selector: 'mw-tool-panel',
@@ -12,4 +13,7 @@ export class MwToolPanelComponent implements OnInit {
   ngOnInit() {
   }
 
+  handleDropSuccess(event: DropEvent) {
+    console.log('deleted', event);
+  }
 }

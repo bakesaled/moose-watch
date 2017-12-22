@@ -1,5 +1,18 @@
-<p>
-  tool-panel works!!
-</p>
-<div dnd-draggable dragData="grid"><mat-icon>grid_on</mat-icon>grid</div>
-<div dnd-draggable dragData="text"><mat-icon>text_fields</mat-icon>text</div>
+<div class="mat-tool-panel-container" fxLayout="column" fxLayoutAlign="space-between stretch">
+  <div>
+    <div>
+      Tool Panel
+    </div>
+    <div dnd-draggable dragData="grid">
+      <mat-icon>grid_on</mat-icon>
+      grid
+    </div>
+    <div dnd-draggable dragData="text">
+      <mat-icon>text_fields</mat-icon>
+      text
+    </div>
+  </div>
+  <div dnd-droppable (onDropSuccess)="handleDropSuccess($event)">
+    <mat-icon class="mat-tool-panel-trash">delete</mat-icon>
+  </div>
+</div>
