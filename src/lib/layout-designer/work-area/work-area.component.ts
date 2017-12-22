@@ -1,5 +1,5 @@
 import {
-  Component, ComponentFactoryResolver, ElementRef, Inject, OnInit, QueryList, ViewChild, ViewChildren,
+  Component, ComponentFactoryResolver, ElementRef, Inject, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren,
   ViewContainerRef
 } from '@angular/core';
 import { MwTextComponent } from '../../text/index';
@@ -8,21 +8,35 @@ import { MwEditorGridComponent } from '../grid';
 import { MwDesignerComponent } from '../../core/interfaces/mw-designer.component';
 import { DropEvent } from '../../core/interfaces';
 import { CellModel } from '../../core/models/cell.model';
+import { MessageService } from '../../core/services';
+import { ToolPanelMessage } from '../../core';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'mw-work-area',
   templateUrl: './work-area.component.html',
   styleUrls: ['./work-area.component.scss']
 })
-export class MwWorkAreaComponent implements OnInit {
+export class MwWorkAreaComponent implements OnInit, OnDestroy {
+  private subscriptions: Subscription[] = [];
+
   @ViewChild('dynamic', { read: ViewContainerRef}) viewContainerRef: ViewContainerRef;
   @ViewChildren(MwEditorCellComponent) cellComponents: QueryList<MwEditorCellComponent>;
   hasContent: boolean;
   allowedDropType = 'grid';
 
-  constructor(@Inject(ComponentFactoryResolver) private factoryResolver, private el: ElementRef) { }
+  constructor(@Inject(ComponentFactoryResolver) private factoryResolver, private messageService: MessageService) { }
 
   ngOnInit() {
+    this.subscriptions.push(this.messageService.channel(ToolPanelMessage).subscribe((msg => {
+      console.log('toolpanel msg', msg);
+    })));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub) => {
+      sub.unsubscribe();
+    });
   }
 
   handleDrop(event: DropEvent) {

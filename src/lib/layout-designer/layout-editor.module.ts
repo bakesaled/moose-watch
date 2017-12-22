@@ -8,6 +8,7 @@ import { MwWorkAreaModule } from './work-area/work-area.module';
 import { MwLayoutEditorComponent } from './layout-editor.component';
 import { MwEditorGridComponent } from './grid';
 import { MwEditorCellComponent } from './grid/cell';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { MwEditorCellComponent } from './grid/cell';
   ],
   imports: [
     CommonModule,
+    CoreModule,
     SharedModule,
     MatSidenavModule,
     MatListModule,

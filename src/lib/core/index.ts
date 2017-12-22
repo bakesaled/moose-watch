@@ -1,3 +1,5 @@
 export * from './models';
-export * from './flex-layout-shim.service';
+export * from './services';
 export * from './interfaces';
+export * from './enums';
+export * from './messages';
