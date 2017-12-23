@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { DropEvent, MwEditorComponent } from '../../../core/interfaces';
 import { FlexLayoutShimService } from '../../../core';
+import { CellModel } from '../../../core/models/cell.model';
 
 @Component({
   selector: 'mw-editor-cell',
@@ -18,15 +19,16 @@ export class MwEditorCellComponent implements OnInit, MwEditorComponent {
   @ViewChild('dynamic', { read: ViewContainerRef}) viewContainerRef: ViewContainerRef;
   @Output() dropSuccessEmitter = new EventEmitter<DropEvent>();
 
-  id: string;
   hasContent: boolean;
-  width = 50;
+  model: CellModel;
 
   constructor(private flexShim: FlexLayoutShimService) { }
 
   ngOnInit() {
-    this.fxFlex = this.width;
-    this.style = this.flexShim.getStyle('fxFlex', this.width);
+    this.model = CellModel.empty;
+    this.model.width = 50;
+    this.fxFlex = this.model.width;
+    this.style = this.flexShim.getStyle('fxFlex', this.model.width);
   }
 
   handleDrop(event: DropEvent) {

@@ -1,5 +1,6 @@
 import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
 import { MwEditorComponent } from '../../core/interfaces';
+import { TextModel } from '../../core/models/text.model';
 
 @Component({
   selector: 'mw-text',
@@ -11,12 +12,13 @@ export class MwEditorTextComponent implements OnInit, MwEditorComponent {
   @HostBinding('class.mw-editor-text')
   editorTextClass = true;
 
-  id: string;
-  value = '[text]';
+  model: TextModel;
 
   constructor() { }
 
   ngOnInit() {
+    this.model = TextModel.empty;
+    this.model.value = '[text]';
   }
 
 }

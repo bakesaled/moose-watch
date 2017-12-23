@@ -7,6 +7,7 @@ import { MwEditorCellComponent } from './cell';
 import { CellModel } from '../../core/models/cell.model';
 import { FlexLayoutShimService } from '../../core';
 import { MwEditorComponent } from '../../core/interfaces';
+import { GridModel } from '../../core/models';
 
 @Component({
   selector: 'mw-editor-grid',
@@ -23,8 +24,7 @@ export class MwEditorGridComponent implements OnInit, AfterViewInit, MwEditorCom
 
   @Output() afterViewInitEmitter = new EventEmitter<void>();
 
-  id: string;
-  cells: CellModel[];
+  model: GridModel;
 
   constructor(private flexShim: FlexLayoutShimService) { }
 

@@ -10,6 +10,7 @@ import { MessageService, SaveService } from '../../core/services';
 import { ToolPanelMessage } from '../../core';
 import { Subscription } from 'rxjs/Subscription';
 import { MwEditorTextComponent } from '../text';
+import { GridModel, LayoutModel } from '../../core/models';
 
 @Component({
   selector: 'mw-work-area',
@@ -18,6 +19,7 @@ import { MwEditorTextComponent } from '../text';
 })
 export class MwWorkAreaComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
+  private layoutModel: LayoutModel;
   private rootGridComponent: MwEditorGridComponent;
 
   @ViewChild('dynamic', { read: ViewContainerRef}) viewContainerRef: ViewContainerRef;
@@ -32,7 +34,8 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.messageService.channel(ToolPanelMessage).subscribe((msg => {
       console.log('toolpanel msg', msg);
       this.rootGridComponent.cellComponents.forEach((cell) => {
-        if (cell.id === msg.data.parentId) {
+        console.log('check delete', cell.model.id, msg.data.parentId);
+        if (cell.model.id === msg.data.parentId) {
           cell.viewContainerRef.clear();
           cell.hasContent = false;
         }
@@ -52,21 +55,25 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
       this.hasContent = true;
 
       this.rootGridComponent = this.createComponent(MwEditorGridComponent, this.viewContainerRef) as MwEditorGridComponent;
-      this.rootGridComponent.cells = [
+      this.layoutModel = LayoutModel.empty;
+      this.layoutModel.grid = GridModel.empty;
+      this.layoutModel.grid.cells = [
         CellModel.emptyEdit,
         CellModel.emptyEdit
       ];
-      this.rootGridComponent.cells[0].width = 50;
-      this.rootGridComponent.cells[1].width = 50;
+      this.rootGridComponent.model = this.layoutModel.grid;
       this.rootGridComponent.afterViewInitEmitter.subscribe(() => {
         console.log('cells', this.rootGridComponent.cellComponents);
         this.rootGridComponent.cellComponents.forEach((cell: MwEditorCellComponent) => {
           cell.dropSuccessEmitter.subscribe((dropEvent) => {
             console.log('work-area-cell drop', dropEvent);
             const textComponent = this.createComponent(MwEditorTextComponent, cell.viewContainerRef);
+            // this.layoutModel.grid.cells.filter((cell) => {
+            //
+            // })
             // textComponent.editMode = true;
             cell.hasContent = true;
-            this.saveService.save('layout', 'blah');
+            this.saveService.save('layout', this.layoutModel);
           });
         });
       });

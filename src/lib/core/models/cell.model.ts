@@ -1,4 +1,6 @@
-export class CellModel {
+import { MwComponentModel } from '../interfaces';
+
+export class CellModel implements MwComponentModel {
   constructor(
     public id: string = 'NONE',
     public width: number = 0,

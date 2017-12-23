@@ -1,3 +1,5 @@
+import { MwComponentModel } from './mw-component.model';
+
 export interface MwEditorComponent {
-  id: string;
+  model: MwComponentModel;
 }
