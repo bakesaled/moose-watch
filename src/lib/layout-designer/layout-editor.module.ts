@@ -9,6 +9,8 @@ import { MwLayoutEditorComponent } from './layout-editor.component';
 import { MwEditorGridComponent } from './grid';
 import { MwEditorCellComponent } from './grid/cell';
 import { CoreModule } from '../core/core.module';
+import { MwEditorTextComponent } from './text';
+import { MwEditorTextModule } from './text/editor-text.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { CoreModule } from '../core/core.module';
     MatSidenavModule,
     MatListModule,
     MwEditorGridModule,
+    MwEditorTextModule,
     MwToolPanelModule,
     MwWorkAreaModule
   ],
@@ -29,12 +32,14 @@ import { CoreModule } from '../core/core.module';
     MatSidenavModule,
     MatListModule,
     MwEditorGridModule,
+    MwEditorTextModule,
     MwToolPanelModule,
     MwWorkAreaModule
   ],
   entryComponents: [
     MwEditorGridComponent,
-    MwEditorCellComponent
+    MwEditorCellComponent,
+    MwEditorTextComponent
   ]
 })
 export class MwLayoutEditorModule { }

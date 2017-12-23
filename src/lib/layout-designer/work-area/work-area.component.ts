@@ -1,16 +1,15 @@
 import {
-  Component, ComponentFactoryResolver, ElementRef, Inject, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren,
+  Component, ComponentFactoryResolver, Inject, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren,
   ViewContainerRef
 } from '@angular/core';
-import { MwTextComponent } from '../../text/index';
 import { MwEditorCellComponent } from '../grid/cell';
 import { MwEditorGridComponent } from '../grid';
-import { MwDesignerComponent } from '../../core/interfaces/mw-designer.component';
-import { DropEvent } from '../../core/interfaces';
+import { DropEvent, MwEditorComponent } from '../../core/interfaces';
 import { CellModel } from '../../core/models/cell.model';
 import { MessageService } from '../../core/services';
 import { ToolPanelMessage } from '../../core';
 import { Subscription } from 'rxjs/Subscription';
+import { MwEditorTextComponent } from '../text';
 
 @Component({
   selector: 'mw-work-area',
@@ -19,6 +18,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class MwWorkAreaComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
+  private rootGridComponent: MwEditorGridComponent;
 
   @ViewChild('dynamic', { read: ViewContainerRef}) viewContainerRef: ViewContainerRef;
   @ViewChildren(MwEditorCellComponent) cellComponents: QueryList<MwEditorCellComponent>;
@@ -30,6 +30,12 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscriptions.push(this.messageService.channel(ToolPanelMessage).subscribe((msg => {
       console.log('toolpanel msg', msg);
+      this.rootGridComponent.cellComponents.forEach((cell) => {
+        if (cell.id === msg.data.parentId) {
+          cell.viewContainerRef.clear();
+          cell.hasContent = false;
+        }
+      });
     })));
   }
 
@@ -44,26 +50,26 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     if (event.dragData === 'grid') {
       this.hasContent = true;
 
-      const gridComponent = this.createComponent(MwEditorGridComponent, this.viewContainerRef) as MwEditorGridComponent;
-      gridComponent.cells = [
+      this.rootGridComponent = this.createComponent(MwEditorGridComponent, this.viewContainerRef) as MwEditorGridComponent;
+      this.rootGridComponent.cells = [
         CellModel.emptyEdit,
         CellModel.emptyEdit
       ];
-      gridComponent.cells[0].width = 50;
-      gridComponent.cells[1].width = 50;
-      gridComponent.afterViewInitEmitter.subscribe(() => {
-        console.log('cells', gridComponent.cellComponents);
-        gridComponent.cellComponents.forEach((cell: MwEditorCellComponent) => {
+      this.rootGridComponent.cells[0].width = 50;
+      this.rootGridComponent.cells[1].width = 50;
+      this.rootGridComponent.afterViewInitEmitter.subscribe(() => {
+        console.log('cells', this.rootGridComponent.cellComponents);
+        this.rootGridComponent.cellComponents.forEach((cell: MwEditorCellComponent) => {
           cell.dropSuccessEmitter.subscribe((dropEvent) => {
             console.log('work-area-cell drop', dropEvent);
-            const textComponent = this.createComponent(MwTextComponent, cell.viewContainerRef);
+            const textComponent = this.createComponent(MwEditorTextComponent, cell.viewContainerRef);
             // textComponent.editMode = true;
             cell.hasContent = true;
           });
         });
       });
     } else if (event.dragData === 'text') {
-      const textComponent = this.createComponent(MwTextComponent, this.viewContainerRef);
+      const textComponent = this.createComponent(MwEditorTextComponent, this.viewContainerRef);
       // textComponent.editMode = true;
     }
   }
@@ -75,10 +81,10 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
       }
 
       return dragData === data;
-    }
+    };
   }
 
-  private createComponent<T>(type: T, viewContainerRef: ViewContainerRef): MwDesignerComponent {
+  private createComponent<T>(type: T, viewContainerRef: ViewContainerRef): MwEditorComponent {
     const factory = this.factoryResolver
       .resolveComponentFactory(type);
     const componentRef = factory

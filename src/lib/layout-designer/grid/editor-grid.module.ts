@@ -1,23 +1,22 @@
 import { MwEditorGridComponent } from './editor-grid.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { FlexLayoutShimService } from '../../core';
 import { MwEditorCellModule } from './cell/editor-cell.module';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     MwEditorCellModule,
-    FlexLayoutModule
+    SharedModule
   ],
   declarations: [
     MwEditorGridComponent
   ],
   exports: [
     MwEditorGridComponent,
-    MwEditorCellModule,
-    FlexLayoutModule
+    MwEditorCellModule
   ],
   providers: [
     FlexLayoutShimService

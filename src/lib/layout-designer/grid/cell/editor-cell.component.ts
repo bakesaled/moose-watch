@@ -2,7 +2,7 @@ import {
   Component, EventEmitter, HostBinding, OnInit, Output, ViewChild, ViewContainerRef,
   ViewEncapsulation
 } from '@angular/core';
-import { DropEvent } from '../../../core/interfaces';
+import { DropEvent, MwEditorComponent } from '../../../core/interfaces';
 import { FlexLayoutShimService } from '../../../core';
 
 @Component({
@@ -11,19 +11,21 @@ import { FlexLayoutShimService } from '../../../core';
   styleUrls: ['./editor-cell.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class MwEditorCellComponent implements OnInit {
-  @HostBinding('class.mw-editor-cell') designerCellClass = true;
+export class MwEditorCellComponent implements OnInit, MwEditorComponent {
+  @HostBinding('class.mw-editor-cell') editorCellClass = true;
   @HostBinding('attr.fxFlex') fxFlex;
   @HostBinding('attr.style') style;
   @ViewChild('dynamic', { read: ViewContainerRef}) viewContainerRef: ViewContainerRef;
   @Output() dropSuccessEmitter = new EventEmitter<DropEvent>();
 
+  id: string;
   hasContent: boolean;
-  width: number;
+  width = 50;
 
   constructor(private flexShim: FlexLayoutShimService) { }
 
   ngOnInit() {
+    this.fxFlex = this.width;
     this.style = this.flexShim.getStyle('fxFlex', this.width);
   }
 
