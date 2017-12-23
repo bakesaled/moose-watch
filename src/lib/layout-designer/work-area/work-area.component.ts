@@ -6,7 +6,7 @@ import { MwEditorCellComponent } from '../grid/cell';
 import { MwEditorGridComponent } from '../grid';
 import { DropEvent, MwEditorComponent } from '../../core/interfaces';
 import { CellModel } from '../../core/models/cell.model';
-import { MessageService } from '../../core/services';
+import { MessageService, SaveService } from '../../core/services';
 import { ToolPanelMessage } from '../../core';
 import { Subscription } from 'rxjs/Subscription';
 import { MwEditorTextComponent } from '../text';
@@ -25,7 +25,8 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   hasContent: boolean;
   allowedDropType = 'grid';
 
-  constructor(@Inject(ComponentFactoryResolver) private factoryResolver, private messageService: MessageService) { }
+  constructor(@Inject(ComponentFactoryResolver) private factoryResolver, private messageService: MessageService,
+              private saveService: SaveService) { }
 
   ngOnInit() {
     this.subscriptions.push(this.messageService.channel(ToolPanelMessage).subscribe((msg => {
@@ -65,6 +66,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
             const textComponent = this.createComponent(MwEditorTextComponent, cell.viewContainerRef);
             // textComponent.editMode = true;
             cell.hasContent = true;
+            this.saveService.save('layout', 'blah');
           });
         });
       });
