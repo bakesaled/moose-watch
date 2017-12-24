@@ -5,7 +5,7 @@
 [travis-badge]: https://travis-ci.org/bakesaled/moose-watch.svg?branch=master
 [travis-badge-url]: https://travis-ci.org/bakesaled/moose-watch
 
-[![Coveralls](https://coveralls.io/repos/github/bakesaled/moose-watch/badge.svg?branch=master)](https://coveralls.io/github/bakesaled/moose-watch?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/bakesaled/moose-watch/badge.svg?branch=master)](https://coveralls.io/github/bakesaled/moose-watch?branch=master)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.0.
 
