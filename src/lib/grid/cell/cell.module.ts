@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { MwCellComponent } from './cell.component';
 import { CommonModule } from '@angular/common';
-import { DndModule } from 'ng2-dnd';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    DndModule.forRoot()
+    SharedModule
   ],
   declarations: [
     MwCellComponent
   ],
   exports: [
     MwCellComponent,
-    DndModule
+    SharedModule
   ]
 })
 export class MwCellModule {}

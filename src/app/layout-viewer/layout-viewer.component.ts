@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../core/services/layout.service';
 import { LayoutModel } from '../../lib/core/models';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'mw-layout-viewer',
@@ -16,5 +17,6 @@ export class LayoutViewerComponent implements OnInit {
       this.model = model;
     });
   }
+
 
 }

@@ -1,4 +1,6 @@
 import { MwComponentModel } from '../interfaces';
+import { Type } from '@angular/core';
+import { NoComponent } from '../../no.component';
 
 export class CellModel implements MwComponentModel {
   constructor(
@@ -6,16 +8,11 @@ export class CellModel implements MwComponentModel {
     public width: number = 0,
     public backgroundColor?: string,
     public margin: number = 0,
-    public editMode: boolean = false
+    public type: Type<any> = NoComponent,
+    public component: MwComponentModel = null
   ) {}
 
   public static get empty(): CellModel {
     return new CellModel();
-  }
-
-  public static get emptyEdit(): CellModel {
-    const model = new CellModel();
-    model.editMode = true;
-    return model;
   }
 }

@@ -24,7 +24,7 @@ export class MwEditorGridComponent implements OnInit, AfterViewInit, MwEditorCom
 
   @Output() afterViewInitEmitter = new EventEmitter<void>();
 
-  model: GridModel;
+  model: GridModel = GridModel.empty;
 
   constructor(private flexShim: FlexLayoutShimService) { }
 

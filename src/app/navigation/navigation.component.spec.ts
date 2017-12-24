@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavigationComponent } from './navigation.component';
+import { MatListModule } from '@angular/material';
+import { LayoutListService } from '../core/services/layout-list.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -8,7 +11,14 @@ describe('NavigationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NavigationComponent ]
+      declarations: [ NavigationComponent ],
+      imports: [
+        MatListModule,
+        HttpClientModule
+      ],
+      providers: [
+        LayoutListService
+      ]
     })
     .compileComponents();
   }));

@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MwToolPanelComponent } from './tool-panel.component';
+import { MatIconModule, MatSidenavModule } from '@angular/material';
+import { MessageService } from '../../core/services';
 
 describe('MwToolPanelComponent', () => {
   let component: MwToolPanelComponent;
@@ -8,7 +10,14 @@ describe('MwToolPanelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MwToolPanelComponent ]
+      declarations: [ MwToolPanelComponent ],
+      imports: [
+        MatIconModule,
+        MatSidenavModule
+      ],
+      providers: [
+        MessageService
+      ]
     })
     .compileComponents();
   }));

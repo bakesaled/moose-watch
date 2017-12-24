@@ -1,16 +1,26 @@
 {
+  "id": "1L",
+  "type": "LayoutViewerComponent",
   "grid": {
     "id": "1",
+    "type": "MwGridComponent",
     "backgroundColor": "blue",
     "cells": [
       {
         "id": "1c",
         "width": 50,
         "backgroundColor": "red",
-        "margin": 20
+        "margin": 20,
+        "type": "MwCellComponent",
+        "component": {
+          "id": "1t",
+          "value": "text here",
+          "type": "MwTextComponent"
+        }
       },
       {
-        "id": "2c"
+        "id": "2c",
+        "type": "MwCellComponent"
       }
     ]
   }

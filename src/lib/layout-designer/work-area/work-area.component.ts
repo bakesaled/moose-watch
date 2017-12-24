@@ -1,5 +1,5 @@
 import {
-  Component, ComponentFactoryResolver, Inject, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren,
+  Component, ComponentFactoryResolver, Inject, OnDestroy, OnInit, QueryList, Type, ViewChild, ViewChildren,
   ViewContainerRef
 } from '@angular/core';
 import { MwEditorCellComponent } from '../grid/cell';
@@ -27,7 +27,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   hasContent: boolean;
   allowedDropType = 'grid';
 
-  constructor(@Inject(ComponentFactoryResolver) private factoryResolver, private messageService: MessageService,
+  constructor(@Inject(ComponentFactoryResolver) private factoryResolver: ComponentFactoryResolver, private messageService: MessageService,
               private saveService: SaveService) { }
 
   ngOnInit() {
@@ -56,10 +56,10 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
 
       this.rootGridComponent = this.createComponent(MwEditorGridComponent, this.viewContainerRef) as MwEditorGridComponent;
       this.layoutModel = LayoutModel.empty;
-      this.layoutModel.grid = GridModel.empty;
+      this.layoutModel.grid = new GridModel();
       this.layoutModel.grid.cells = [
-        CellModel.emptyEdit,
-        CellModel.emptyEdit
+        new CellModel(),
+        new CellModel()
       ];
       this.rootGridComponent.model = this.layoutModel.grid;
       this.rootGridComponent.afterViewInitEmitter.subscribe(() => {
@@ -93,13 +93,13 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     };
   }
 
-  private createComponent<T>(type: T, viewContainerRef: ViewContainerRef): MwEditorComponent {
+  private createComponent<T>(type: Type<T>, viewContainerRef: ViewContainerRef): MwEditorComponent {
     const factory = this.factoryResolver
       .resolveComponentFactory(type);
     const componentRef = factory
       .create(viewContainerRef.parentInjector);
     viewContainerRef.insert(componentRef.hostView);
     // componentRef.changeDetectorRef.detectChanges();
-    return componentRef.instance;
+    return <any>componentRef.instance;
   }
 }
