@@ -9,6 +9,24 @@ import {
 } from '@angular/core';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
+@Component({
+  template: ''
+})
+class TestParentComponent {
+  constructor(
+    public viewContainerRef: ViewContainerRef,
+    @Inject(ComponentFactoryResolver)
+    public factoryResolver: ComponentFactoryResolver
+  ) {}
+}
+
+@Component({
+  template: ''
+})
+class TestChildComponent {
+  constructor() {}
+}
+
 describe('ComponentFactoryService', () => {
   let component: TestParentComponent;
   let fixture: ComponentFixture<TestParentComponent>;
@@ -53,21 +71,3 @@ describe('ComponentFactoryService', () => {
     })
   );
 });
-
-@Component({
-  template: ''
-})
-class TestParentComponent {
-  constructor(
-    public viewContainerRef: ViewContainerRef,
-    @Inject(ComponentFactoryResolver)
-    public factoryResolver: ComponentFactoryResolver
-  ) {}
-}
-
-@Component({
-  template: ''
-})
-class TestChildComponent {
-  constructor() {}
-}

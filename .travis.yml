@@ -25,5 +25,6 @@ install:
 
 script:
   - npm i --silent --no-optional
+  - npm run test:ci
   - ng build --prod --output-path dist --base-href "https://bakesaled.github.io/$NAME/"
   - ngh --repo=https://$GH_TOKEN@github.com/bakesaled/moose-watch.git --name="$GITHUB_NAME" --email="$GITHUB_EMAIL"
