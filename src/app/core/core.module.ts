@@ -6,17 +6,15 @@ import { LayoutService } from './services/layout.service';
 import { ErrorInterceptorProvider } from './error.interceptor';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  providers: [
-    ErrorInterceptorProvider,
-    LayoutListService,
-    LayoutService
-  ]
+  imports: [CommonModule],
+  providers: [ErrorInterceptorProvider, LayoutListService, LayoutService]
 })
 export class CoreModule {
-  constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
+  constructor(
+    @Optional()
+    @SkipSelf()
+    parentModule: CoreModule
+  ) {
     throwIfAlreadyLoaded(parentModule, 'CoreModule');
   }
 }

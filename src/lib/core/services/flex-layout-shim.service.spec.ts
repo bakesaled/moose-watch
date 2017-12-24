@@ -9,7 +9,10 @@ describe('FlexLayoutShimService', () => {
     });
   });
 
-  it('should be created', inject([FlexLayoutShimService], (service: FlexLayoutShimService) => {
-    expect(service).toBeTruthy();
-  }));
+  it(
+    'should be created',
+    inject([FlexLayoutShimService], (service: FlexLayoutShimService) => {
+      expect(service).toBeTruthy();
+    })
+  );
 });

@@ -6,12 +6,13 @@ describe('MwEditorTextComponent', () => {
   let component: MwEditorTextComponent;
   let fixture: ComponentFixture<MwEditorTextComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ MwEditorTextComponent ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [MwEditorTextComponent]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MwEditorTextComponent);

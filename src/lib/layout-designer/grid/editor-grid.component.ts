@@ -1,6 +1,12 @@
 import {
   AfterViewInit,
-  Component, EventEmitter, HostBinding, OnInit, Output, QueryList, ViewChildren,
+  Component,
+  EventEmitter,
+  HostBinding,
+  OnInit,
+  Output,
+  QueryList,
+  ViewChildren,
   ViewEncapsulation
 } from '@angular/core';
 import { MwEditorCellComponent } from './cell';
@@ -15,18 +21,20 @@ import { GridModel } from '../../core/models';
   styleUrls: ['./editor-grid.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class MwEditorGridComponent implements OnInit, AfterViewInit, MwEditorComponent {
+export class MwEditorGridComponent
+  implements OnInit, AfterViewInit, MwEditorComponent {
   @HostBinding('class.mw-editor-grid') editorGridClass = true;
   @HostBinding('attr.fxLayout') fxLayout = 'row';
   @HostBinding('attr.style') style;
 
-  @ViewChildren(MwEditorCellComponent) cellComponents: QueryList<MwEditorCellComponent>;
+  @ViewChildren(MwEditorCellComponent)
+  cellComponents: QueryList<MwEditorCellComponent>;
 
   @Output() afterViewInitEmitter = new EventEmitter<void>();
 
   model: GridModel = GridModel.empty;
 
-  constructor(private flexShim: FlexLayoutShimService) { }
+  constructor(private flexShim: FlexLayoutShimService) {}
 
   ngOnInit() {
     this.style = this.flexShim.getStyle('fxLayout', 'row');

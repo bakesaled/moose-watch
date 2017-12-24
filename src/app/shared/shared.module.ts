@@ -7,21 +7,8 @@ import { MwTextModule } from '../../lib/text/text.module';
 import { MwLayoutEditorModule } from '../../lib/layout-designer/layout-editor.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MwGridModule,
-    MwTextModule,
-    MwLayoutEditorModule
-  ],
-  exports: [
-    MwGridModule,
-    MwTextModule,
-    MwLayoutEditorModule
-  ],
-  entryComponents: [
-    MwGridComponent,
-    MwTextComponent
-  ]
+  imports: [CommonModule, MwGridModule, MwTextModule, MwLayoutEditorModule],
+  exports: [MwGridModule, MwTextModule, MwLayoutEditorModule],
+  entryComponents: [MwGridComponent, MwTextComponent]
 })
 export class SharedModule {}
-

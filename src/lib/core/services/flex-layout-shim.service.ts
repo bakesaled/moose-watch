@@ -8,18 +8,22 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class FlexLayoutShimService {
-  constructor(private sanitizer: DomSanitizer) {
-  }
+  constructor(private sanitizer: DomSanitizer) {}
 
   getStyle(attribute: string, value: string | number): SafeStyle {
     switch (attribute) {
       case 'fxLayout':
         switch (value) {
           case 'row':
-            return this.sanitizer.bypassSecurityTrustStyle('flex-direction: row; box-sizing: border-box; display: flex;');
+            return this.sanitizer.bypassSecurityTrustStyle(
+              'flex-direction: row; box-sizing: border-box; display: flex;'
+            );
         }
+        break;
       case 'fxFlex':
-        return this.sanitizer.bypassSecurityTrustStyle(`flex: 1 1 100%; box-sizing: border-box; max-width: ${value}%;`);
+        return this.sanitizer.bypassSecurityTrustStyle(
+          `flex: 1 1 100%; box-sizing: border-box; max-width: ${value}%;`
+        );
     }
 
     return '';

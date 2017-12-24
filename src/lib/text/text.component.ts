@@ -10,16 +10,15 @@ import { MwComponent } from '../core/interfaces';
 export class MwTextComponent implements OnInit, MwComponent {
   private textModel: TextModel = TextModel.empty;
 
-  @Input() get model(): TextModel {
+  @Input()
+  get model(): TextModel {
     return this.textModel;
   }
   set model(value: TextModel) {
     this.textModel = value;
   }
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

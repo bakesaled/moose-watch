@@ -9,19 +9,15 @@ describe('NavigationComponent', () => {
   let component: NavigationComponent;
   let fixture: ComponentFixture<NavigationComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ NavigationComponent ],
-      imports: [
-        MatListModule,
-        HttpClientModule
-      ],
-      providers: [
-        LayoutListService
-      ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [NavigationComponent],
+        imports: [MatListModule, HttpClientModule],
+        providers: [LayoutListService]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NavigationComponent);

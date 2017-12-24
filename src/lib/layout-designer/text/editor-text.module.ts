@@ -4,15 +4,8 @@ import { MwEditorTextComponent } from './editor-text.component';
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule
-  ],
-  declarations: [
-    MwEditorTextComponent
-  ],
-  exports: [
-    MwEditorTextComponent
-  ]
+  imports: [CommonModule, SharedModule],
+  declarations: [MwEditorTextComponent],
+  exports: [MwEditorTextComponent]
 })
 export class MwEditorTextModule {}

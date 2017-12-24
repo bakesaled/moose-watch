@@ -9,19 +9,15 @@ describe('MwGridComponent', () => {
   let component: MwGridComponent;
   let fixture: ComponentFixture<MwGridComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ MwGridComponent ],
-      imports: [
-        MwCellModule,
-        MwTextModule
-      ],
-      providers: [
-        FlexLayoutShimService
-      ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [MwGridComponent],
+        imports: [MwCellModule, MwTextModule],
+        providers: [FlexLayoutShimService]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MwGridComponent);

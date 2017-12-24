@@ -10,13 +10,11 @@ import 'rxjs/add/operator/map';
 })
 export class LayoutViewerComponent implements OnInit {
   model: LayoutModel = LayoutModel.empty;
-  constructor(private layoutService: LayoutService) { }
+  constructor(private layoutService: LayoutService) {}
 
   ngOnInit() {
     this.layoutService.get('basic-layout.json').subscribe(model => {
       this.model = model;
     });
   }
-
-
 }

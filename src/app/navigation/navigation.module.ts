@@ -5,14 +5,8 @@ import { NavigationComponent } from './navigation.component';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    RouterModule
-  ],
+  imports: [CommonModule, SharedModule, RouterModule],
   declarations: [NavigationComponent],
-  exports: [
-    NavigationComponent
-  ]
+  exports: [NavigationComponent]
 })
 export class NavigationModule {}

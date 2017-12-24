@@ -10,11 +10,9 @@ import { Command } from '../../core/enums';
   styleUrls: ['./tool-panel.component.scss']
 })
 export class MwToolPanelComponent implements OnInit {
+  constructor(private messageService: MessageService) {}
 
-  constructor(private messageService: MessageService) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   handleDropSuccess(event: DropEvent) {
     console.log('deleted', event);

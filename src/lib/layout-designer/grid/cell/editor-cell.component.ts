@@ -1,5 +1,11 @@
 import {
-  Component, EventEmitter, HostBinding, OnInit, Output, ViewChild, ViewContainerRef,
+  Component,
+  EventEmitter,
+  HostBinding,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewContainerRef,
   ViewEncapsulation
 } from '@angular/core';
 import { DropEvent, MwEditorComponent } from '../../../core/interfaces';
@@ -16,13 +22,14 @@ export class MwEditorCellComponent implements OnInit, MwEditorComponent {
   @HostBinding('class.mw-editor-cell') editorCellClass = true;
   @HostBinding('attr.fxFlex') fxFlex;
   @HostBinding('attr.style') style;
-  @ViewChild('dynamic', { read: ViewContainerRef}) viewContainerRef: ViewContainerRef;
+  @ViewChild('dynamic', { read: ViewContainerRef })
+  viewContainerRef: ViewContainerRef;
   @Output() dropSuccessEmitter = new EventEmitter<DropEvent>();
 
   hasContent: boolean;
   model: CellModel;
 
-  constructor(private flexShim: FlexLayoutShimService) { }
+  constructor(private flexShim: FlexLayoutShimService) {}
 
   ngOnInit() {
     this.model = CellModel.empty;

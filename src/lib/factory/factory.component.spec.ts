@@ -7,15 +7,14 @@ describe('FactoryComponent', () => {
   let component: FactoryComponent;
   let fixture: ComponentFixture<FactoryComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ FactoryComponent ],
-      providers: [
-        ComponentFactoryService
-      ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [FactoryComponent],
+        providers: [ComponentFactoryService]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FactoryComponent);

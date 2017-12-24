@@ -1,7 +1,12 @@
 import { TestBed, inject, ComponentFixture } from '@angular/core/testing';
 
 import { ComponentFactoryService } from './component-factory.service';
-import { Component, ComponentFactoryResolver, Inject, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  Inject,
+  ViewContainerRef
+} from '@angular/core';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 describe('ComponentFactoryService', () => {
@@ -10,10 +15,7 @@ describe('ComponentFactoryService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        TestParentComponent,
-        TestChildComponent
-      ],
+      declarations: [TestParentComponent, TestChildComponent],
       providers: [ComponentFactoryService]
     });
 
@@ -30,25 +32,37 @@ describe('ComponentFactoryService', () => {
     fixture.detectChanges();
   });
 
-  it('should be created', inject([ComponentFactoryService], (service: ComponentFactoryService) => {
-    expect(service).toBeTruthy();
-  }));
+  it(
+    'should be created',
+    inject([ComponentFactoryService], (service: ComponentFactoryService) => {
+      expect(service).toBeTruthy();
+    })
+  );
 
-  it('should create a component', inject([ComponentFactoryService], (service: ComponentFactoryService) => {
-    const child = service.createComponent<TestChildComponent>(TestChildComponent, component.viewContainerRef,
-      component.factoryResolver);
-    expect(child).toBeDefined();
-    expect(fixture.componentInstance.viewContainerRef.length).toBe(1);
-    expect(child instanceof TestChildComponent).toBeTruthy();
-  }));
+  it(
+    'should create a component',
+    inject([ComponentFactoryService], (service: ComponentFactoryService) => {
+      const child = service.createComponent<TestChildComponent>(
+        TestChildComponent,
+        component.viewContainerRef,
+        component.factoryResolver
+      );
+      expect(child).toBeDefined();
+      expect(fixture.componentInstance.viewContainerRef.length).toBe(1);
+      expect(child instanceof TestChildComponent).toBeTruthy();
+    })
+  );
 });
 
 @Component({
   template: ''
 })
 class TestParentComponent {
-  constructor(public viewContainerRef: ViewContainerRef,
-              @Inject(ComponentFactoryResolver) public factoryResolver: ComponentFactoryResolver) {}
+  constructor(
+    public viewContainerRef: ViewContainerRef,
+    @Inject(ComponentFactoryResolver)
+    public factoryResolver: ComponentFactoryResolver
+  ) {}
 }
 
 @Component({

@@ -4,15 +4,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule
-  ],
-  declarations: [
-    MwToolPanelComponent
-  ],
-  exports: [
-    MwToolPanelComponent
-  ]
+  imports: [CommonModule, SharedModule],
+  declarations: [MwToolPanelComponent],
+  exports: [MwToolPanelComponent]
 })
 export class MwToolPanelModule {}

@@ -1,4 +1,11 @@
-import { Component, ComponentFactoryResolver, Inject, Input, OnChanges, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  Inject,
+  Input,
+  OnChanges,
+  ViewContainerRef
+} from '@angular/core';
 import { MwComponentModel } from '../core/interfaces/index';
 import { ComponentFactoryService } from './component-factory.service';
 
@@ -9,9 +16,12 @@ import { ComponentFactoryService } from './component-factory.service';
 export class FactoryComponent implements OnChanges {
   @Input() public model: MwComponentModel;
 
-  constructor(private factoryService: ComponentFactoryService,
-              private viewContainerRef: ViewContainerRef,
-              @Inject(ComponentFactoryResolver) private factoryResolver: ComponentFactoryResolver) { }
+  constructor(
+    private factoryService: ComponentFactoryService,
+    private viewContainerRef: ViewContainerRef,
+    @Inject(ComponentFactoryResolver)
+    private factoryResolver: ComponentFactoryResolver
+  ) {}
 
   ngOnChanges() {
     this.createComponent();
@@ -21,8 +31,11 @@ export class FactoryComponent implements OnChanges {
     if (!this.model) {
       return;
     }
-    const component = this.factoryService.createComponent(this.model.type, this.viewContainerRef, this.factoryResolver);
+    const component = this.factoryService.createComponent(
+      this.model.type,
+      this.viewContainerRef,
+      this.factoryResolver
+    );
     component.model = this.model;
-
   }
 }

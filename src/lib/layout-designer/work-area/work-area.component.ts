@@ -1,5 +1,13 @@
 import {
-  Component, ComponentFactoryResolver, Inject, OnDestroy, OnInit, QueryList, Type, ViewChild, ViewChildren,
+  Component,
+  ComponentFactoryResolver,
+  Inject,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  Type,
+  ViewChild,
+  ViewChildren,
   ViewContainerRef
 } from '@angular/core';
 import { MwEditorCellComponent } from '../grid/cell';
@@ -22,29 +30,37 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   private layoutModel: LayoutModel;
   private rootGridComponent: MwEditorGridComponent;
 
-  @ViewChild('dynamic', { read: ViewContainerRef}) viewContainerRef: ViewContainerRef;
-  @ViewChildren(MwEditorCellComponent) cellComponents: QueryList<MwEditorCellComponent>;
+  @ViewChild('dynamic', { read: ViewContainerRef })
+  viewContainerRef: ViewContainerRef;
+  @ViewChildren(MwEditorCellComponent)
+  cellComponents: QueryList<MwEditorCellComponent>;
   hasContent: boolean;
   allowedDropType = 'grid';
 
-  constructor(@Inject(ComponentFactoryResolver) private factoryResolver: ComponentFactoryResolver, private messageService: MessageService,
-              private saveService: SaveService) { }
+  constructor(
+    @Inject(ComponentFactoryResolver)
+    private factoryResolver: ComponentFactoryResolver,
+    private messageService: MessageService,
+    private saveService: SaveService
+  ) {}
 
   ngOnInit() {
-    this.subscriptions.push(this.messageService.channel(ToolPanelMessage).subscribe((msg => {
-      console.log('toolpanel msg', msg);
-      this.rootGridComponent.cellComponents.forEach((cell) => {
-        console.log('check delete', cell.model.id, msg.data.parentId);
-        if (cell.model.id === msg.data.parentId) {
-          cell.viewContainerRef.clear();
-          cell.hasContent = false;
-        }
-      });
-    })));
+    this.subscriptions.push(
+      this.messageService.channel(ToolPanelMessage).subscribe(msg => {
+        console.log('toolpanel msg', msg);
+        this.rootGridComponent.cellComponents.forEach(cell => {
+          console.log('check delete', cell.model.id, msg.data.parentId);
+          if (cell.model.id === msg.data.parentId) {
+            cell.viewContainerRef.clear();
+            cell.hasContent = false;
+          }
+        });
+      })
+    );
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach((sub) => {
+    this.subscriptions.forEach(sub => {
       sub.unsubscribe();
     });
   }
@@ -54,31 +70,39 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     if (event.dragData === 'grid') {
       this.hasContent = true;
 
-      this.rootGridComponent = this.createComponent(MwEditorGridComponent, this.viewContainerRef) as MwEditorGridComponent;
+      this.rootGridComponent = this.createComponent(
+        MwEditorGridComponent,
+        this.viewContainerRef
+      ) as MwEditorGridComponent;
       this.layoutModel = LayoutModel.empty;
       this.layoutModel.grid = new GridModel();
-      this.layoutModel.grid.cells = [
-        new CellModel(),
-        new CellModel()
-      ];
+      this.layoutModel.grid.cells = [new CellModel(), new CellModel()];
       this.rootGridComponent.model = this.layoutModel.grid;
       this.rootGridComponent.afterViewInitEmitter.subscribe(() => {
         console.log('cells', this.rootGridComponent.cellComponents);
-        this.rootGridComponent.cellComponents.forEach((cell: MwEditorCellComponent) => {
-          cell.dropSuccessEmitter.subscribe((dropEvent) => {
-            console.log('work-area-cell drop', dropEvent);
-            const textComponent = this.createComponent(MwEditorTextComponent, cell.viewContainerRef);
-            // this.layoutModel.grid.cells.filter((cell) => {
-            //
-            // })
-            // textComponent.editMode = true;
-            cell.hasContent = true;
-            this.saveService.save('layout', this.layoutModel);
-          });
-        });
+        this.rootGridComponent.cellComponents.forEach(
+          (cell: MwEditorCellComponent) => {
+            cell.dropSuccessEmitter.subscribe(dropEvent => {
+              console.log('work-area-cell drop', dropEvent);
+              const textComponent = this.createComponent(
+                MwEditorTextComponent,
+                cell.viewContainerRef
+              );
+              // this.layoutModel.grid.cells.filter((cell) => {
+              //
+              // })
+              // textComponent.editMode = true;
+              cell.hasContent = true;
+              this.saveService.save('layout', this.layoutModel);
+            });
+          }
+        );
       });
     } else if (event.dragData === 'text') {
-      const textComponent = this.createComponent(MwEditorTextComponent, this.viewContainerRef);
+      const textComponent = this.createComponent(
+        MwEditorTextComponent,
+        this.viewContainerRef
+      );
       // textComponent.editMode = true;
     }
   }
@@ -93,11 +117,12 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     };
   }
 
-  private createComponent<T>(type: Type<T>, viewContainerRef: ViewContainerRef): MwEditorComponent {
-    const factory = this.factoryResolver
-      .resolveComponentFactory(type);
-    const componentRef = factory
-      .create(viewContainerRef.parentInjector);
+  private createComponent<T>(
+    type: Type<T>,
+    viewContainerRef: ViewContainerRef
+  ): MwEditorComponent {
+    const factory = this.factoryResolver.resolveComponentFactory(type);
+    const componentRef = factory.create(viewContainerRef.parentInjector);
     viewContainerRef.insert(componentRef.hostView);
     // componentRef.changeDetectorRef.detectChanges();
     return <any>componentRef.instance;

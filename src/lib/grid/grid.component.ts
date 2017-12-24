@@ -1,7 +1,15 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Input, OnChanges,
-  Output, QueryList,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostBinding,
+  Input,
+  OnChanges,
+  Output,
+  QueryList,
   ViewChildren,
   ViewEncapsulation
 } from '@angular/core';
@@ -22,7 +30,8 @@ export class MwGridComponent implements OnChanges, MwComponent, AfterViewInit {
 
   @ViewChildren(MwCellComponent) cellComponents: QueryList<MwCellComponent>;
 
-  @Input() get model(): GridModel {
+  @Input()
+  get model(): GridModel {
     return this.gridModel;
   }
   set model(value: GridModel) {
@@ -39,8 +48,11 @@ export class MwGridComponent implements OnChanges, MwComponent, AfterViewInit {
 
   @Output() afterViewInitEmitter = new EventEmitter<void>();
 
-  constructor(private flexShim: FlexLayoutShimService, private el: ElementRef, private changeDetector: ChangeDetectorRef) {
-  }
+  constructor(
+    private flexShim: FlexLayoutShimService,
+    private el: ElementRef,
+    private changeDetector: ChangeDetectorRef
+  ) {}
 
   ngOnChanges() {
     // this.style = this.flexShim.getStyle('fxLayout', 'row')

@@ -13,9 +13,7 @@ import { MwEditorTextComponent } from './text';
 import { MwEditorTextModule } from './text/editor-text.module';
 
 @NgModule({
-  declarations: [
-    MwLayoutEditorComponent
-  ],
+  declarations: [MwLayoutEditorComponent],
   imports: [
     CommonModule,
     CoreModule,
@@ -42,4 +40,4 @@ import { MwEditorTextModule } from './text/editor-text.module';
     MwEditorTextComponent
   ]
 })
-export class MwLayoutEditorModule { }
+export class MwLayoutEditorModule {}

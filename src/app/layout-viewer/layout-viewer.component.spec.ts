@@ -10,20 +10,15 @@ describe('LayoutViewerComponent', () => {
   let component: LayoutViewerComponent;
   let fixture: ComponentFixture<LayoutViewerComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ LayoutViewerComponent ],
-      imports: [
-        MwGridModule,
-        HttpClientModule,
-        MwTextModule
-      ],
-      providers: [
-        LayoutService
-      ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [LayoutViewerComponent],
+        imports: [MwGridModule, HttpClientModule, MwTextModule],
+        providers: [LayoutService]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LayoutViewerComponent);

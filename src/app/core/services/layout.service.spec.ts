@@ -6,14 +6,15 @@ import { HttpClientModule } from '@angular/common/http';
 describe('LayoutService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientModule
-      ],
+      imports: [HttpClientModule],
       providers: [LayoutService]
     });
   });
 
-  it('should be created', inject([LayoutService], (service: LayoutService) => {
-    expect(service).toBeTruthy();
-  }));
+  it(
+    'should be created',
+    inject([LayoutService], (service: LayoutService) => {
+      expect(service).toBeTruthy();
+    })
+  );
 });

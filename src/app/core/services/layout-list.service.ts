@@ -8,8 +8,12 @@ import { Observable } from 'rxjs/Observable';
 export class LayoutListService {
   public layoutList: LayoutListModel;
   public layoutListNull: LayoutListModel = null;
-  public layoutListSubject: BehaviorSubject<LayoutListModel> = new BehaviorSubject<LayoutListModel>(null);
-  public layoutList$: Observable<LayoutListModel> = this.layoutListSubject.asObservable();
+  public layoutListSubject: BehaviorSubject<
+    LayoutListModel
+  > = new BehaviorSubject<LayoutListModel>(null);
+  public layoutList$: Observable<
+    LayoutListModel
+  > = this.layoutListSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -18,7 +22,8 @@ export class LayoutListService {
     if (this.layoutList === null || this.layoutList === undefined) {
       console.log('Loading layout list');
 
-      return this.http.get<LayoutListModel>('./assets/layouts/layouts-list.json')
+      return this.http
+        .get<LayoutListModel>('./assets/layouts/layouts-list.json')
         .subscribe(model => {
           this.layoutListSubject.next(model);
         });

@@ -4,14 +4,8 @@ import { SharedModule } from '../shared/shared.module';
 import { LayoutViewerComponent } from './layout-viewer.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule
-  ],
+  imports: [CommonModule, SharedModule],
   declarations: [LayoutViewerComponent],
-  exports: [
-    LayoutViewerComponent
-  ]
+  exports: [LayoutViewerComponent]
 })
 export class LayoutViewerModule {}
-

@@ -1,15 +1,23 @@
-import { ComponentFactoryResolver, Injectable, Type, ViewContainerRef } from '@angular/core';
+import {
+  ComponentFactoryResolver,
+  Injectable,
+  Type,
+  ViewContainerRef
+} from '@angular/core';
 import { componentRegistry } from '../shared/component-registry';
 
 @Injectable()
 export class ComponentFactoryService {
+  constructor() {}
 
-  constructor() { }
-
-  createComponent<T>(type: Type<T> | string, viewContainerRef: ViewContainerRef, factoryResolver: ComponentFactoryResolver): T {
+  createComponent<T>(
+    type: Type<T> | string,
+    viewContainerRef: ViewContainerRef,
+    factoryResolver: ComponentFactoryResolver
+  ): T {
     const originalType = type;
-    if (typeof(type) === 'string') {
-      type = componentRegistry.find((val) => {
+    if (typeof type === 'string') {
+      type = componentRegistry.find(val => {
         return val.name === type;
       });
 
@@ -19,10 +27,8 @@ export class ComponentFactoryService {
       }
     }
 
-    const factory = factoryResolver
-      .resolveComponentFactory(type);
-    const componentRef = factory
-      .create(viewContainerRef.parentInjector);
+    const factory = factoryResolver.resolveComponentFactory(type);
+    const componentRef = factory.create(viewContainerRef.parentInjector);
     viewContainerRef.insert(componentRef.hostView);
     // componentRef.changeDetectorRef.detectChanges();
     return componentRef.instance;

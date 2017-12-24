@@ -10,24 +10,21 @@ describe('MwCellComponent', () => {
   let component: MwCellComponent;
   let fixture: ComponentFixture<MwCellComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ MwCellComponent, NoComponent ],
-      imports: [
-        FactoryModule
-      ],
-      providers: [
-        FlexLayoutShimService
-      ]
-    })
-    .compileComponents();
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [MwCellComponent, NoComponent],
+        imports: [FactoryModule],
+        providers: [FlexLayoutShimService]
+      }).compileComponents();
 
-    TestBed.overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: [NoComponent]
-      }
-    });
-  }));
+      TestBed.overrideModule(BrowserDynamicTestingModule, {
+        set: {
+          entryComponents: [NoComponent]
+        }
+      });
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MwCellComponent);

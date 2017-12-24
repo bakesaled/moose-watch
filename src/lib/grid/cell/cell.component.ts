@@ -1,5 +1,11 @@
 import {
-  ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnInit, Output,
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  HostBinding,
+  Input,
+  OnInit,
+  Output,
   ViewEncapsulation
 } from '@angular/core';
 import { CellModel } from '../../core/models/cell.model';
@@ -18,7 +24,8 @@ export class MwCellComponent implements OnInit, MwComponent {
 
   hasContent: boolean;
 
-  @Input() get model(): CellModel {
+  @Input()
+  get model(): CellModel {
     return this.cellModel;
   }
   set model(value: CellModel) {
@@ -36,11 +43,7 @@ export class MwCellComponent implements OnInit, MwComponent {
   @HostBinding('style.backgroundColor') backgroundColor;
   @HostBinding('style.margin') margin;
 
-  constructor(private flexShim: FlexLayoutShimService) {
-  }
+  constructor(private flexShim: FlexLayoutShimService) {}
 
-  ngOnInit() {
-
-  }
-
+  ngOnInit() {}
 }

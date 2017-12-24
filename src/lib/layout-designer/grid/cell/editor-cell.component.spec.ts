@@ -7,15 +7,14 @@ describe('MwEditorCellComponent', () => {
   let component: MwEditorCellComponent;
   let fixture: ComponentFixture<MwEditorCellComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ MwEditorCellComponent ],
-      providers: [
-        FlexLayoutShimService
-      ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [MwEditorCellComponent],
+        providers: [FlexLayoutShimService]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MwEditorCellComponent);

@@ -4,15 +4,8 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../../shared/shared.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule
-  ],
-  declarations: [
-    MwEditorCellComponent
-  ],
-  exports: [
-    MwEditorCellComponent
-  ]
+  imports: [CommonModule, SharedModule],
+  declarations: [MwEditorCellComponent],
+  exports: [MwEditorCellComponent]
 })
 export class MwEditorCellModule {}

@@ -5,12 +5,13 @@ describe('TextComponent', () => {
   let component: MwTextComponent;
   let fixture: ComponentFixture<MwTextComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ MwTextComponent ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [MwTextComponent]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MwTextComponent);

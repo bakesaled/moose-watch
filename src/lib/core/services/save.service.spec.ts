@@ -10,7 +10,10 @@ describe('SaveService', () => {
     });
   });
 
-  it('should be created', inject([SaveService], (service: SaveService) => {
-    expect(service).toBeTruthy();
-  }));
+  it(
+    'should be created',
+    inject([SaveService], (service: SaveService) => {
+      expect(service).toBeTruthy();
+    })
+  );
 });

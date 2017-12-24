@@ -8,19 +8,15 @@ describe('MwToolPanelComponent', () => {
   let component: MwToolPanelComponent;
   let fixture: ComponentFixture<MwToolPanelComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ MwToolPanelComponent ],
-      imports: [
-        MatIconModule,
-        MatSidenavModule
-      ],
-      providers: [
-        MessageService
-      ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [MwToolPanelComponent],
+        imports: [MatIconModule, MatSidenavModule],
+        providers: [MessageService]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MwToolPanelComponent);

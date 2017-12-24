@@ -1,4 +1,9 @@
-import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 
 @Component({
   selector: 'mw-layout-editor',
@@ -8,9 +13,7 @@ import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core
 })
 export class MwLayoutEditorComponent implements OnInit {
   @HostBinding('class.mw-layout-editor') layoutEditorClass = true;
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

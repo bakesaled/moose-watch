@@ -6,21 +6,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FlexLayoutShimService } from '../core';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MwCellModule,
-    FlexLayoutModule
-  ],
-  declarations: [
-    MwGridComponent
-  ],
-  exports: [
-    MwGridComponent,
-    MwCellModule,
-    FlexLayoutModule
-  ],
-  providers: [
-    FlexLayoutShimService
-  ]
+  imports: [CommonModule, MwCellModule, FlexLayoutModule],
+  declarations: [MwGridComponent],
+  exports: [MwGridComponent, MwCellModule, FlexLayoutModule],
+  providers: [FlexLayoutShimService]
 })
 export class MwGridModule {}

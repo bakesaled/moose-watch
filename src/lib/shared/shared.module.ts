@@ -17,15 +17,8 @@ import { MwTextComponent } from '../text';
     DndModule.forRoot(),
     FactoryModule
   ],
-  declarations: [
-    NoComponent
-  ],
-  exports: [
-    MatIconModule,
-    FlexLayoutModule,
-    DndModule,
-    FactoryModule
-  ],
+  declarations: [NoComponent],
+  exports: [MatIconModule, FlexLayoutModule, DndModule, FactoryModule],
   entryComponents: [
     MwGridComponent,
     MwCellComponent,
@@ -34,4 +27,3 @@ import { MwTextComponent } from '../text';
   ]
 })
 export class SharedModule {}
-

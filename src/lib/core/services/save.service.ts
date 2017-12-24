@@ -3,8 +3,7 @@ import { LocalStorageService } from './local-storage.service';
 
 @Injectable()
 export class SaveService {
-
-  constructor(private localStorageService: LocalStorageService) { }
+  constructor(private localStorageService: LocalStorageService) {}
 
   save(key: string, data: any) {
     const json = JSON.stringify(data);
@@ -12,7 +11,5 @@ export class SaveService {
     this.localStorageService.setItem(key, json);
   }
 
-  deyaledSave(key: string, data: any) {
-
-  }
+  deyaledSave(key: string, data: any) {}
 }

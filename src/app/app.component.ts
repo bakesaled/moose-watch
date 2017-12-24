@@ -16,17 +16,19 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     console.log('fething');
-    this.http.get('./assets/layouts/basic-layout.json').pipe(
-      tap(layouts => console.log(`fetched layouts`, layouts)),
-      catchError(this.handleError('get layouts'))
-    ).subscribe(() =>{
-      console.log('yo');
-    });
+    this.http
+      .get('./assets/layouts/basic-layout.json')
+      .pipe(
+        tap(layouts => console.log(`fetched layouts`, layouts)),
+        catchError(this.handleError('get layouts'))
+      )
+      .subscribe(() => {
+        console.log('yo');
+      });
   }
 
-  private handleError<T> (operation = 'operation', result?: T) {
+  private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
 
