@@ -21,7 +21,7 @@ export class MwEditorTextComponent implements OnInit, MwEditorComponent {
   constructor() {}
 
   ngOnInit() {
-    this.model = TextModel.empty;
+    this.model = new TextModel();
     this.model.value = '[text]';
   }
 }

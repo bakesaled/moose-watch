@@ -18,7 +18,7 @@ import { CellModel } from '../../core/models';
   encapsulation: ViewEncapsulation.None
 })
 export class MwCellComponent implements OnInit, MwComponent {
-  private cellModel: CellModel = CellModel.empty;
+  private cellModel: CellModel = new CellModel();
 
   hasContent: boolean;
 

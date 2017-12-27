@@ -8,7 +8,7 @@ import { MwComponent } from '../core/interfaces';
   styleUrls: ['./text.component.scss']
 })
 export class MwTextComponent implements OnInit, MwComponent {
-  private textModel: TextModel = TextModel.empty;
+  private textModel: TextModel = new TextModel();
 
   @Input()
   get model(): TextModel {

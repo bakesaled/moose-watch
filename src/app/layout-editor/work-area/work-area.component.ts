@@ -73,7 +73,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
         MwEditorGridComponent,
         this.viewContainerRef
       ) as MwEditorGridComponent;
-      this.layoutModel = LayoutModel.empty;
+      this.layoutModel = new LayoutModel();
       this.layoutModel.grid = new GridModel();
       this.layoutModel.grid.cells = [new CellModel(), new CellModel()];
       this.rootGridComponent.model = this.layoutModel.grid;

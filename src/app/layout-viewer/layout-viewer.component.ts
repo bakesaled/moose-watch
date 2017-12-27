@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./layout-viewer.component.scss']
 })
 export class LayoutViewerComponent implements OnInit {
-  model: LayoutModel = LayoutModel.empty;
+  model: LayoutModel = new LayoutModel();
   constructor(private layoutService: LayoutService) {}
 
   ngOnInit() {

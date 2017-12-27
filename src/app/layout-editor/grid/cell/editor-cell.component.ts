@@ -32,7 +32,7 @@ export class MwEditorCellComponent implements OnInit, MwEditorComponent {
   constructor(private flexShim: FlexLayoutShimService) {}
 
   ngOnInit() {
-    this.model = CellModel.empty;
+    this.model = new CellModel();
     this.model.width = 50;
     this.fxFlex = this.model.width;
     this.style = this.flexShim.getStyle('fxFlex', this.model.width);

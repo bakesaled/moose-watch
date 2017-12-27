@@ -1,17 +1,13 @@
 import { CellModel } from './cell.model';
 import { MwComponentModel } from '../interfaces';
 import { Type } from '@angular/core';
-import { NoComponent } from '../../no.component';
+import { MwNoComponent } from '../../no-component/no.component';
 
 export class GridModel implements MwComponentModel {
   constructor(
     public id: string = 'NONE',
-    public cells: CellModel[] = [CellModel.empty, CellModel.empty],
+    public cells: CellModel[] = [new CellModel(), new CellModel()],
     public backgroundColor: string = '',
-    public type: Type<any> = NoComponent
+    public type: Type<any> = MwNoComponent
   ) {}
-
-  public static get empty(): GridModel {
-    return new GridModel();
-  }
 }

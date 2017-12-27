@@ -10,4 +10,4 @@ import { ComponentFactoryService } from './component-factory.service';
   providers: [ComponentFactoryService],
   entryComponents: []
 })
-export class FactoryModule {}
+export class MwFactoryModule {}

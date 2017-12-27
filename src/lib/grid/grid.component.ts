@@ -26,7 +26,7 @@ import { MwComponent } from '../core/interfaces';
   encapsulation: ViewEncapsulation.None
 })
 export class MwGridComponent implements OnChanges, MwComponent, AfterViewInit {
-  private gridModel: GridModel = GridModel.empty;
+  private gridModel: GridModel = new GridModel();
 
   @ViewChildren(MwCellComponent) cellComponents: QueryList<MwCellComponent>;
 

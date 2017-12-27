@@ -31,7 +31,7 @@ export class MwEditorGridComponent
 
   @Output() afterViewInitEmitter = new EventEmitter<void>();
 
-  model: GridModel = GridModel.empty;
+  model: GridModel = new GridModel();
 
   constructor(private flexShim: FlexLayoutShimService) {}
 

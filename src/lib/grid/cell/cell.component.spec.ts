@@ -2,9 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MwCellComponent } from './cell.component';
 import { FlexLayoutShimService } from '../../core/services';
-import { FactoryModule } from '../../factory/factory.module';
+import { MwFactoryModule } from '../../factory/factory.module';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
-import { NoComponent } from '../../no.component';
+import { MwNoComponent } from '../../no-component/no.component';
 
 describe('MwCellComponent', () => {
   let component: MwCellComponent;
@@ -13,14 +13,14 @@ describe('MwCellComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [MwCellComponent, NoComponent],
-        imports: [FactoryModule],
+        declarations: [MwCellComponent, MwNoComponent],
+        imports: [MwFactoryModule],
         providers: [FlexLayoutShimService]
       }).compileComponents();
 
       TestBed.overrideModule(BrowserDynamicTestingModule, {
         set: {
-          entryComponents: [NoComponent]
+          entryComponents: [MwNoComponent]
         }
       });
     })

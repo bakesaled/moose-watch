@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "outDir": "../../dist-lib",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "rootDir": "./",
+    "rootDirs": [
+      "./",
+      "../../dist-lib"
+    ],
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "stripInternal": true,
+    "importHelpers": true,
+    "baseUrl": ".",
+    "target": "es2015",
+    "lib": ["es2015", "dom"],
+    "typeRoots": [
+      "node_modules/@types"
+    ]
+  },
+  "exclude": [
+    "**/*.spec.ts"
+  ]
+}
