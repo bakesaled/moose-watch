@@ -1,10 +1,10 @@
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutViewerComponent } from './layout-viewer/layout-viewer.component';
-import { MwLayoutEditorComponent } from '../lib/layout-designer';
+import { LayoutEditorComponent } from './layout-editor';
 
 const APP_ROUTES: Routes = [
   { path: 'layout-viewer', component: LayoutViewerComponent },
-  { path: 'layout-editor', component: MwLayoutEditorComponent },
+  { path: 'layout-editor', component: LayoutEditorComponent },
   { path: '**', redirectTo: '/layout-viewer', pathMatch: 'full' }
 ];
 

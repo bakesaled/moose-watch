@@ -1,8 +1,8 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { LayoutListModel } from '../models/layout-list.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { LayoutListModel } from '../models';
 
 @Injectable()
 export class LayoutListService {

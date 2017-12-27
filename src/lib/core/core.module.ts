@@ -1,22 +1,12 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { throwIfAlreadyLoaded } from './module-import-guard';
-import {
-  FlexLayoutShimService,
-  LocalStorageService,
-  MessageService,
-  SaveService
-} from './services';
+import { FlexLayoutShimService } from './services';
 
 @NgModule({
   imports: [CommonModule],
   declarations: [],
-  providers: [
-    MessageService,
-    FlexLayoutShimService,
-    SaveService,
-    LocalStorageService
-  ]
+  providers: [FlexLayoutShimService]
 })
 export class CoreModule {
   constructor(

@@ -1,16 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   HostBinding,
   Input,
   OnInit,
-  Output,
   ViewEncapsulation
 } from '@angular/core';
-import { CellModel } from '../../core/models/cell.model';
 import { FlexLayoutShimService } from '../../core';
-import { DropEvent, MwComponent } from '../../core/interfaces';
+import { MwComponent } from '../../core/interfaces';
+import { CellModel } from '../../core/models';
 
 @Component({
   selector: 'mw-cell',
@@ -35,8 +33,6 @@ export class MwCellComponent implements OnInit, MwComponent {
     this.backgroundColor = this.cellModel.backgroundColor;
     this.margin = `${this.cellModel.margin}px`;
   }
-
-  @Output() dropSuccessEmitter = new EventEmitter<DropEvent>();
 
   @HostBinding('attr.fxFlex') fxFlex;
   @HostBinding('attr.style') style;

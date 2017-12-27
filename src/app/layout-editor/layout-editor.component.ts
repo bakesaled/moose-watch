@@ -11,7 +11,7 @@ import {
   styleUrls: ['./layout-editor.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class MwLayoutEditorComponent implements OnInit {
+export class LayoutEditorComponent implements OnInit {
   @HostBinding('class.mw-layout-editor') layoutEditorClass = true;
   constructor() {}
 

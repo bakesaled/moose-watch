@@ -13,12 +13,11 @@ import {
 import { MwEditorCellComponent } from '../grid/cell';
 import { MwEditorGridComponent } from '../grid';
 import { DropEvent, MwEditorComponent } from '../../core/interfaces';
-import { CellModel } from '../../core/models/cell.model';
 import { MessageService, SaveService } from '../../core/services';
 import { ToolPanelMessage } from '../../core';
 import { Subscription } from 'rxjs/Subscription';
 import { MwEditorTextComponent } from '../text';
-import { GridModel, LayoutModel } from '../../core/models';
+import { CellModel, GridModel, LayoutModel } from '../../../lib/core/models';
 
 @Component({
   selector: 'mw-work-area',

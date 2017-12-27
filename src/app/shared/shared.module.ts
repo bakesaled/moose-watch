@@ -4,11 +4,31 @@ import { MwGridModule } from '../../lib/grid/grid.module';
 import { MwGridComponent } from '../../lib/grid';
 import { MwTextComponent } from '../../lib/text';
 import { MwTextModule } from '../../lib/text/text.module';
-import { MwLayoutEditorModule } from '../../lib/layout-designer/layout-editor.module';
+import { DndModule } from 'ng2-dnd';
+import {
+  MatIconModule,
+  MatListModule,
+  MatSidenavModule
+} from '@angular/material';
 
 @NgModule({
-  imports: [CommonModule, MwGridModule, MwTextModule, MwLayoutEditorModule],
-  exports: [MwGridModule, MwTextModule, MwLayoutEditorModule],
+  imports: [
+    CommonModule,
+    MwGridModule,
+    MwTextModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    DndModule.forRoot()
+  ],
+  exports: [
+    MwGridModule,
+    MwTextModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    DndModule
+  ],
   entryComponents: [MwGridComponent, MwTextComponent]
 })
 export class SharedModule {}

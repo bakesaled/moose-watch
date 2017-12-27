@@ -10,10 +10,9 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { MwEditorCellComponent } from './cell';
-import { CellModel } from '../../core/models/cell.model';
-import { FlexLayoutShimService } from '../../core';
 import { MwEditorComponent } from '../../core/interfaces';
-import { GridModel } from '../../core/models';
+import { GridModel } from '../../../lib/core/models';
+import { FlexLayoutShimService } from '../../../lib/core/services';
 
 @Component({
   selector: 'mw-editor-grid',
