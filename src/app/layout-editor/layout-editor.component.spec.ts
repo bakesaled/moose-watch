@@ -10,8 +10,7 @@ import {
   MessageService,
   SaveService
 } from '../core/services';
-import { MwGridModule } from '../../lib/grid/grid.module';
-import { MwTextModule } from '../../lib/text/text.module';
+import { MwTextModule } from '../../lib/text';
 
 describe('LayoutEditorComponent', () => {
   let component: LayoutEditorComponent;
@@ -26,7 +25,6 @@ describe('LayoutEditorComponent', () => {
           MatSidenavModule,
           MwWorkAreaModule,
           MwToolPanelModule,
-          MwGridModule,
           MwTextModule
         ],
         providers: [MessageService, SaveService, LocalStorageService]

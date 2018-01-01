@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MwGridComponent } from './grid.component';
-import { MwCellModule } from './cell/cell.module';
 import { FlexLayoutShimService } from '../core/services';
-import { MwTextModule } from '../text/text.module';
+import { MwCellComponent } from './cell';
+import { ComponentFactoryService, MwFactoryComponent } from '../factory';
 
 describe('MwGridComponent', () => {
   let component: MwGridComponent;
@@ -12,9 +12,9 @@ describe('MwGridComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [MwGridComponent],
-        imports: [MwCellModule, MwTextModule],
-        providers: [FlexLayoutShimService]
+        declarations: [MwGridComponent, MwCellComponent, MwFactoryComponent],
+        imports: [],
+        providers: [FlexLayoutShimService, ComponentFactoryService]
       }).compileComponents();
     })
   );

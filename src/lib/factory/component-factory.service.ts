@@ -4,7 +4,7 @@ import {
   Type,
   ViewContainerRef
 } from '@angular/core';
-import { componentRegistry } from '../shared/component-registry';
+import { componentRegistry } from './component-registry';
 
 @Injectable()
 export class ComponentFactoryService {

@@ -2,8 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MwEditorGridComponent } from './editor-grid.component';
 import { MwEditorCellModule } from './cell/editor-cell.module';
-import { MwGridModule } from '../../../lib/grid/grid.module';
-import { MwTextModule } from '../../../lib/text/text.module';
 import { FlexLayoutShimService } from '../../../lib/core/services';
 
 describe('MwEditorGridComponent', () => {
@@ -14,7 +12,7 @@ describe('MwEditorGridComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [MwEditorGridComponent],
-        imports: [MwEditorCellModule, MwGridModule, MwTextModule],
+        imports: [MwEditorCellModule],
         providers: [FlexLayoutShimService]
       }).compileComponents();
     })

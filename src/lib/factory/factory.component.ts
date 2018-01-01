@@ -6,14 +6,14 @@ import {
   OnChanges,
   ViewContainerRef
 } from '@angular/core';
-import { MwComponentModel } from '../core/interfaces/index';
 import { ComponentFactoryService } from './component-factory.service';
+import { MwComponentModel } from '../core/interfaces';
 
 @Component({
   selector: 'mw-factory',
   template: ''
 })
-export class FactoryComponent implements OnChanges {
+export class MwFactoryComponent implements OnChanges {
   @Input() public model: MwComponentModel;
 
   constructor(

@@ -4,7 +4,6 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
 import { ErrorInterceptorProvider } from './error.interceptor';
 import {
   LayoutListService,
-  LayoutService,
   LocalStorageService,
   MessageService,
   SaveService
@@ -15,7 +14,6 @@ import {
   providers: [
     ErrorInterceptorProvider,
     LayoutListService,
-    LayoutService,
     MessageService,
     SaveService,
     LocalStorageService

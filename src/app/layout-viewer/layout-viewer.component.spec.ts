@@ -1,10 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LayoutViewerComponent } from './layout-viewer.component';
-import { MwGridModule } from '../../lib/grid/grid.module';
-import { LayoutService } from '../core/services/layout.service';
+import { LayoutService } from '../../lib/layout/layout.service';
 import { HttpClientModule } from '@angular/common/http';
-import { MwTextModule } from '../../lib/text/text.module';
+import { MwLayoutModule } from '../../lib/layout';
 
 describe('LayoutViewerComponent', () => {
   let component: LayoutViewerComponent;
@@ -14,7 +13,7 @@ describe('LayoutViewerComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [LayoutViewerComponent],
-        imports: [MwGridModule, HttpClientModule, MwTextModule],
+        imports: [HttpClientModule, MwLayoutModule],
         providers: [LayoutService]
       }).compileComponents();
     })
