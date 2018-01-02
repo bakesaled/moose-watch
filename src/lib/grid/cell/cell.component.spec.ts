@@ -1,10 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MwCellComponent } from './cell.component';
-import { FlexLayoutShimService } from '../../core/services';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
-import { ComponentFactoryService, MwFactoryComponent } from '../../factory';
-import { MwNoComponent } from '../../no-component';
+import { MwNoComponent } from '../../no-component/no.component';
+import { MwFactoryComponent } from '../../factory/factory.component';
+import { FlexLayoutShimService } from '../../core/services/flex-layout-shim.service';
+import { ComponentFactoryService } from '../../factory/component-factory.service';
 
 describe('MwCellComponent', () => {
   let component: MwCellComponent;

@@ -1,6 +1,6 @@
 import { CellModel } from './cell.model';
-import { MwComponentModel } from '../interfaces';
 import { Type } from '@angular/core';
+import { MwComponentModel } from '../interfaces/mw-component.model';
 import { MwNoComponent } from '../../no-component/no.component';
 
 export class GridModel implements MwComponentModel {

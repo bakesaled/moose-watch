@@ -1,5 +1,8 @@
 {
-  "name": "moose-watch",
+  "name": "@bakesaled/moose-watch",
+  "main": "./bundles/bakesaled-moose-watch.umd.js",
+  "module": "./bakesaled-moose-watch.es5.js",
+  "typings": "./bakesaled-moose-watch.d.ts",
   "version": "0.0.1",
   "license": "MIT",
   "homepage": "https://github.com/bakesaled/moose-watch",
@@ -13,6 +16,7 @@
   "peerDependencies": {
     "@angular/core": "^5.0.0",
     "@angular/common": "^5.0.0",
+    "@angular/flex-layout": "2.0.0-beta.12",
     "@angular/material": "^5.0.0"
   }
 }

@@ -6,27 +6,24 @@ import {
   MatListModule,
   MatSidenavModule
 } from '@angular/material';
-import { MwLayoutModule } from '../../lib/layout';
-import { MwTextComponent, MwTextModule } from '../../lib/text';
+import { MwModule } from '../../lib/public.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    MwTextModule,
-    MwLayoutModule,
+    MwModule,
     MatSidenavModule,
     MatListModule,
     MatIconModule,
     DndModule.forRoot()
   ],
   exports: [
-    MwTextModule,
-    MwLayoutModule,
+    MwModule,
     MatSidenavModule,
     MatListModule,
     MatIconModule,
     DndModule
   ],
-  entryComponents: [MwTextComponent]
+  entryComponents: []
 })
 export class SharedModule {}

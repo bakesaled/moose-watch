@@ -2,19 +2,20 @@
   "extends": "./src/lib/tsconfig.lib.json",
   "compilerOptions": {
     "paths": {
-      "@angular/core": ["./node_modules/@angular/core"],
+      "@angular/*": ["./node_modules/@angular/*"],
       "rxjs/*": ["./node_modules/rxjs/*"]
     }
   },
   "files": [
-    "./src/lib/public-api.ts",
+    "./src/lib/public_api.ts",
     "./src/lib/typings.d.ts"
   ],
   "angularCompilerOptions": {
-    "annotateForClosureCompiler": true,
+    "annotateForClosureCompiler": false,
     "strictMetadataEmit": true,
-    "skipTemplateCodegen": true,
-    "flatModuleId": "moose-watch",
-    "flatModuleOutFile": "index.js"
+    "strictInjectionParameters": true,
+    "skipMetadataEmit": false,
+    "skipTemplateCodegen": false,
+    "annotationsAs": "decorators"
   }
 }

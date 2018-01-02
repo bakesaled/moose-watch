@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { LayoutRetrievalStrategy } from './layout-retrieval-strategy';
 import { LayoutService } from './layout.service';
-import { LayoutModel } from '../core/models';
+import { LayoutModel } from '../core/models/layout.model';
 
 @Component({
   selector: 'mw-layout',

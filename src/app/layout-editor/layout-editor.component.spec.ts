@@ -10,7 +10,7 @@ import {
   MessageService,
   SaveService
 } from '../core/services';
-import { MwTextModule } from '../../lib/text';
+import { MwTextModule } from '../../lib/text/text.module';
 
 describe('LayoutEditorComponent', () => {
   let component: LayoutEditorComponent;

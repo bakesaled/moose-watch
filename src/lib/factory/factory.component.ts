@@ -7,7 +7,7 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import { ComponentFactoryService } from './component-factory.service';
-import { MwComponentModel } from '../core/interfaces';
+import { MwComponentModel } from '../core/interfaces/mw-component.model';
 
 @Component({
   selector: 'mw-factory',

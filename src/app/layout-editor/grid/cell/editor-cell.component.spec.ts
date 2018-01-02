@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MwEditorCellComponent } from './editor-cell.component';
-import { FlexLayoutShimService } from '../../../../lib/core/services';
+import { FlexLayoutShimService } from '../../../../lib/core/services/flex-layout-shim.service';
 
 describe('MwEditorCellComponent', () => {
   let component: MwEditorCellComponent;

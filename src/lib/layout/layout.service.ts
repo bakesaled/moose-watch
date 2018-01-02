@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LayoutModel } from '../core/models/index';
 import { Observable } from 'rxjs/Observable';
 import { LayoutRetrievalStrategy } from './layout-retrieval-strategy';
+import { LayoutModel } from '../core/models/layout.model';
 
 @Injectable()
 export class LayoutService {

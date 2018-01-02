@@ -1,12 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MwLayoutComponent } from './layout.component';
-import { MwGridComponent } from '../grid';
-import { MwCellComponent } from '../grid/cell';
-import { ComponentFactoryService, MwFactoryComponent } from '../factory';
 import { LayoutService } from './layout.service';
 import { HttpClientModule } from '@angular/common/http';
-import { FlexLayoutShimService } from '../core/services';
+import { MwGridComponent } from '../grid/grid.component';
+import { MwCellComponent } from '../grid/cell/cell.component';
+import { MwFactoryComponent } from '../factory/factory.component';
+import { FlexLayoutShimService } from '../core/services/flex-layout-shim.service';
+import { ComponentFactoryService } from '../factory/component-factory.service';
 
 describe('MwLayoutComponent', () => {
   let component: MwLayoutComponent;

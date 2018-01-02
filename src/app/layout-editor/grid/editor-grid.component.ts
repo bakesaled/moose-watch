@@ -11,8 +11,8 @@ import {
 } from '@angular/core';
 import { MwEditorCellComponent } from './cell';
 import { MwEditorComponent } from '../../core/interfaces';
-import { GridModel } from '../../../lib/core/models';
-import { FlexLayoutShimService } from '../../../lib/core/services';
+import { GridModel } from '../../../lib/core/models/grid.model';
+import { FlexLayoutShimService } from '../../../lib/core/services/flex-layout-shim.service';
 
 @Component({
   selector: 'mw-editor-grid',

@@ -17,7 +17,9 @@ import { MessageService, SaveService } from '../../core/services';
 import { ToolPanelMessage } from '../../core';
 import { Subscription } from 'rxjs/Subscription';
 import { MwEditorTextComponent } from '../text';
-import { CellModel, GridModel, LayoutModel } from '../../../lib/core/models';
+import { LayoutModel } from '../../../lib/core/models/layout.model';
+import { GridModel } from '../../../lib/core/models/grid.model';
+import { CellModel } from '../../../lib/core/models/cell.model';
 
 @Component({
   selector: 'mw-work-area',

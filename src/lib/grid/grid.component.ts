@@ -13,10 +13,10 @@ import {
   ViewChildren,
   ViewEncapsulation
 } from '@angular/core';
-import { GridModel } from '../core/models';
-import { FlexLayoutShimService } from '../core';
-import { MwCellComponent } from './cell';
-import { MwComponent } from '../core/interfaces';
+import { MwComponent } from '../core/interfaces/mw.component';
+import { GridModel } from '../core/models/grid.model';
+import { MwCellComponent } from './cell/cell.component';
+import { FlexLayoutShimService } from '../core/services/flex-layout-shim.service';
 
 @Component({
   selector: 'mw-grid',

@@ -6,9 +6,9 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { FlexLayoutShimService } from '../../core';
-import { MwComponent } from '../../core/interfaces';
-import { CellModel } from '../../core/models';
+import { MwComponent } from '../../core/interfaces/mw.component';
+import { CellModel } from '../../core/models/cell.model';
+import { FlexLayoutShimService } from '../../core/services/flex-layout-shim.service';
 
 @Component({
   selector: 'mw-cell',

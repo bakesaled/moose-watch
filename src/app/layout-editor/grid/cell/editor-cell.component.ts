@@ -9,8 +9,8 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { DropEvent, MwEditorComponent } from '../../../core/interfaces';
-import { CellModel } from '../../../../lib/core/models';
-import { FlexLayoutShimService } from '../../../../lib/core/services';
+import { CellModel } from '../../../../lib/core/models/cell.model';
+import { FlexLayoutShimService } from '../../../../lib/core/services/flex-layout-shim.service';
 
 @Component({
   selector: 'mw-editor-cell',

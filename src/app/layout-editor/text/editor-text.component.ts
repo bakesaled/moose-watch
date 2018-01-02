@@ -5,7 +5,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { MwEditorComponent } from '../../core/interfaces';
-import { TextModel } from '../../../lib/core/models';
+import { TextModel } from '../../../lib/core/models/text.model';
 
 @Component({
   selector: 'mw-text',
