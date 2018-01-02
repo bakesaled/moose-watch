@@ -35,6 +35,7 @@ describe('MwLayoutComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MwLayoutComponent);
     component = fixture.componentInstance;
+    component.layoutName = 'test';
     fixture.detectChanges();
   });
 

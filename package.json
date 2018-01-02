@@ -20,7 +20,6 @@
     "clean:static:lib": "del 'dist-lib/**/*.html' 'dist-lib/**/*.scss' 'dist-lib/**/*.js' 'dist-lib/**/*.js.map' '!dist-lib/bundles/*.js' '!dist-lib/bundles/*.js.map'",
     "transpile:lib": "ngc -p ./tsconfig.aot.json",
     "inline:lib": "ng2-inline -o ./ -r -b dist-lib \"dist-lib/**/*.js\"",
-    "package:lib": "rollup -c",
     "minify:lib": "uglifyjs dist-lib/bundles/index.umd.js --compress --mangle --comments --output dist-lib/bundles/index.umd.min.js",
     "build:lib": "npm run clean:lib && npm run transpile:lib && npm run copy:static:lib && npm run package:lib:packagr",
     "copy:static:lib": "cd src/lib && copyfiles \"./**/*.html\" \"./**/*.scss\" \"package.json\" ../../dist-lib/ && cd /",

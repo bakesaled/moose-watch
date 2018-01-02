@@ -15,11 +15,13 @@ export class MwLayoutComponent implements OnInit {
   @Input()
   retrievalStrategy: LayoutRetrievalStrategy = LayoutRetrievalStrategy.fileSystem;
 
+  @Input() layoutName: string;
+
   constructor(private layoutService: LayoutService) {}
 
   ngOnInit() {
     this.layoutService
-      .get(this.retrievalStrategy, 'basic-layout')
+      .get(this.retrievalStrategy, this.layoutName)
       .subscribe(model => {
         this.model = model;
       });

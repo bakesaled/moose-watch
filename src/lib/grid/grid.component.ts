@@ -60,7 +60,6 @@ export class MwGridComponent implements OnChanges, MwComponent, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log('after view', this.cellComponents);
     this.afterViewInitEmitter.emit();
   }
 }

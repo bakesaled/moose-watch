@@ -20,8 +20,6 @@ export class LayoutListService {
   public loadLayoutList() {
     // Only want to do this once - if root page is revisited, it calls this again.
     if (this.layoutList === null || this.layoutList === undefined) {
-      console.log('Loading layout list');
-
       return this.http
         .get<LayoutListModel>('./assets/layouts/layouts-list.json')
         .subscribe(model => {

@@ -40,7 +40,6 @@ export class MwEditorGridComponent
   }
 
   ngAfterViewInit() {
-    console.log('after view', this.cellComponents);
     this.afterViewInitEmitter.emit();
   }
 }
