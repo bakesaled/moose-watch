@@ -7,7 +7,6 @@ import { isNullOrUndefined } from 'util';
 
 @Injectable()
 export class LayoutService {
-  private readonly baseUrl = './assets/layouts/';
   constructor(private http: HttpClient) {}
 
   get(
@@ -20,7 +19,7 @@ export class LayoutService {
     switch (strategy) {
       case LayoutRetrievalStrategy.localStorage:
       case LayoutRetrievalStrategy.fileSystem:
-        return this.http.get<LayoutModel>(this.baseUrl + layoutName + '.json');
+        return this.http.get<LayoutModel>(layoutName + '.json');
       default:
         throw new Error(
           `LayoutRetrievalStrategy '${strategy} not implemented.`
