@@ -17,9 +17,7 @@ export class ComponentFactoryService {
   ): T {
     const originalType = type;
     if (typeof type === 'string') {
-      type = componentRegistry.find(val => {
-        return val.name === type;
-      });
+      type = componentRegistry[type];
 
       if (!type) {
         console.error(`type ${originalType} is undefined`);
@@ -27,7 +25,7 @@ export class ComponentFactoryService {
       }
     }
 
-    const factory = factoryResolver.resolveComponentFactory(type);
+    const factory = factoryResolver.resolveComponentFactory(<Type<T>>type);
     const componentRef = factory.create(viewContainerRef.parentInjector);
     viewContainerRef.insert(componentRef.hostView);
     // componentRef.changeDetectorRef.detectChanges();
