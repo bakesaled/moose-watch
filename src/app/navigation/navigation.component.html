@@ -1,4 +1,4 @@
-<mat-nav-list *ngIf="layoutListService.layoutList$ | async as layoutList; else loading">
+<mat-nav-list *ngIf="layoutList$ | async as layoutList; else loading">
   <h3 md-subheader>Layout Viewer</h3>
   <a mat-list-item *ngFor="let item of layoutList.items" routerLink="/layout-viewer">
     {{ item.name }}
