@@ -20,6 +20,8 @@ import { MwEditorTextComponent } from '../text';
 import { LayoutModel } from '../../../lib/core/models/layout.model';
 import { GridModel } from '../../../lib/core/models/grid.model';
 import { CellModel } from '../../../lib/core/models/cell.model';
+import { Command } from '../../core/enums';
+import { WorkAreaMessage } from '../../core/messages/work-area.message';
 
 @Component({
   selector: 'mw-work-area',
@@ -106,6 +108,11 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
       );
       // textComponent.editMode = true;
     }
+
+    this.messageService.publish(WorkAreaMessage, {
+      command: Command.edit,
+      data: event
+    });
   }
 
   handleAllowDrop(data: any) {

@@ -2,9 +2,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavigationComponent } from './navigation.component';
 import { MatListModule } from '@angular/material';
-import { LayoutListService } from '../core/services/layout-list.service';
 import { HttpClientModule } from '@angular/common/http';
-import { LocalStorageService } from '../core/services';
+import {
+  LayoutListService,
+  LocalStorageService,
+  MessageService
+} from '../core/services';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -15,7 +18,7 @@ describe('NavigationComponent', () => {
       TestBed.configureTestingModule({
         declarations: [NavigationComponent],
         imports: [MatListModule, HttpClientModule],
-        providers: [LayoutListService, LocalStorageService]
+        providers: [LayoutListService, LocalStorageService, MessageService]
       }).compileComponents();
     })
   );
