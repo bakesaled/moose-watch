@@ -2,13 +2,13 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { LayoutService } from './layout.service';
 import { HttpClientModule } from '@angular/common/http';
-import { LayoutRetrievalStrategy } from './layout-retrieval-strategy';
+import { LocalStorageService } from '../core/services/local-storage.service';
 
 describe('LayoutService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
-      providers: [LayoutService]
+      providers: [LayoutService, LocalStorageService]
     });
   });
 
@@ -16,19 +16,6 @@ describe('LayoutService', () => {
     'should be created',
     inject([LayoutService], (service: LayoutService) => {
       expect(service).toBeTruthy();
-    })
-  );
-
-  it(
-    'should throw error if layout name is null or empty',
-    inject([LayoutService], (service: LayoutService) => {
-      expect(function() {
-        service.get(LayoutRetrievalStrategy.fileSystem, null);
-      }).toThrowError('Layout Name is required.');
-
-      expect(function() {
-        service.get(LayoutRetrievalStrategy.fileSystem, '');
-      }).toThrowError('Layout Name is required.');
     })
   );
 });

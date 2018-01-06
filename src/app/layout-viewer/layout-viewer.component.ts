@@ -1,8 +1,11 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
+  OnChanges,
   OnDestroy,
   OnInit,
+  SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -17,11 +20,14 @@ import { Subscription } from 'rxjs/Subscription';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LayoutViewerComponent implements OnInit, OnDestroy {
+export class LayoutViewerComponent implements OnInit, OnChanges, OnDestroy {
   private subscriptions: Subscription[] = [];
   public layoutModel: LayoutModel;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private changeDetector: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.subscriptions.push(
@@ -36,11 +42,17 @@ export class LayoutViewerComponent implements OnInit, OnDestroy {
         );
         const retrievalStrategy = value.qparams['retrievalStrategy'];
         if (retrievalStrategy) {
-          layout.retrievalStrategy = retrievalStrategy;
+          layout.retrievalStrategy = +retrievalStrategy;
         }
         this.layoutModel = layout;
+        this.changeDetector.markForCheck();
       })
     );
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.layout && changes.layout.currentValue) {
+    }
   }
 
   ngOnDestroy() {

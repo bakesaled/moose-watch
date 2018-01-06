@@ -5,6 +5,8 @@ import { LayoutService } from '../../lib/layout/layout.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MwLayoutModule } from '../../lib/layout/layout.module';
 import { MwTextModule } from '../../lib/text/text.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { LocalStorageService } from '../../lib/core/services/local-storage.service';
 
 describe('LayoutViewerComponent', () => {
   let component: LayoutViewerComponent;
@@ -14,8 +16,13 @@ describe('LayoutViewerComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [LayoutViewerComponent],
-        imports: [HttpClientModule, MwLayoutModule, MwTextModule],
-        providers: [LayoutService]
+        imports: [
+          HttpClientModule,
+          MwLayoutModule,
+          MwTextModule,
+          RouterTestingModule
+        ],
+        providers: [LayoutService, LocalStorageService]
       }).compileComponents();
     })
   );

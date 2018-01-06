@@ -64,15 +64,17 @@ export class NavigationComponent implements OnInit, OnDestroy {
   loadNavItems() {
     this.subscriptions.push(
       this.layoutListService.loadFromFileSystem().subscribe(fileModel => {
-        const storageModel = this.layoutListService.loadFromStorage();
+        let storageModel = this.layoutListService.loadFromStorage();
         const model = new LayoutListModel();
         if (fileModel) {
           model.items = model.items.concat(fileModel.items);
         }
         if (storageModel) {
           model.items = model.items.concat(storageModel.items);
-          this.layoutEditListSubject.next(storageModel);
+        } else {
+          storageModel = new LayoutListModel();
         }
+        this.layoutEditListSubject.next(storageModel);
         if (model) {
           this.layoutViewListSubject.next(model);
         }

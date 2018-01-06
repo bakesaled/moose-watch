@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { LocalStorageService } from './local-storage.service';
+import { LocalStorageService } from '../../../lib/core/services/local-storage.service';
 import { LayoutModel } from '../../../lib/core/models/layout.model';
 import { LayoutListItemModel, LayoutListModel } from '../models';
-import { LayoutRetrievalStrategy } from '../../../lib/layout/layout-retrieval-strategy';
 
 @Injectable()
 export class SaveService {
@@ -33,7 +32,7 @@ export class SaveService {
         new LayoutListItemModel(
           layout.id,
           layout.name,
-          LayoutRetrievalStrategy.localStorage
+          layout.retrievalStrategy
         )
       );
       this.localStorageService.setItem('layout-list', JSON.stringify(list));

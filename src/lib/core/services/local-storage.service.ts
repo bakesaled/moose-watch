@@ -1,4 +1,4 @@
-import { StorageService } from '../interfaces';
+import { StorageService } from '../../../app/core/interfaces/index';
 
 export class LocalStorageService implements StorageService {
   public hasKey(key: string): boolean {
@@ -9,7 +9,6 @@ export class LocalStorageService implements StorageService {
   }
 
   public setItem(key: string, item: string): void {
-    console.log('setting item', key, localStorage);
     localStorage.setItem(key, item);
   }
 

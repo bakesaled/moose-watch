@@ -1,12 +1,13 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { LayoutListService } from './layout-list.service';
 import { HttpClientModule } from '@angular/common/http';
-import { LocalStorageService } from './local-storage.service';
+import { LocalStorageService } from '../../../lib/core/services/local-storage.service';
 import {
   HttpClientTestingModule,
   HttpTestingController
 } from '@angular/common/http/testing';
 import { LayoutListModel } from '../models';
+import { LayoutRetrievalStrategy } from '../../../lib/layout/layout-retrieval-strategy';
 
 describe('LayoutListService', () => {
   beforeEach(() => {
@@ -29,7 +30,13 @@ describe('LayoutListService', () => {
       [LayoutListService, HttpTestingController],
       (service: LayoutListService, backend: HttpTestingController) => {
         const mockList: LayoutListModel = {
-          items: [{ name: 'test1', id: 'test1Id' }]
+          items: [
+            {
+              name: 'test1',
+              id: 'test1Id',
+              retrievalStrategy: LayoutRetrievalStrategy.localStorage
+            }
+          ]
         };
         service.loadFromFileSystem().subscribe(list => {
           expect(list.items.length).toBe(1);
@@ -46,7 +53,13 @@ describe('LayoutListService', () => {
     'should get list from local storage',
     inject([LayoutListService], (service: LayoutListService) => {
       const mockList: LayoutListModel = {
-        items: [{ name: 'test1', id: 'test1Id' }]
+        items: [
+          {
+            name: 'test1',
+            id: 'test1Id',
+            retrievalStrategy: LayoutRetrievalStrategy.localStorage
+          }
+        ]
       };
       localStorage.setItem('layout-list', JSON.stringify(mockList));
       const list = service.loadFromStorage();

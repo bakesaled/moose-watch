@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -9,7 +10,6 @@ import {
   SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
-import { LayoutRetrievalStrategy } from './layout-retrieval-strategy';
 import { LayoutService } from './layout.service';
 import { LayoutModel } from '../core/models/layout.model';
 import { Subscription } from 'rxjs/Subscription';
@@ -21,35 +21,44 @@ import { Subscription } from 'rxjs/Subscription';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MwLayoutComponent implements OnInit, OnChanges, OnDestroy {
+export class MwLayoutComponent
+  implements OnInit, OnChanges, AfterViewChecked, OnDestroy {
   private subscriptions: Subscription[] = [];
+  private layoutModel: LayoutModel;
+
   model: LayoutModel = new LayoutModel();
 
   @Input() baseUrl: string;
-  @Input() layout: LayoutModel;
+  @Input()
+  get layout(): LayoutModel {
+    return this.layoutModel;
+  }
+  set layout(newValue: LayoutModel) {
+    this.layoutModel = newValue;
+    this.loadLayout();
+  }
 
   constructor(
     private layoutService: LayoutService,
     private changeDetector: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {
-    this.subscriptions.push(
-      this.layoutService
-        .get(this.layout.retrievalStrategy, this.baseUrl + this.layout.name)
-        .subscribe(model => {
-          this.model = model;
-          this.changeDetector.markForCheck();
-        })
-    );
-  }
+  ngOnInit() {}
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.layout && changes.layout.currentValue) {
-    }
-  }
+  ngOnChanges() {}
+
+  ngAfterViewChecked() {}
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  private loadLayout() {
+    this.subscriptions.push(
+      this.layoutService.get(this.layout, this.baseUrl).subscribe(model => {
+        this.model = model;
+        this.changeDetector.markForCheck();
+      })
+    );
   }
 }

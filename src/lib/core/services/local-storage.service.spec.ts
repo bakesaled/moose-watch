@@ -1,20 +1,22 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { LocalStorageService } from './local-storage.service';
-import { mockLocalStorage } from '../mocks/local-storage.mock';
+import { mockLocalStorage } from '../../../app/core/mocks/local-storage.mock';
 
 describe('LocalStorageService', () => {
-  // let mockLocalStorage;
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [LocalStorageService]
     });
 
-    // mockLocalStorage = new MockLocalStorage();
     spyOn(localStorage, 'getItem').and.callFake(mockLocalStorage.getItem);
     spyOn(localStorage, 'setItem').and.callFake(mockLocalStorage.setItem);
     spyOn(localStorage, 'removeItem').and.callFake(mockLocalStorage.removeItem);
     spyOn(localStorage, 'clear').and.callFake(mockLocalStorage.clear);
+  });
+
+  afterEach(() => {
+    mockLocalStorage.clear();
   });
 
   it(

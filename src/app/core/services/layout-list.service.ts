@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { LayoutListModel } from '../models';
-import { LocalStorageService } from './local-storage.service';
+import { LocalStorageService } from '../../../lib/core/services/local-storage.service';
 
 @Injectable()
 export class LayoutListService {

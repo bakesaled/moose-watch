@@ -8,8 +8,8 @@ export class LayoutModel implements MwComponentModel {
   constructor(
     public id: string = 'NONE',
     public name: string = 'NO_NAME',
+    public retrievalStrategy: LayoutRetrievalStrategy = LayoutRetrievalStrategy.fileSystem,
     public grid: GridModel = new GridModel(),
-    public type: Type<any> = MwNoComponent,
-    public retrievalStrategy: LayoutRetrievalStrategy = LayoutRetrievalStrategy.fileSystem
+    public type: Type<any> = MwNoComponent
   ) {}
 }

@@ -11,6 +11,7 @@ import { ComponentFactoryService } from '../factory/component-factory.service';
 import { FlexLayoutShimService } from '../core/services/flex-layout-shim.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MwTextComponent } from '../text/text.component';
+import { LocalStorageService } from '../core/services/local-storage.service';
 
 @NgModule({
   imports: [CommonModule, FlexLayoutModule, HttpClientModule],
@@ -22,7 +23,12 @@ import { MwTextComponent } from '../text/text.component';
     MwNoComponent
   ],
   exports: [MwLayoutComponent, FlexLayoutModule],
-  providers: [LayoutService, ComponentFactoryService, FlexLayoutShimService],
+  providers: [
+    LayoutService,
+    ComponentFactoryService,
+    FlexLayoutShimService,
+    LocalStorageService
+  ],
   entryComponents: [
     MwGridComponent,
     MwCellComponent,

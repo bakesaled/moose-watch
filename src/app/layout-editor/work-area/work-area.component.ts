@@ -1,4 +1,6 @@
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   Inject,
@@ -8,7 +10,8 @@ import {
   Type,
   ViewChild,
   ViewChildren,
-  ViewContainerRef
+  ViewContainerRef,
+  ViewEncapsulation
 } from '@angular/core';
 import { MwEditorCellComponent } from '../grid/cell';
 import { MwEditorGridComponent } from '../grid';
@@ -22,22 +25,25 @@ import { GridModel } from '../../../lib/core/models/grid.model';
 import { CellModel } from '../../../lib/core/models/cell.model';
 import { Command } from '../../core/enums';
 import { WorkAreaMessage } from '../../core/messages/work-area.message';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/combineLatest';
 import { Observable } from 'rxjs/Observable';
+import { LayoutService } from '../../../lib/layout/layout.service';
+import { LayoutRetrievalStrategy } from '../../../lib/layout/layout-retrieval-strategy';
 
 @Component({
   selector: 'mw-work-area',
   templateUrl: './work-area.component.html',
-  styleUrls: ['./work-area.component.scss']
+  styleUrls: ['./work-area.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MwWorkAreaComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private layoutModel: LayoutModel;
   private rootGridComponent: MwEditorGridComponent;
-  private layout$: Observable<LayoutModel>;
 
   @ViewChild('dynamic', { read: ViewContainerRef })
   viewContainerRef: ViewContainerRef;
@@ -51,7 +57,9 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     private factoryResolver: ComponentFactoryResolver,
     private messageService: MessageService,
     private saveService: SaveService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private layoutService: LayoutService,
+    private changeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -63,7 +71,27 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
       ).subscribe(value => {
         const isNew = value.qparams['new'] === 'true';
         if (isNew) {
-          this.layoutModel = new LayoutModel(value.params['id']);
+          this.layoutModel = new LayoutModel(
+            value.params['id'],
+            'new-layout',
+            LayoutRetrievalStrategy.localStorage
+          );
+        } else {
+          const layout = new LayoutModel(
+            value.params['id'],
+            value.qparams['name'],
+            LayoutRetrievalStrategy.localStorage
+          );
+          console.log('oopopopo', layout);
+          const retrievalStrategy = value.qparams['retrievalStrategy'];
+          if (retrievalStrategy) {
+            layout.retrievalStrategy = +retrievalStrategy;
+          }
+          this.layoutService.get(layout).subscribe(model => {
+            this.layoutModel = model;
+            this.buildExistingLayout();
+            this.changeDetector.markForCheck();
+          });
         }
       })
     );
@@ -144,6 +172,34 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
 
       return dragData === data;
     };
+  }
+
+  private buildExistingLayout() {
+    this.rootGridComponent = this.createComponent(
+      MwEditorGridComponent,
+      this.viewContainerRef
+    ) as MwEditorGridComponent;
+    this.rootGridComponent.model = this.layoutModel.grid;
+    this.rootGridComponent.afterViewInitEmitter.subscribe(() => {
+      console.log('cells', this.rootGridComponent.cellComponents);
+      this.rootGridComponent.cellComponents.forEach(
+        (cell: MwEditorCellComponent) => {
+          cell.dropSuccessEmitter.subscribe(dropEvent => {
+            console.log('work-area-cell drop', dropEvent);
+            const textComponent = this.createComponent(
+              MwEditorTextComponent,
+              cell.viewContainerRef
+            );
+            // this.layoutModel.grid.cells.filter((cell) => {
+            //
+            // })
+            // textComponent.editMode = true;
+            cell.hasContent = true;
+            // this.saveService.save(this.layoutModel);
+          });
+        }
+      );
+    });
   }
 
   private createComponent<T>(
