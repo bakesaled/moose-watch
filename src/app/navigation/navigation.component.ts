@@ -11,6 +11,7 @@ import { LayoutListService, MessageService } from '../core/services';
 import { Subscription } from 'rxjs/Subscription';
 import { WorkAreaMessage } from '../core/messages/work-area.message';
 import { Command } from '../core/enums';
+import { Guid } from '../core/utils';
 
 @Component({
   selector: 'mw-navigation',
@@ -21,12 +22,19 @@ import { Command } from '../core/enums';
 export class NavigationComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
-  public layoutListSubject: BehaviorSubject<
+  public layoutViewListSubject: BehaviorSubject<
     LayoutListModel
   > = new BehaviorSubject<LayoutListModel>(null);
-  public layoutList$: Observable<
+  public layoutViewList$: Observable<
     LayoutListModel
-  > = this.layoutListSubject.asObservable();
+  > = this.layoutViewListSubject.asObservable();
+
+  public layoutEditListSubject: BehaviorSubject<
+    LayoutListModel
+  > = new BehaviorSubject<LayoutListModel>(null);
+  public layoutEditList$: Observable<
+    LayoutListModel
+  > = this.layoutEditListSubject.asObservable();
 
   constructor(
     public layoutListService: LayoutListService,
@@ -38,9 +46,22 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this.messageService.channel(WorkAreaMessage).subscribe(msg => {
         if (msg.command === Command.edit) {
           console.log('edit command');
+          this.loadNavItems();
         }
       })
     );
+    this.loadNavItems();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  get newLayoutId() {
+    return Guid.create();
+  }
+
+  loadNavItems() {
     this.subscriptions.push(
       this.layoutListService.loadFromFileSystem().subscribe(fileModel => {
         const storageModel = this.layoutListService.loadFromStorage();
@@ -50,15 +71,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
         }
         if (storageModel) {
           model.items = model.items.concat(storageModel.items);
+          this.layoutEditListSubject.next(storageModel);
         }
         if (model) {
-          this.layoutListSubject.next(model);
+          this.layoutViewListSubject.next(model);
         }
       })
     );
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

@@ -7,6 +7,7 @@ import {
   MessageService,
   SaveService
 } from '../../core/services';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('MwWorkAreaComponent', () => {
   let component: MwWorkAreaComponent;
@@ -16,7 +17,7 @@ describe('MwWorkAreaComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [MwWorkAreaComponent],
-        imports: [DndModule.forRoot()],
+        imports: [DndModule.forRoot(), RouterTestingModule],
         providers: [MessageService, SaveService, LocalStorageService]
       }).compileComponents();
     })

@@ -1,6 +1,8 @@
 {
-  "id": "1L",
+  "id": "5c3d0d14-f5d1-4061-92d8-9df65486ee57",
+  "name": "basic-layout",
   "type": "LayoutViewerComponent",
+  "retrievalStrategy": 1,
   "grid": {
     "id": "1",
     "type": "MwGridComponent",

@@ -8,6 +8,7 @@ import {
   LocalStorageService,
   MessageService
 } from '../core/services';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -17,7 +18,7 @@ describe('NavigationComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [NavigationComponent],
-        imports: [MatListModule, HttpClientModule],
+        imports: [MatListModule, HttpClientModule, RouterTestingModule],
         providers: [LayoutListService, LocalStorageService, MessageService]
       }).compileComponents();
     })

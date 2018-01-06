@@ -9,6 +9,7 @@ export class LocalStorageService implements StorageService {
   }
 
   public setItem(key: string, item: string): void {
+    console.log('setting item', key, localStorage);
     localStorage.setItem(key, item);
   }
 

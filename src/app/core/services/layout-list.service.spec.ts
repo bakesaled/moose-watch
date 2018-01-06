@@ -29,7 +29,7 @@ describe('LayoutListService', () => {
       [LayoutListService, HttpTestingController],
       (service: LayoutListService, backend: HttpTestingController) => {
         const mockList: LayoutListModel = {
-          items: [{ name: 'test1', path: 'test1/path' }]
+          items: [{ name: 'test1', id: 'test1Id' }]
         };
         service.loadFromFileSystem().subscribe(list => {
           expect(list.items.length).toBe(1);
@@ -46,7 +46,7 @@ describe('LayoutListService', () => {
     'should get list from local storage',
     inject([LayoutListService], (service: LayoutListService) => {
       const mockList: LayoutListModel = {
-        items: [{ name: 'test1', path: 'test1/path' }]
+        items: [{ name: 'test1', id: 'test1Id' }]
       };
       localStorage.setItem('layout-list', JSON.stringify(mockList));
       const list = service.loadFromStorage();

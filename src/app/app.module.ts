@@ -10,6 +10,7 @@ import { SharedModule } from './shared/shared.module';
 import { routing } from './app.routing';
 import { LayoutViewerModule } from './layout-viewer/layout-viewer.module';
 import { LayoutEditorModule } from './layout-editor/layout-editor.module';
+import { LandingModule } from './landing/landing.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { LayoutEditorModule } from './layout-editor/layout-editor.module';
     NavigationModule,
     LayoutViewerModule,
     LayoutEditorModule,
+    LandingModule,
     routing
   ],
   providers: [],

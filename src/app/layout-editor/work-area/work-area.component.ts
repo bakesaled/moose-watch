@@ -22,6 +22,11 @@ import { GridModel } from '../../../lib/core/models/grid.model';
 import { CellModel } from '../../../lib/core/models/cell.model';
 import { Command } from '../../core/enums';
 import { WorkAreaMessage } from '../../core/messages/work-area.message';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/combineLatest';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'mw-work-area',
@@ -32,6 +37,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private layoutModel: LayoutModel;
   private rootGridComponent: MwEditorGridComponent;
+  private layout$: Observable<LayoutModel>;
 
   @ViewChild('dynamic', { read: ViewContainerRef })
   viewContainerRef: ViewContainerRef;
@@ -44,10 +50,24 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     @Inject(ComponentFactoryResolver)
     private factoryResolver: ComponentFactoryResolver,
     private messageService: MessageService,
-    private saveService: SaveService
+    private saveService: SaveService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.subscriptions.push(
+      Observable.combineLatest(
+        this.route.params,
+        this.route.queryParams,
+        (params, qparams) => ({ params, qparams })
+      ).subscribe(value => {
+        const isNew = value.qparams['new'] === 'true';
+        if (isNew) {
+          this.layoutModel = new LayoutModel(value.params['id']);
+        }
+      })
+    );
+
     this.subscriptions.push(
       this.messageService.channel(ToolPanelMessage).subscribe(msg => {
         console.log('toolpanel msg', msg);
@@ -77,7 +97,6 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
         MwEditorGridComponent,
         this.viewContainerRef
       ) as MwEditorGridComponent;
-      this.layoutModel = new LayoutModel();
       this.layoutModel.grid = new GridModel();
       this.layoutModel.grid.cells = [new CellModel(), new CellModel()];
       this.rootGridComponent.model = this.layoutModel.grid;
@@ -96,7 +115,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
               // })
               // textComponent.editMode = true;
               cell.hasContent = true;
-              this.saveService.save('layout', this.layoutModel);
+              // this.saveService.save(this.layoutModel);
             });
           }
         );
@@ -108,6 +127,8 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
       );
       // textComponent.editMode = true;
     }
+
+    this.saveService.save(this.layoutModel);
 
     this.messageService.publish(WorkAreaMessage, {
       command: Command.edit,

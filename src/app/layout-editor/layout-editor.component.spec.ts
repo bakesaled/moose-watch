@@ -11,6 +11,7 @@ import {
   SaveService
 } from '../core/services';
 import { MwTextModule } from '../../lib/text/text.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LayoutEditorComponent', () => {
   let component: LayoutEditorComponent;
@@ -25,7 +26,8 @@ describe('LayoutEditorComponent', () => {
           MatSidenavModule,
           MwWorkAreaModule,
           MwToolPanelModule,
-          MwTextModule
+          MwTextModule,
+          RouterTestingModule
         ],
         providers: [MessageService, SaveService, LocalStorageService]
       }).compileComponents();
