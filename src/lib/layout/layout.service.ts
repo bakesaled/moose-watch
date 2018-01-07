@@ -17,7 +17,6 @@ export class LayoutService {
     switch (layout.retrievalStrategy) {
       case LayoutRetrievalStrategy.localStorage:
         const layoutString = this.localStorageService.getItem(layout.id);
-        console.log('ppppp', layout);
         if (layoutString) {
           return Observable.of(JSON.parse(layoutString));
         } else {
