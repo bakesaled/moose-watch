@@ -66,4 +66,46 @@ describe('LayoutListService', () => {
       expect(list).toEqual(mockList);
     })
   );
+
+  it(
+    'should get next unique name',
+    inject([LayoutListService], (service: LayoutListService) => {
+      const mockList: LayoutListModel = {
+        items: [
+          {
+            name: 'new-layout-0',
+            id: 'test1Id',
+            retrievalStrategy: LayoutRetrievalStrategy.localStorage
+          }
+        ]
+      };
+      const name = service.getNextUniqueName(mockList);
+      expect(name).toEqual('new-layout-1');
+    })
+  );
+
+  it(
+    'should get next unique name when list is empty',
+    inject([LayoutListService], (service: LayoutListService) => {
+      const name = service.getNextUniqueName(new LayoutListModel([]));
+      expect(name).toEqual('new-layout-0');
+    })
+  );
+
+  it(
+    'should get next unique name when list does not contain an existing new-layout',
+    inject([LayoutListService], (service: LayoutListService) => {
+      const mockList: LayoutListModel = {
+        items: [
+          {
+            name: 'my-favorite-layout',
+            id: 'test1Id',
+            retrievalStrategy: LayoutRetrievalStrategy.localStorage
+          }
+        ]
+      };
+      const name = service.getNextUniqueName(mockList);
+      expect(name).toEqual('new-layout-0');
+    })
+  );
 });
