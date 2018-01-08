@@ -1,14 +1,34 @@
-.mat-icon {
-  vertical-align: middle;
-  margin-right: 5px;
-}
+.mw-tool-panel {
+  .mat-icon {
+    vertical-align: middle;
+    margin-right: 5px;
+    color: #a9bbbb;
+  }
 
-.mat-tool-panel-container {
-  height: 100%;
-}
+  .mat-tool-panel-container {
+    height: 100%;
+  }
 
-.mat-tool-panel-trash {
-  font-size: 128px;
-  width: 128px;
-  height: 128px;
+  .mat-tool-panel-trash {
+    font-size: 128px;
+    width: 128px;
+    height: 128px;
+  }
+
+  h3 {
+    border: none;
+    font-size: 10px;
+    letter-spacing: 1px;
+    line-height: 24px;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin: 0;
+    padding: 0 16px;
+    background: rgba(0, 0, 0, .32);
+    color: hsla(0, 0%, 100%, .87);
+  }
+
+  .mat-list-item {
+    color: #a9bbbb;
+  }
 }

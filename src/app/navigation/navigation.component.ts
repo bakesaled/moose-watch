@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  HostBinding,
   OnDestroy,
-  OnInit
+  OnInit,
+  ViewEncapsulation
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -17,9 +19,12 @@ import { Guid } from '../core/utils';
   selector: 'mw-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavigationComponent implements OnInit, OnDestroy {
+  @HostBinding('class.mw-navigation') navigationClass = true;
+
   private subscriptions: Subscription[] = [];
 
   public layoutViewListSubject: BehaviorSubject<

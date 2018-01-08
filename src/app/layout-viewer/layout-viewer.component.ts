@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  HostBinding,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -21,6 +22,8 @@ import { Subscription } from 'rxjs/Subscription';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LayoutViewerComponent implements OnInit, OnChanges, OnDestroy {
+  @HostBinding('class.mw-layout-viewer') layoutViewerClass = true;
+
   private subscriptions: Subscription[] = [];
   public layoutModel: LayoutModel;
 

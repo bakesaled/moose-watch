@@ -1,17 +1,21 @@
 <div class="mat-tool-panel-container" fxLayout="column" fxLayoutAlign="space-between stretch">
-  <div>
-    <div>
+  <mat-list>
+    <h3>
       Tool Panel
-    </div>
-    <div dnd-draggable dragData="grid">
-      <mat-icon>grid_on</mat-icon>
-      grid
-    </div>
-    <div dnd-draggable dragData="text">
-      <mat-icon>text_fields</mat-icon>
-      text
-    </div>
-  </div>
+    </h3>
+    <mat-list-item>
+      <div dnd-draggable dragData="grid">
+        <mat-icon>grid_on</mat-icon>
+        grid
+      </div>
+    </mat-list-item>
+    <mat-list-item>
+      <div mat-list-item dnd-draggable dragData="text">
+        <mat-icon>text_fields</mat-icon>
+        text
+      </div>
+    </mat-list-item>
+  </mat-list>
   <div dnd-droppable (onDropSuccess)="handleDropSuccess($event)">
     <mat-icon class="mat-tool-panel-trash">delete</mat-icon>
   </div>
