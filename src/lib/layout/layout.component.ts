@@ -7,7 +7,6 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
-  SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
 import { LayoutService } from './layout.service';
@@ -54,11 +53,7 @@ export class MwLayoutComponent
   }
 
   private loadLayout() {
-    this.subscriptions.push(
-      this.layoutService.get(this.layout, this.baseUrl).subscribe(model => {
-        this.model = model;
-        this.changeDetector.markForCheck();
-      })
-    );
+    this.model = this.layoutService.loadFromStorage(this.layout);
+    this.changeDetector.markForCheck();
   }
 }

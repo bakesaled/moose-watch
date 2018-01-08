@@ -62,23 +62,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   loadNavItems() {
-    this.subscriptions.push(
-      this.layoutListService.loadFromFileSystem().subscribe(fileModel => {
-        let storageModel = this.layoutListService.loadFromStorage();
-        const model = new LayoutListModel();
-        if (fileModel) {
-          model.items = model.items.concat(fileModel.items);
-        }
-        if (storageModel) {
-          model.items = model.items.concat(storageModel.items);
-        } else {
-          storageModel = new LayoutListModel();
-        }
-        this.layoutEditListSubject.next(storageModel);
-        if (model) {
-          this.layoutViewListSubject.next(model);
-        }
-      })
-    );
+    let storageModel = this.layoutListService.loadFromStorage();
+    const model = new LayoutListModel();
+    if (storageModel) {
+      model.items = model.items.concat(storageModel.items);
+    } else {
+      storageModel = new LayoutListModel();
+    }
+    this.layoutEditListSubject.next(storageModel);
+    if (model) {
+      this.layoutViewListSubject.next(model);
+    }
   }
 }

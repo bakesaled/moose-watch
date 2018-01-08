@@ -28,13 +28,7 @@ export class SaveService {
     });
 
     if (!existingItem) {
-      list.items.push(
-        new LayoutListItemModel(
-          layout.id,
-          layout.name,
-          layout.retrievalStrategy
-        )
-      );
+      list.items.push(new LayoutListItemModel(layout.id, layout.name));
       this.localStorageService.setItem('layout-list', JSON.stringify(list));
     }
   }

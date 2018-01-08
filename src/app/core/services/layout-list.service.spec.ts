@@ -7,7 +7,6 @@ import {
   HttpTestingController
 } from '@angular/common/http/testing';
 import { LayoutListModel } from '../models';
-import { LayoutRetrievalStrategy } from '../../../lib/layout/layout-retrieval-strategy';
 
 describe('LayoutListService', () => {
   beforeEach(() => {
@@ -33,8 +32,7 @@ describe('LayoutListService', () => {
           items: [
             {
               name: 'test1',
-              id: 'test1Id',
-              retrievalStrategy: LayoutRetrievalStrategy.localStorage
+              id: 'test1Id'
             }
           ]
         };
@@ -56,8 +54,7 @@ describe('LayoutListService', () => {
         items: [
           {
             name: 'test1',
-            id: 'test1Id',
-            retrievalStrategy: LayoutRetrievalStrategy.localStorage
+            id: 'test1Id'
           }
         ]
       };
@@ -74,8 +71,7 @@ describe('LayoutListService', () => {
         items: [
           {
             name: 'new-layout-0',
-            id: 'test1Id',
-            retrievalStrategy: LayoutRetrievalStrategy.localStorage
+            id: 'test1Id'
           }
         ]
       };
@@ -99,8 +95,7 @@ describe('LayoutListService', () => {
         items: [
           {
             name: 'my-favorite-layout',
-            id: 'test1Id',
-            retrievalStrategy: LayoutRetrievalStrategy.localStorage
+            id: 'test1Id'
           }
         ]
       };

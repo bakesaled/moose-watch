@@ -31,7 +31,6 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/combineLatest';
 import { Observable } from 'rxjs/Observable';
 import { LayoutService } from '../../../lib/layout/layout.service';
-import { LayoutRetrievalStrategy } from '../../../lib/layout/layout-retrieval-strategy';
 
 @Component({
   selector: 'mw-work-area',
@@ -71,27 +70,15 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
       ).subscribe(value => {
         const isNew = value.qparams['new'] === 'true';
         if (isNew) {
-          this.layoutModel = new LayoutModel(
-            value.params['id'],
-            'new-layout',
-            LayoutRetrievalStrategy.localStorage
-          );
+          this.layoutModel = new LayoutModel(value.params['id'], 'new-layout');
         } else {
           const layout = new LayoutModel(
             value.params['id'],
-            value.qparams['name'],
-            LayoutRetrievalStrategy.localStorage
+            value.qparams['name']
           );
-          console.log('oopopopo', layout);
-          const retrievalStrategy = value.qparams['retrievalStrategy'];
-          if (retrievalStrategy) {
-            layout.retrievalStrategy = +retrievalStrategy;
-          }
-          this.layoutService.get(layout).subscribe(model => {
-            this.layoutModel = model;
-            this.buildExistingLayout();
-            this.changeDetector.markForCheck();
-          });
+          this.layoutModel = this.layoutService.loadFromStorage(layout);
+          this.buildExistingLayout();
+          this.changeDetector.markForCheck();
         }
       })
     );

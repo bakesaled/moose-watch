@@ -9,7 +9,6 @@ import { MwFactoryComponent } from '../factory/factory.component';
 import { FlexLayoutShimService } from '../core/services/flex-layout-shim.service';
 import { ComponentFactoryService } from '../factory/component-factory.service';
 import { LayoutModel } from '../core/models/layout.model';
-import { LayoutRetrievalStrategy } from './layout-retrieval-strategy';
 import { mockLocalStorage } from '../../app/core/mocks/local-storage.mock';
 import { LocalStorageService } from '../core/services/local-storage.service';
 
@@ -43,11 +42,7 @@ describe('MwLayoutComponent', () => {
     spyOn(localStorage, 'removeItem').and.callFake(mockLocalStorage.removeItem);
     spyOn(localStorage, 'clear').and.callFake(mockLocalStorage.clear);
 
-    const layout = new LayoutModel(
-      'testId',
-      'testName',
-      LayoutRetrievalStrategy.localStorage
-    );
+    const layout = new LayoutModel('testId', 'testName');
     localStorage.setItem(layout.id, JSON.stringify(layout));
     fixture = TestBed.createComponent(MwLayoutComponent);
     component = fixture.componentInstance;

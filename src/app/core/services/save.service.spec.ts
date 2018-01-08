@@ -35,11 +35,7 @@ describe('SaveService', () => {
       const mockLayout = new LayoutModel('testId', 'testName');
       const mockLayoutList = new LayoutListModel();
       mockLayoutList.items.push(
-        new LayoutListItemModel(
-          mockLayout.id,
-          mockLayout.name,
-          mockLayout.retrievalStrategy
-        )
+        new LayoutListItemModel(mockLayout.id, mockLayout.name)
       );
 
       service.save(mockLayout);

@@ -9,7 +9,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { MwWorkAreaModule } from './work-area.module';
 import { LayoutModel } from '../../../lib/core/models/layout.model';
 import { mockLocalStorage } from '../../core/mocks/local-storage.mock';
-import { LayoutRetrievalStrategy } from '../../../lib/layout/layout-retrieval-strategy';
 import { LocalStorageService } from '../../../lib/core/services/local-storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -51,11 +50,7 @@ describe('MwWorkAreaComponent', () => {
     spyOn(localStorage, 'removeItem').and.callFake(mockLocalStorage.removeItem);
     spyOn(localStorage, 'clear').and.callFake(mockLocalStorage.clear);
 
-    const layout = new LayoutModel(
-      'testId',
-      'testName',
-      LayoutRetrievalStrategy.localStorage
-    );
+    const layout = new LayoutModel('testId', 'testName');
     localStorage.setItem(layout.id, JSON.stringify(layout));
     fixture = TestBed.createComponent(MwWorkAreaComponent);
     component = fixture.componentInstance;

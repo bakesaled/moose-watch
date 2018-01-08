@@ -40,10 +40,7 @@ export class LayoutViewerComponent implements OnInit, OnChanges, OnDestroy {
           value.params['id'],
           value.qparams['name']
         );
-        const retrievalStrategy = value.qparams['retrievalStrategy'];
-        if (retrievalStrategy) {
-          layout.retrievalStrategy = +retrievalStrategy;
-        }
+
         this.layoutModel = layout;
         this.changeDetector.markForCheck();
       })

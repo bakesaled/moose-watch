@@ -10,26 +10,8 @@ import { ActivatedRoute, UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { LayoutModel } from '../../lib/core/models/layout.model';
 import { mockLocalStorage } from '../core/mocks/local-storage.mock';
-import { LayoutRetrievalStrategy } from '../../lib/layout/layout-retrieval-strategy';
 import { LayoutListModel } from '../core/models';
-
-class MockLayoutListService {
-  public loadFromFileSystem(): Observable<LayoutListModel> {
-    const layoutList = new LayoutListModel([
-      new LayoutModel(
-        'testIdFromFile',
-        'testNameFromFile',
-        LayoutRetrievalStrategy.fileSystem
-      )
-    ]);
-    return Observable.of(layoutList);
-  }
-
-  public loadFromStorage(): LayoutListModel {
-    const layoutList = localStorage.getItem('layout-list');
-    return JSON.parse(layoutList);
-  }
-}
+import { MockLayoutListService } from '../core/mocks/layout-list-service.mock';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -58,8 +40,7 @@ describe('NavigationComponent', () => {
               params: Observable.of({ id: 'testIdFromFile' }),
               paramMap: Observable.of({ id: 'testIdFromFile' }),
               queryParams: Observable.of({
-                name: 'testNameFromFile',
-                retrievalStrategy: LayoutRetrievalStrategy.fileSystem
+                name: 'testNameFromFile'
               })
             }
           }
@@ -75,11 +56,7 @@ describe('NavigationComponent', () => {
     spyOn(localStorage, 'clear').and.callFake(mockLocalStorage.clear);
 
     const layoutList = new LayoutListModel([
-      new LayoutModel(
-        'testId',
-        'testName',
-        LayoutRetrievalStrategy.localStorage
-      )
+      new LayoutModel('testId', 'testName')
     ]);
     localStorage.setItem('layout-list', JSON.stringify(layoutList));
     fixture = TestBed.createComponent(NavigationComponent);
@@ -94,7 +71,7 @@ describe('NavigationComponent', () => {
 
   it('should render 4 list-items', () => {
     const items = document.querySelectorAll('.mat-list-item');
-    expect(items.length).toBe(4);
+    expect(items.length).toBe(3);
   });
 
   // Fails to render item with .active-route class for some reason

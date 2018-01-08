@@ -13,7 +13,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { LayoutModel } from '../../lib/core/models/layout.model';
 import { mockLocalStorage } from '../core/mocks/local-storage.mock';
-import { LayoutRetrievalStrategy } from '../../lib/layout/layout-retrieval-strategy';
 
 describe('LayoutEditorComponent', () => {
   let component: LayoutEditorComponent;
@@ -53,11 +52,7 @@ describe('LayoutEditorComponent', () => {
     spyOn(localStorage, 'removeItem').and.callFake(mockLocalStorage.removeItem);
     spyOn(localStorage, 'clear').and.callFake(mockLocalStorage.clear);
 
-    const layout = new LayoutModel(
-      'testId',
-      'testName',
-      LayoutRetrievalStrategy.localStorage
-    );
+    const layout = new LayoutModel('testId', 'testName');
     localStorage.setItem(layout.id, JSON.stringify(layout));
     fixture = TestBed.createComponent(LayoutEditorComponent);
     component = fixture.componentInstance;

@@ -13,23 +13,16 @@ export class LayoutService {
     private localStorageService: LocalStorageService
   ) {}
 
-  get(layout: LayoutModel, baseUrl: string = ''): Observable<LayoutModel> {
-    switch (layout.retrievalStrategy) {
-      case LayoutRetrievalStrategy.localStorage:
-        const layoutString = this.localStorageService.getItem(layout.id);
-        if (layoutString) {
-          return Observable.of(JSON.parse(layoutString));
-        } else {
-          return Observable.of(undefined);
-        }
-      case LayoutRetrievalStrategy.fileSystem:
-        return this.http.get<LayoutModel>(baseUrl + layout.name + '.json');
-      default:
-        throw new Error(
-          `LayoutRetrievalStrategy '${
-            layout.retrievalStrategy
-          } not implemented.`
-        );
+  loadFromStorage(layout: LayoutModel): LayoutModel {
+    const layoutString = this.localStorageService.getItem(layout.id);
+    if (layoutString) {
+      return JSON.parse(layoutString);
+    } else {
+      return undefined;
     }
+  }
+
+  loadFromFileSystem(layout: LayoutModel, baseUrl: string = '') {
+    return this.http.get<LayoutModel>(baseUrl + layout.name + '.json');
   }
 }
