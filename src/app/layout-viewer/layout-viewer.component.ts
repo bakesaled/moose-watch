@@ -34,17 +34,8 @@ export class LayoutViewerComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.push(
-      Observable.combineLatest(
-        this.route.params,
-        this.route.queryParams,
-        (params, qparams) => ({ params, qparams })
-      ).subscribe(value => {
-        const layout = new LayoutModel(
-          value.params['id'],
-          value.qparams['name']
-        );
-
-        this.layoutModel = layout;
+      this.route.data.subscribe((data: { layout: LayoutModel }) => {
+        this.layoutModel = data.layout;
         this.changeDetector.markForCheck();
       })
     );

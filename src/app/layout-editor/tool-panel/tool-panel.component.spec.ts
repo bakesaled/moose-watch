@@ -1,7 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MwToolPanelComponent } from './tool-panel.component';
-import { MatIconModule, MatSidenavModule } from '@angular/material';
+import {
+  MatIconModule,
+  MatListModule,
+  MatSidenavModule
+} from '@angular/material';
 import { MessageService } from '../../core/services';
 
 describe('MwToolPanelComponent', () => {
@@ -12,7 +16,7 @@ describe('MwToolPanelComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [MwToolPanelComponent],
-        imports: [MatIconModule, MatSidenavModule],
+        imports: [MatIconModule, MatSidenavModule, MatListModule],
         providers: [MessageService]
       }).compileComponents();
     })

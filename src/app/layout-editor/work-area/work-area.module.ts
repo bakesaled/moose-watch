@@ -7,9 +7,16 @@ import { MwEditorCellComponent } from '../grid/cell';
 import { MwEditorTextComponent } from '../text';
 import { MwEditorTextModule } from '../text/editor-text.module';
 import { MwEditorGridModule } from '../grid/editor-grid.module';
+import { MwLayoutModule } from '../../../lib/layout/layout.module';
 
 @NgModule({
-  imports: [CommonModule, SharedModule, MwEditorGridModule, MwEditorTextModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    MwEditorGridModule,
+    MwEditorTextModule,
+    MwLayoutModule
+  ],
   declarations: [MwWorkAreaComponent],
   exports: [MwWorkAreaComponent],
   entryComponents: [

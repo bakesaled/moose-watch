@@ -22,7 +22,7 @@ import { LocalStorageService } from '../core/services/local-storage.service';
     MwFactoryComponent,
     MwNoComponent
   ],
-  exports: [MwLayoutComponent, FlexLayoutModule],
+  exports: [MwLayoutComponent, FlexLayoutModule, MwFactoryComponent],
   providers: [
     LayoutService,
     ComponentFactoryService,

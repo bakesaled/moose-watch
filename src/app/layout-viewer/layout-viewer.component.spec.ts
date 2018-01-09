@@ -33,8 +33,9 @@ describe('LayoutViewerComponent', () => {
           {
             provide: ActivatedRoute,
             useValue: {
-              params: Observable.of({ id: 'testId' }),
-              queryParams: Observable.of({ name: 'testName' })
+              data: Observable.of({
+                layout: new LayoutModel('testId', 'testName')
+              })
             }
           }
         ]
@@ -55,6 +56,10 @@ describe('LayoutViewerComponent', () => {
     fixture = TestBed.createComponent(LayoutViewerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    mockLocalStorage.clear();
   });
 
   it('should create', () => {

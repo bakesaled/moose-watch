@@ -29,7 +29,6 @@ import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/combineLatest';
-import { Observable } from 'rxjs/Observable';
 import { LayoutService } from '../../../lib/layout/layout.service';
 
 @Component({
@@ -63,23 +62,12 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.push(
-      Observable.combineLatest(
-        this.route.params,
-        this.route.queryParams,
-        (params, qparams) => ({ params, qparams })
-      ).subscribe(value => {
-        const isNew = value.qparams['new'] === 'true';
-        if (isNew) {
-          this.layoutModel = new LayoutModel(value.params['id'], 'new-layout');
-        } else {
-          const layout = new LayoutModel(
-            value.params['id'],
-            value.qparams['name']
-          );
-          this.layoutModel = this.layoutService.loadFromStorage(layout);
+      this.route.data.subscribe((data: { layout: LayoutModel }) => {
+        this.layoutModel = data.layout;
+        if (!this.layoutModel.isNew) {
           this.buildExistingLayout();
-          this.changeDetector.markForCheck();
         }
+        this.changeDetector.markForCheck();
       })
     );
 

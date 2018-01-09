@@ -35,8 +35,9 @@ describe('MwWorkAreaComponent', () => {
           {
             provide: ActivatedRoute,
             useValue: {
-              params: Observable.of({ id: 'testId' }),
-              queryParams: Observable.of({ name: 'testName' })
+              data: Observable.of({
+                layout: new LayoutModel('testId', 'testName')
+              })
             }
           }
         ]
