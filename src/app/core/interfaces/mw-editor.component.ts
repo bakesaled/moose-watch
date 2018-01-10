@@ -1,5 +1,5 @@
-import { MwComponentModel } from '../../../lib/core/interfaces/mw-component.model';
+import { MwEditorComponentModel } from './mw-editor-component.model';
 
 export interface MwEditorComponent {
-  model: MwComponentModel;
+  model: MwEditorComponentModel;
 }

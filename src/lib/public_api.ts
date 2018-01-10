@@ -15,3 +15,5 @@ export { MwGridComponent } from './grid/grid.component';
 export { MwNoComponent } from './no-component/no.component';
 export { providers } from './public.module';
 export { MwTextComponent } from './text/text.component';
+
+export { LayoutModel } from './core/models/layout.model';

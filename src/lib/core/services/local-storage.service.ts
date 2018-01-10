@@ -1,4 +1,4 @@
-import { StorageService } from '../../../app/core/interfaces/index';
+import { StorageService } from '../interfaces/storage.service';
 
 export class LocalStorageService implements StorageService {
   public hasKey(key: string): boolean {

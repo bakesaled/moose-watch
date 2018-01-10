@@ -12,7 +12,7 @@ export class MwComponentRegistry {
     MwTextComponent: MwTextComponent
   };
 
-  static custom: any;
+  static custom: any = {};
 
   static getType<T>(key: string): Type<T> {
     let type = MwComponentRegistry.builtIn[key];
