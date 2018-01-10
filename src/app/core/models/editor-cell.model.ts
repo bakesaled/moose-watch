@@ -16,6 +16,7 @@ export class EditorCellModel implements MwEditorComponentModel {
 
   toEditorModel(cellModel: CellModel): EditorCellModel {
     this.id = cellModel.id;
+    this.backgroundColor = cellModel.backgroundColor;
     if (cellModel.component) {
       switch (cellModel.component.type) {
         case 'MwTextComponent':

@@ -29,6 +29,7 @@ export class MwEditorCellComponent
   @HostBinding('class.mw-editor-cell') editorCellClass = true;
   @HostBinding('attr.fxFlex') fxFlex;
   @HostBinding('attr.style') style;
+  @HostBinding('style.backgroundColor') backgroundColor;
 
   private cellModel: EditorCellModel;
 
@@ -45,6 +46,7 @@ export class MwEditorCellComponent
     this.model.width = 50;
     this.fxFlex = this.model.width;
     this.style = this.flexShim.getStyle('fxFlex', this.model.width);
+    this.backgroundColor = this.model.backgroundColor;
     console.log('cellModel', newValue);
     this.changeDetector.markForCheck();
   }

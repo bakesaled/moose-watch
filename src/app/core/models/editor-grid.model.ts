@@ -15,6 +15,7 @@ export class EditorGridModel implements MwEditorComponentModel {
 
   toEditorModel(gridModel: GridModel) {
     this.id = gridModel.id;
+    this.backgroundColor = gridModel.backgroundColor;
     if (gridModel.cells && gridModel.cells.length) {
       gridModel.cells.forEach(cell => {
         const editorCell = new EditorCellModel().toEditorModel(cell);

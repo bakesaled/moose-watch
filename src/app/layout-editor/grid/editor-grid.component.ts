@@ -29,6 +29,7 @@ export class MwEditorGridComponent
   @HostBinding('class.mw-editor-grid') editorGridClass = true;
   @HostBinding('attr.fxLayout') fxLayout = 'row';
   @HostBinding('attr.style') style;
+  @HostBinding('style.backgroundColor') backgroundColor;
 
   private gridModel: EditorGridModel;
 
@@ -43,6 +44,8 @@ export class MwEditorGridComponent
   }
   set model(newValue: EditorGridModel) {
     this.gridModel = newValue;
+    this.style = this.flexShim.getStyle('fxLayout', 'row');
+    this.backgroundColor = this.gridModel.backgroundColor;
     this.changeDetector.markForCheck();
     console.log('gridModel', this.gridModel);
   }
@@ -56,7 +59,6 @@ export class MwEditorGridComponent
     if (!this.model) {
       this.model = new EditorGridModel();
     }
-    this.style = this.flexShim.getStyle('fxLayout', 'row');
   }
 
   ngAfterViewInit() {
