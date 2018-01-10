@@ -1,9 +1,6 @@
 import { EditorCellModel } from './editor-cell.model';
-import { Type } from '@angular/core';
-import { MwComponentModel } from '../../../lib/core/interfaces/mw-component.model';
-import { MwNoComponent } from '../../../lib/no-component/no.component';
 import { GridModel } from '../../../lib/core/models/grid.model';
-import { MwEditorComponentModel } from '../interfaces/mw-editor-component.model';
+import { MwEditorComponentModel } from '../interfaces';
 
 export class EditorGridModel implements MwEditorComponentModel {
   constructor(

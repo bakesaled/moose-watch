@@ -1,7 +1,7 @@
 <mat-nav-list *ngIf="layoutViewList$ | async as layoutList; else loading">
   <h3 md-subheader>Layout Viewer</h3>
   <a mat-list-item *ngFor="let item of layoutList.items" [routerLink]="'/layout-viewer/' + item.id"
-     [queryParams]="{ name: item.name, retrievalStrategy: item.retrievalStrategy }" [routerLinkActive]="['active-route']">
+     [queryParams]="{ name: item.name }" [routerLinkActive]="['active-route']">
     {{ item.name }}
   </a>
   <mat-divider></mat-divider>
@@ -11,7 +11,7 @@
   <a mat-list-item [routerLink]="'/layout-editor/' + newLayoutId" [queryParams]="{ new: true }">New</a>
   <mat-divider></mat-divider>
   <a mat-list-item *ngFor="let item of layoutEditList.items" [routerLink]="'/layout-editor/' + item.id"
-     [queryParams]="{ name: item.name, retrievalStrategy: item.retrievalStrategy }" [routerLinkActive]="['active-route']">
+     [queryParams]="{ name: item.name }" [routerLinkActive]="['active-route']">
     {{ item.name }}
   </a>
   <mat-divider></mat-divider>
