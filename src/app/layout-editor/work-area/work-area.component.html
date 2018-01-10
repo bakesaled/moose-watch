@@ -1,7 +1,9 @@
 <div class="mw-work-area-target">
-  <div *ngIf="!hasContent" class="mw-work-area-message-container" dnd-droppable [allowDrop]="handleAllowDrop(allowedDropType)"
+  <div *ngIf="!layoutModel.grid" class="mw-work-area-message-container" dnd-droppable [allowDrop]="handleAllowDrop(allowedDropType)"
        (onDropSuccess)="handleDrop($event)">
     <div class="mw-work-area-message">Drag a Grid here!</div>
   </div>
-  <ng-template #dynamic></ng-template>
+  <!--May want to allow other components later-->
+  <!--<mw-factory [model]="layoutModel.grid"></mw-factory>-->
+  <mw-editor-grid *ngIf="layoutModel.grid" [model]="layoutModel.grid"></mw-editor-grid>
 </div>

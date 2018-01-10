@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { ComponentFactoryService } from './component-factory.service';
 import { MwComponentModel } from '../core/interfaces/mw-component.model';
+import { MwComponent } from '../core/interfaces/mw.component';
 
 @Component({
   selector: 'mw-factory',
@@ -31,8 +32,8 @@ export class MwFactoryComponent implements OnChanges {
     if (!this.model) {
       return;
     }
-    const component = this.factoryService.createComponent(
-      this.model.type,
+    const component = this.factoryService.createComponent<MwComponent>(
+      this.model.type.toString(),
       this.viewContainerRef,
       this.factoryResolver
     );

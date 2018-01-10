@@ -8,6 +8,7 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { MwComponentRegistry } from './component-registry';
 
 @Component({
   template: ''
@@ -58,10 +59,27 @@ describe('ComponentFactoryService', () => {
   );
 
   it(
-    'should create a component',
+    'should fail to create a component that does not exist in registry',
     inject([ComponentFactoryService], (service: ComponentFactoryService) => {
       const child = service.createComponent<TestChildComponent>(
-        TestChildComponent,
+        'TestChildComponent',
+        component.viewContainerRef,
+        component.factoryResolver
+      );
+      expect(child).toBeDefined();
+      expect(fixture.componentInstance.viewContainerRef.length).toBe(0);
+      expect(child instanceof TestChildComponent).toBeFalsy();
+    })
+  );
+
+  it(
+    'should create a component',
+    inject([ComponentFactoryService], (service: ComponentFactoryService) => {
+      MwComponentRegistry.custom = {
+        TestChildComponent: TestChildComponent
+      };
+      const child = service.createComponent<TestChildComponent>(
+        'TestChildComponent',
         component.viewContainerRef,
         component.factoryResolver
       );

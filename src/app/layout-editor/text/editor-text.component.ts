@@ -1,11 +1,13 @@
 import {
+  ChangeDetectorRef,
   Component,
   HostBinding,
+  Input,
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
 import { MwEditorComponent } from '../../core/interfaces';
-import { TextModel } from '../../../lib/core/models/text.model';
+import { EditorTextModel } from '../../core/models';
 
 @Component({
   selector: 'mw-text',
@@ -16,12 +18,24 @@ import { TextModel } from '../../../lib/core/models/text.model';
 export class MwEditorTextComponent implements OnInit, MwEditorComponent {
   @HostBinding('class.mw-editor-text') editorTextClass = true;
 
-  model: TextModel;
+  private textModel: EditorTextModel;
 
-  constructor() {}
+  @Input()
+  get model(): EditorTextModel {
+    return this.textModel;
+  }
+  set model(newValue: EditorTextModel) {
+    this.textModel = newValue;
+    this.model.value = '[text]';
+    console.log('newValue', newValue);
+    this.changeDetector.markForCheck();
+  }
+
+  constructor(private changeDetector: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.model = new TextModel();
-    this.model.value = '[text]';
+    if (!this.model) {
+      this.model = new EditorTextModel();
+    }
   }
 }

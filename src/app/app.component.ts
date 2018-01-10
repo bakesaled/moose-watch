@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MwEditorGridComponent } from './layout-editor/grid';
+import { MwComponentRegistry } from '../lib/factory/component-registry';
+import { MwEditorTextComponent } from './layout-editor/text';
 
 @Component({
   selector: 'mw-root',
@@ -8,5 +11,11 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // Build custom component registry for editor components
+    MwComponentRegistry.custom = {
+      MwEditorGridComponent: MwEditorGridComponent,
+      MwEditorTextComponent: MwEditorTextComponent
+    };
+  }
 }

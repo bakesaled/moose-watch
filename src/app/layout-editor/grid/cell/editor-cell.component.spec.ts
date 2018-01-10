@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MwEditorCellComponent } from './editor-cell.component';
 import { FlexLayoutShimService } from '../../../../lib/core/services/flex-layout-shim.service';
+import { MwFactoryComponent } from '../../../../lib/factory/factory.component';
+import { ComponentFactoryService } from '../../../../lib/factory/component-factory.service';
 
 describe('MwEditorCellComponent', () => {
   let component: MwEditorCellComponent;
@@ -10,8 +12,8 @@ describe('MwEditorCellComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [MwEditorCellComponent],
-        providers: [FlexLayoutShimService]
+        declarations: [MwEditorCellComponent, MwFactoryComponent],
+        providers: [FlexLayoutShimService, ComponentFactoryService]
       }).compileComponents();
     })
   );
