@@ -1,6 +1,7 @@
 import { EditorCellModel } from './editor-cell.model';
 import { GridModel } from '../../../lib/core/models/grid.model';
 import { MwEditorComponentModel } from '../interfaces';
+import { MwGridComponent } from '../../../lib/grid/grid.component';
 
 export class EditorGridModel implements MwEditorComponentModel {
   constructor(
@@ -20,5 +21,15 @@ export class EditorGridModel implements MwEditorComponentModel {
       });
     }
     return this;
+  }
+
+  toViewerModel(): GridModel {
+    const gridModel = new GridModel(this.id, []);
+    gridModel.type = MwGridComponent.name;
+    this.cells.forEach(cell => {
+      gridModel.cells.push(cell.toViewerModel());
+    });
+    gridModel.backgroundColor = this.backgroundColor;
+    return gridModel;
   }
 }

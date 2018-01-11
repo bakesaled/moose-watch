@@ -2,4 +2,5 @@ import { MwComponentModel } from '../../../lib/core/interfaces/mw-component.mode
 
 export interface MwEditorComponentModel extends MwComponentModel {
   toEditorModel(viewModel: MwComponentModel): MwEditorComponentModel;
+  toViewerModel(): MwComponentModel;
 }

@@ -15,7 +15,12 @@ import {
 } from '@angular/core';
 import { DropEvent, MwEditorComponent } from '../../../core/interfaces';
 import { FlexLayoutShimService } from '../../../../lib/core/services/flex-layout-shim.service';
-import { EditorCellModel } from '../../../core/models';
+import { EditorCellModel, EditorTextModel } from '../../../core/models';
+import { MwEditorTextComponent } from '../../text';
+import { Command } from '../../../core/enums';
+import { WorkAreaMessage } from '../../../core/messages/work-area.message';
+import { MessageService } from '../../../core/services';
+import { EditorCellMessage } from '../../../core/messages/editor-cell.message';
 
 @Component({
   selector: 'mw-editor-cell',
@@ -53,16 +58,14 @@ export class MwEditorCellComponent
 
   constructor(
     private flexShim: FlexLayoutShimService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
     if (!this.model) {
       this.model = new EditorCellModel();
     }
-    // this.model.width = 50;
-    // this.fxFlex = this.model.width;
-    // this.style = this.flexShim.getStyle('fxFlex', this.model.width);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -71,6 +74,15 @@ export class MwEditorCellComponent
 
   handleDrop(event: DropEvent) {
     console.log('cell drop', event);
-    this.dropSuccessEmitter.emit(event);
+    switch (event.dragData) {
+      case 'text':
+        this.model.component = new EditorTextModel();
+        break;
+    }
+    this.messageService.publish(EditorCellMessage, {
+      command: Command.drop,
+      data: event
+    });
+    // this.dropSuccessEmitter.emit(event);
   }
 }

@@ -1,10 +1,11 @@
 import { TextModel } from '../../../lib/core/models/text.model';
-import { MwEditorComponentModel } from '../interfaces/mw-editor-component.model';
+import { MwEditorComponentModel } from '../interfaces/';
+import { MwTextComponent } from '../../../lib/text/text.component';
 
 export class EditorTextModel implements MwEditorComponentModel {
   constructor(
     public id: string = 'NONE',
-    public value: string = '',
+    public value: string = '[text]',
     public type: string = 'MwEditorTextComponent'
   ) {}
 
@@ -12,5 +13,11 @@ export class EditorTextModel implements MwEditorComponentModel {
     this.id = textModel.id;
     this.value = textModel.value;
     return this;
+  }
+
+  toViewerModel(): TextModel {
+    const textModel = new TextModel(this.id, this.value);
+    textModel.type = MwTextComponent.name;
+    return textModel;
   }
 }

@@ -1,8 +1,9 @@
 import { CellModel } from '../../../lib/core/models/cell.model';
-import { MwEditorComponentModel } from '../interfaces/mw-editor-component.model';
+import { MwEditorComponentModel } from '../interfaces';
 import { MwTextComponent } from '../../../lib/text/text.component';
 import { EditorTextModel } from './editor-text.model';
 import { TextModel } from '../../../lib/core/models/text.model';
+import { MwCellComponent } from '../../../lib/grid/cell/cell.component';
 
 export class EditorCellModel implements MwEditorComponentModel {
   constructor(
@@ -27,5 +28,15 @@ export class EditorCellModel implements MwEditorComponentModel {
       }
     }
     return this;
+  }
+
+  toViewerModel(): CellModel {
+    const cellModel = new CellModel(this.id);
+    cellModel.type = MwCellComponent.name;
+    if (this.component) {
+      cellModel.component = this.component.toViewerModel();
+    }
+    cellModel.backgroundColor = this.backgroundColor;
+    return cellModel;
   }
 }

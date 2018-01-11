@@ -7,19 +7,16 @@ import {
   OnDestroy,
   OnInit,
   QueryList,
-  Type,
   ViewChild,
   ViewChildren,
   ViewContainerRef,
   ViewEncapsulation
 } from '@angular/core';
 import { MwEditorCellComponent } from '../grid/cell';
-import { MwEditorGridComponent } from '../grid';
-import { DropEvent, MwEditorComponent } from '../../core/interfaces';
+import { DropEvent } from '../../core/interfaces';
 import { MessageService, SaveService } from '../../core/services';
 import { ToolPanelMessage } from '../../core';
 import { Subscription } from 'rxjs/Subscription';
-import { MwEditorTextComponent } from '../text';
 import { LayoutModel } from '../../../lib/core/models/layout.model';
 import { Command } from '../../core/enums';
 import { WorkAreaMessage } from '../../core/messages/work-area.message';
@@ -33,6 +30,7 @@ import {
   EditorGridModel,
   EditorLayoutModel
 } from '../../core/models';
+import { EditorCellMessage } from '../../core/messages/editor-cell.message';
 
 @Component({
   selector: 'mw-work-area',
@@ -43,15 +41,13 @@ import {
 })
 export class MwWorkAreaComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
-  private layoutModel: EditorLayoutModel;
-  private rootGridComponent: MwEditorGridComponent;
 
   @ViewChild('dynamic', { read: ViewContainerRef })
   viewContainerRef: ViewContainerRef;
   @ViewChildren(MwEditorCellComponent)
   cellComponents: QueryList<MwEditorCellComponent>;
-  hasContent: boolean;
   allowedDropType = 'grid';
+  layoutModel: EditorLayoutModel;
 
   constructor(
     @Inject(ComponentFactoryResolver)
@@ -70,9 +66,6 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
           data.layout
         );
         this.layoutModel = Object.assign(editorLayoutModel, {});
-        if (!this.layoutModel.isNew) {
-          // this.buildExistingLayout();
-        }
         this.changeDetector.markForCheck();
       })
     );
@@ -80,13 +73,25 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.messageService.channel(ToolPanelMessage).subscribe(msg => {
         console.log('toolpanel msg', msg);
-        this.rootGridComponent.cellComponents.forEach(cell => {
-          console.log('check delete', cell.model.id, msg.data.parentId);
-          if (cell.model.id === msg.data.parentId) {
-            cell.viewContainerRef.clear();
-            // cell.hasContent = false;
+        let indexToDelete = -1;
+        for (let i = 0; i < this.layoutModel.grid.cells.length; i++) {
+          const cell = this.layoutModel.grid.cells[i];
+          console.log('check delete', cell.id, msg.data.parentId);
+          if (cell.id === msg.data.parentId) {
+            indexToDelete = i;
+            break;
           }
-        });
+        }
+        this.layoutModel.grid.cells.splice(indexToDelete, 1);
+      })
+    );
+
+    this.subscriptions.push(
+      this.messageService.channel(EditorCellMessage).subscribe(msg => {
+        if (msg.command === Command.drop) {
+          this.save();
+        }
+        console.log('cell msg', msg);
       })
     );
   }
@@ -100,52 +105,18 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   handleDrop(event: DropEvent) {
     console.log('drop', event);
     if (event.dragData === 'grid') {
-      this.hasContent = true;
+      // this.hasContent = true;
 
-      this.rootGridComponent = this.createComponent(
-        MwEditorGridComponent,
-        this.viewContainerRef
-      ) as MwEditorGridComponent;
-      this.layoutModel.grid = new EditorGridModel();
-      this.layoutModel.grid.cells = [
-        new EditorCellModel(),
-        new EditorCellModel()
-      ];
-      // this.rootGridComponent.model = this.layoutModel.grid;
-      this.rootGridComponent.afterViewInitEmitter.subscribe(() => {
-        console.log('cells', this.rootGridComponent.cellComponents);
-        this.rootGridComponent.cellComponents.forEach(
-          (cell: MwEditorCellComponent) => {
-            cell.dropSuccessEmitter.subscribe(dropEvent => {
-              console.log('work-area-cell drop', dropEvent);
-              const textComponent = this.createComponent(
-                MwEditorTextComponent,
-                cell.viewContainerRef
-              );
-              // this.layoutModel.grid.cells.filter((cell) => {
-              //
-              // })
-              // textComponent.editMode = true;
-              // cell.hasContent = true;
-              // this.saveService.save(this.layoutModel);
-            });
-          }
-        );
-      });
-    } else if (event.dragData === 'text') {
-      const textComponent = this.createComponent(
-        MwEditorTextComponent,
-        this.viewContainerRef
-      );
-      // textComponent.editMode = true;
+      // this.rootGridComponent = this.createComponent(
+      //   MwEditorGridComponent,
+      //   this.viewContainerRef
+      // ) as MwEditorGridComponent;
+      const grid = new EditorGridModel();
+      grid.cells = [new EditorCellModel(), new EditorCellModel()];
+      this.layoutModel.grid = grid;
+      this.changeDetector.markForCheck();
+      this.save();
     }
-
-    this.saveService.save(this.layoutModel.toViewerModel());
-
-    this.messageService.publish(WorkAreaMessage, {
-      command: Command.edit,
-      data: event
-    });
   }
 
   handleAllowDrop(data: any) {
@@ -158,42 +129,14 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     };
   }
 
-  // private buildExistingLayout() {
-  //   this.rootGridComponent = this.createComponent(
-  //     MwEditorGridComponent,
-  //     this.viewContainerRef
-  //   ) as MwEditorGridComponent;
-  //   // this.rootGridComponent.model = this.layoutModel.grid;
-  //   this.rootGridComponent.afterViewInitEmitter.subscribe(() => {
-  //     console.log('cells', this.rootGridComponent.cellComponents);
-  //     this.rootGridComponent.cellComponents.forEach(
-  //       (cell: MwEditorCellComponent) => {
-  //         cell.dropSuccessEmitter.subscribe(dropEvent => {
-  //           console.log('work-area-cell drop', dropEvent);
-  //           const textComponent = this.createComponent(
-  //             MwEditorTextComponent,
-  //             cell.viewContainerRef
-  //           );
-  //           // this.layoutModel.grid.cells.filter((cell) => {
-  //           //
-  //           // })
-  //           // textComponent.editMode = true;
-  //           // cell.hasContent = true;
-  //           // this.saveService.save(this.layoutModel);
-  //         });
-  //       }
-  //     );
-  //   });
-  // }
+  private save() {
+    this.layoutModel.isNew = false;
+    console.log('saving', this.layoutModel.toViewerModel());
+    this.saveService.save(this.layoutModel.toViewerModel());
 
-  private createComponent<T>(
-    type: Type<T>,
-    viewContainerRef: ViewContainerRef
-  ): MwEditorComponent {
-    const factory = this.factoryResolver.resolveComponentFactory(type);
-    const componentRef = factory.create(viewContainerRef.parentInjector);
-    viewContainerRef.insert(componentRef.hostView);
-    // componentRef.changeDetectorRef.detectChanges();
-    return <any>componentRef.instance;
+    this.messageService.publish(WorkAreaMessage, {
+      command: Command.edit,
+      data: event
+    });
   }
 }
