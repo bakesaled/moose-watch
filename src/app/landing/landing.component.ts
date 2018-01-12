@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'mw-landing',
@@ -7,6 +7,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class LandingComponent implements OnInit {
+  @HostBinding('class.mw-landing') landingClass = true;
   constructor() {}
 
   ngOnInit() {}

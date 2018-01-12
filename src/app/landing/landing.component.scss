@@ -1,0 +1,35 @@
+.mw-landing {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: rgb(199,152,16);
+  background: -moz-linear-gradient(top, rgba(199,152,16,1) 0%, rgba(232,221,192,1) 100%);
+  background: -webkit-linear-gradient(top, rgba(199,152,16,1) 0%,rgba(232,221,192,1) 100%);
+  background: linear-gradient(to bottom, rgba(199,152,16,1) 0%,rgba(232,221,192,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c79810', endColorstr='#e8ddc0',GradientType=0 );
+
+  color: #898467;
+  .mw-landing-image {
+    margin: auto auto 10px;
+    background: url('/assets/moose-transparent.png') no-repeat;
+    background-size: contain;
+    width: 240px;
+    height: 200px;
+  }
+  .mw-landing-message-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    .mw-landing-message {
+      text-align: center;
+      color: #000;
+      p {
+        text-transform: uppercase;
+        font-size: 34px;
+        font-weight: bold;
+      }
+    }
+  }
+}
