@@ -19,8 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "mw",
       "styles": [
-        "styles.scss",
-        "../node_modules/ng2-dnd/style.css"
+        "styles.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

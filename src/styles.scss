@@ -3,6 +3,9 @@
 // https://github.com/angular/angular-cli/issues/9185
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 
+// Not sure why this breaks dnd with dynamic components
+//@import "ng2-dnd/bundles/style.css";
+
 html, body {
   margin: 0;
   width: 100%;
