@@ -17,18 +17,30 @@ export class LayoutListService {
 
   public loadFromStorage(): LayoutListModel {
     const layoutList = this.storageService.getItem('layout-list');
-    return JSON.parse(layoutList);
+    if (layoutList) {
+      return JSON.parse(layoutList);
+    } else {
+      return new LayoutListModel([]);
+    }
   }
 
-  public getNextUniqueName(layoutList: LayoutListModel) {
+  public getUniqueLayoutName(name: string) {
+    const list = this.loadFromStorage();
+    return this.getNextUniqueName(list, name);
+  }
+
+  private getNextUniqueName(
+    layoutList: LayoutListModel,
+    name: string = 'new-layout'
+  ) {
     if (!layoutList.items.length) {
-      return 'new-layout-0';
+      return `${name}-0`;
     }
     const newItems = layoutList.items.filter(item => {
-      return item.name.startsWith('new-layout-');
+      return item.name.startsWith(`${name}-`);
     });
     if (!newItems.length) {
-      return 'new-layout-0';
+      return `${name}-0`;
     }
     newItems.sort((itemA, itemB) => {
       if (itemA.name < itemB.name) {
@@ -42,9 +54,9 @@ export class LayoutListService {
     });
 
     let lastNumber = +newItems[newItems.length - 1].name.replace(
-      'new-layout-',
+      `${name}-`,
       ''
     );
-    return `new-layout-${++lastNumber}`;
+    return `${name}-${++lastNumber}`;
   }
 }

@@ -18,6 +18,8 @@ export class MessageService {
   }
 
   publish<T>(type: Type<T>, payload: T) {
-    this.channels.get(type).next(payload);
+    if (this.channels.has(type)) {
+      this.channels.get(type).next(payload);
+    }
   }
 }

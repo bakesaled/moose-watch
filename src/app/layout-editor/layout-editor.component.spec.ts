@@ -5,7 +5,11 @@ import { MatSidenavModule } from '@angular/material';
 import { MwWorkAreaModule } from './work-area/work-area.module';
 import { MwToolPanelModule } from './tool-panel/tool-panel.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MessageService, SaveService } from '../core/services';
+import {
+  LayoutListService,
+  MessageService,
+  SaveService
+} from '../core/services';
 import { MwTextModule } from '../../lib/text/text.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LocalStorageService } from '../../lib/core/services/local-storage.service';
@@ -33,6 +37,7 @@ describe('LayoutEditorComponent', () => {
         providers: [
           MessageService,
           SaveService,
+          LayoutListService,
           LocalStorageService,
           {
             provide: ActivatedRoute,

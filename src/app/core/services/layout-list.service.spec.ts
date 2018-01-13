@@ -75,7 +75,7 @@ describe('LayoutListService', () => {
           }
         ]
       };
-      const name = service.getNextUniqueName(mockList);
+      const name = service['getNextUniqueName'](mockList);
       expect(name).toEqual('new-layout-1');
     })
   );
@@ -83,7 +83,7 @@ describe('LayoutListService', () => {
   it(
     'should get next unique name when list is empty',
     inject([LayoutListService], (service: LayoutListService) => {
-      const name = service.getNextUniqueName(new LayoutListModel([]));
+      const name = service['getNextUniqueName'](new LayoutListModel([]));
       expect(name).toEqual('new-layout-0');
     })
   );
@@ -99,7 +99,7 @@ describe('LayoutListService', () => {
           }
         ]
       };
-      const name = service.getNextUniqueName(mockList);
+      const name = service['getNextUniqueName'](mockList);
       expect(name).toEqual('new-layout-0');
     })
   );

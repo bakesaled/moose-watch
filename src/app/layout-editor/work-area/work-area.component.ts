@@ -14,7 +14,11 @@ import {
 } from '@angular/core';
 import { MwEditorCellComponent } from '../grid/cell';
 import { DropEvent } from '../../core/interfaces';
-import { MessageService, SaveService } from '../../core/services';
+import {
+  LayoutListService,
+  MessageService,
+  SaveService
+} from '../../core/services';
 import { ToolPanelMessage } from '../../core';
 import { Subscription } from 'rxjs/Subscription';
 import { LayoutModel } from '../../../lib/core/models/layout.model';
@@ -31,6 +35,7 @@ import {
   EditorLayoutModel
 } from '../../core/models';
 import { EditorCellMessage } from '../../core/messages/editor-cell.message';
+import { MwGridComponent } from '../../../lib/grid/grid.component';
 
 @Component({
   selector: 'mw-work-area',
@@ -46,7 +51,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   viewContainerRef: ViewContainerRef;
   @ViewChildren(MwEditorCellComponent)
   cellComponents: QueryList<MwEditorCellComponent>;
-  allowedDropType = 'grid';
+  allowedDropType = MwGridComponent.name;
   layoutModel: EditorLayoutModel;
 
   constructor(
@@ -56,6 +61,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     private saveService: SaveService,
     private route: ActivatedRoute,
     private layoutService: LayoutService,
+    private layoutListService: LayoutListService,
     private changeDetector: ChangeDetectorRef
   ) {}
 
@@ -104,13 +110,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
 
   handleDrop(event: DropEvent) {
     console.log('drop', event);
-    if (event.dragData === 'grid') {
-      // this.hasContent = true;
-
-      // this.rootGridComponent = this.createComponent(
-      //   MwEditorGridComponent,
-      //   this.viewContainerRef
-      // ) as MwEditorGridComponent;
+    if (event.dragData === MwGridComponent.name) {
       const grid = new EditorGridModel();
       grid.cells = [new EditorCellModel(), new EditorCellModel()];
       this.layoutModel.grid = grid;
@@ -130,13 +130,18 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   }
 
   private save() {
+    if (this.layoutModel.isNew) {
+      this.layoutModel.name = this.layoutListService.getUniqueLayoutName(
+        'new-layout'
+      );
+    }
     this.layoutModel.isNew = false;
     console.log('saving', this.layoutModel.toViewerModel());
     this.saveService.save(this.layoutModel.toViewerModel());
 
     this.messageService.publish(WorkAreaMessage, {
       command: Command.edit,
-      data: event
+      data: undefined
     });
   }
 }
