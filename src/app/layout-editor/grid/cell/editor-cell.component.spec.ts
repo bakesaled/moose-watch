@@ -14,7 +14,11 @@ describe('MwEditorCellComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [MwEditorCellComponent, MwFactoryComponent],
-        providers: [FlexLayoutShimService, ComponentFactoryService, MessageService]
+        providers: [
+          FlexLayoutShimService,
+          ComponentFactoryService,
+          MessageService
+        ]
       }).compileComponents();
     })
   );

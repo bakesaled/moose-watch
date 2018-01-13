@@ -2,6 +2,7 @@ import { MwNoComponent } from '../../../lib/no-component/no.component';
 import { EditorGridModel } from './editor-grid.model';
 import { LayoutModel } from '../../../lib/core/models/layout.model';
 import { MwEditorComponentModel } from '../interfaces';
+import { MwLayoutComponent } from '../../../lib/layout/layout.component';
 
 export class EditorLayoutModel implements MwEditorComponentModel {
   constructor(
@@ -23,7 +24,10 @@ export class EditorLayoutModel implements MwEditorComponentModel {
 
   toViewerModel(): LayoutModel {
     const layoutModel = new LayoutModel(this.id, this.name, this.isNew);
-    layoutModel.grid = this.grid.toViewerModel();
+    if (this.grid) {
+      layoutModel.grid = this.grid.toViewerModel();
+    }
+    layoutModel.type = MwLayoutComponent.name;
     return layoutModel;
   }
 }
