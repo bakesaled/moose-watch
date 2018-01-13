@@ -76,25 +76,25 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.subscriptions.push(
-      this.messageService.channel(ToolPanelMessage).subscribe(msg => {
-        console.log('toolpanel msg', msg);
-        let indexToDelete = -1;
-        for (let i = 0; i < this.layoutModel.grid.cells.length; i++) {
-          const cell = this.layoutModel.grid.cells[i];
-          console.log('check delete', cell.id, msg.data.parentId);
-          if (cell.id === msg.data.parentId) {
-            indexToDelete = i;
-            break;
-          }
-        }
-        this.layoutModel.grid.cells.splice(indexToDelete, 1);
-      })
-    );
+    // this.subscriptions.push(
+    //   this.messageService.channel(ToolPanelMessage).subscribe(msg => {
+    //     console.log('toolpanel msg', msg);
+    //     let indexToDelete = -1;
+    //     for (let i = 0; i < this.layoutModel.grid.cells.length; i++) {
+    //       const cell = this.layoutModel.grid.cells[i];
+    //       console.log('check delete', cell.id, msg.data.parentId);
+    //       if (cell.id === msg.data.parentId) {
+    //         indexToDelete = i;
+    //         break;
+    //       }
+    //     }
+    //     this.layoutModel.grid.cells.splice(indexToDelete, 1);
+    //   })
+    // );
 
     this.subscriptions.push(
       this.messageService.channel(EditorCellMessage).subscribe(msg => {
-        if (msg.command === Command.drop) {
+        if (msg.command === Command.drop || msg.command === Command.delete) {
           this.save();
         }
         console.log('cell msg', msg);

@@ -26,7 +26,9 @@ export class MwToolPanelComponent implements OnInit {
     console.log('deleted', event);
     this.messageService.publish(ToolPanelMessage, {
       command: Command.delete,
-      data: event
+      data: {
+        componentId: event.dragData
+      }
     });
   }
 }

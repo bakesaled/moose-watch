@@ -28,7 +28,6 @@ export class ComponentFactoryService {
     const factory = factoryResolver.resolveComponentFactory(type);
     const componentRef = factory.create(viewContainerRef.parentInjector);
     viewContainerRef.insert(componentRef.hostView);
-    // componentRef.changeDetectorRef.detectChanges();
     return componentRef.instance;
   }
 }

@@ -39,4 +39,8 @@ export class MwFactoryComponent implements OnChanges {
     );
     component.model = this.model;
   }
+
+  destroyComponent() {
+    this.viewContainerRef.clear();
+  }
 }

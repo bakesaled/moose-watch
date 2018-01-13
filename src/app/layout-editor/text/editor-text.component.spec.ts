@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MwEditorTextComponent } from './editor-text.component';
+import { DndModule } from 'ng2-dnd';
 
 describe('MwEditorTextComponent', () => {
   let component: MwEditorTextComponent;
@@ -9,6 +10,7 @@ describe('MwEditorTextComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
+        imports: [DndModule.forRoot()],
         declarations: [MwEditorTextComponent]
       }).compileComponents();
     })

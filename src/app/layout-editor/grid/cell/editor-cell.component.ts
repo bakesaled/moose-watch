@@ -6,21 +6,22 @@ import {
   HostBinding,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
   ViewChild,
-  ViewContainerRef,
   ViewEncapsulation
 } from '@angular/core';
 import { DropEvent, MwEditorComponent } from '../../../core/interfaces';
 import { FlexLayoutShimService } from '../../../../lib/core/services/flex-layout-shim.service';
 import { EditorCellModel, EditorTextModel } from '../../../core/models';
-import { MwEditorTextComponent } from '../../text';
 import { Command } from '../../../core/enums';
-import { WorkAreaMessage } from '../../../core/messages/work-area.message';
 import { MessageService } from '../../../core/services';
 import { EditorCellMessage } from '../../../core/messages/editor-cell.message';
+import { ToolPanelMessage } from '../../../core';
+import { Subscription } from 'rxjs/Subscription';
+import { MwFactoryComponent } from '../../../../lib/factory/factory.component';
 
 @Component({
   selector: 'mw-editor-cell',
@@ -30,16 +31,16 @@ import { EditorCellMessage } from '../../../core/messages/editor-cell.message';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MwEditorCellComponent
-  implements OnInit, MwEditorComponent, OnChanges {
+  implements OnInit, MwEditorComponent, OnChanges, OnDestroy {
   @HostBinding('class.mw-editor-cell') editorCellClass = true;
   @HostBinding('attr.fxFlex') fxFlex;
   @HostBinding('attr.style') style;
   @HostBinding('style.backgroundColor') backgroundColor;
 
   private cellModel: EditorCellModel;
+  private subscriptions: Subscription[] = [];
 
-  @ViewChild('dynamic', { read: ViewContainerRef })
-  viewContainerRef: ViewContainerRef;
+  @ViewChild(MwFactoryComponent) factoryComponent: MwFactoryComponent;
   @Output() dropSuccessEmitter = new EventEmitter<DropEvent>();
 
   @Input()
@@ -66,10 +67,22 @@ export class MwEditorCellComponent
     if (!this.model) {
       this.model = new EditorCellModel();
     }
+
+    this.subscriptions.push(
+      this.messageService
+        .channel(ToolPanelMessage)
+        .subscribe(msg => this.handleToolPanelMessage(msg))
+    );
   }
 
   ngOnChanges(changes: SimpleChanges) {
     console.log('changes', changes);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => {
+      sub.unsubscribe();
+    });
   }
 
   handleDrop(event: DropEvent) {
@@ -84,5 +97,24 @@ export class MwEditorCellComponent
       data: event
     });
     // this.dropSuccessEmitter.emit(event);
+  }
+
+  handleToolPanelMessage(msg: ToolPanelMessage) {
+    console.log('toolpanel msg', msg, this.model.component);
+    if (msg.command === Command.delete) {
+      if (
+        this.model.component &&
+        this.model.component.id === msg.data.componentId
+      ) {
+        this.model.component = undefined;
+        this.factoryComponent.destroyComponent();
+        this.changeDetector.markForCheck();
+
+        console.log('delete', this.model.component, msg.data.componentId);
+        this.messageService.publish(EditorCellMessage, {
+          command: Command.delete
+        });
+      }
+    }
   }
 }
