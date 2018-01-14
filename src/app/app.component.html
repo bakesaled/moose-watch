@@ -1,6 +1,9 @@
-<mat-sidenav-container>
-  <mat-sidenav mode="side" opened="true"><mw-navigation></mw-navigation></mat-sidenav>
-  <main class="my-content">
-    <router-outlet></router-outlet>
-  </main>
-</mat-sidenav-container>
+<div class="mw-app-container">
+  <mw-toolbar></mw-toolbar>
+  <mat-sidenav-container class="mw-sidenav-container">
+    <mat-sidenav mode="side" opened="true"><mw-navigation></mw-navigation></mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

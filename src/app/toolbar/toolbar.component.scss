@@ -1,0 +1,11 @@
+.mw-toolbar {
+  display: block;
+  mat-toolbar {
+    background: #333;
+    color: #a1a1a1;
+    .mw-logo {
+      height: 26px;
+      margin: 0 4px 3px 0;
+    }
+  }
+}

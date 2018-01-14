@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app.routing';
 import { LayoutViewerModule } from './layout-viewer/layout-viewer.module';
 import { LayoutEditorModule } from './layout-editor/layout-editor.module';
 import { LandingModule } from './landing/landing.module';
+import { ToolbarModule } from './toolbar/toolbar.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { LandingModule } from './landing/landing.module';
     LayoutViewerModule,
     LayoutEditorModule,
     LandingModule,
+    ToolbarModule,
     AppRoutingModule
   ],
   providers: [],

@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DndModule } from 'ng2-dnd';
 import {
+  MatButtonModule,
   MatIconModule,
   MatListModule,
-  MatSidenavModule
+  MatSidenavModule,
+  MatToolbarModule
 } from '@angular/material';
 import { MwModule } from '../../lib/public.module';
 
@@ -15,6 +17,8 @@ import { MwModule } from '../../lib/public.module';
     MatSidenavModule,
     MatListModule,
     MatIconModule,
+    MatToolbarModule,
+    MatButtonModule,
     DndModule.forRoot()
   ],
   exports: [
@@ -22,6 +26,8 @@ import { MwModule } from '../../lib/public.module';
     MatSidenavModule,
     MatListModule,
     MatIconModule,
+    MatToolbarModule,
+    MatButtonModule,
     DndModule
   ],
   entryComponents: []

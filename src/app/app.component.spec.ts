@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutViewerModule } from './layout-viewer/layout-viewer.module';
 import { CoreModule } from './core/core.module';
+import { ToolbarModule } from './toolbar/toolbar.module';
 describe('AppComponent', () => {
   beforeEach(
     async(() => {
@@ -20,7 +21,8 @@ describe('AppComponent', () => {
           NavigationModule,
           HttpClientModule,
           NavigationModule,
-          LayoutViewerModule
+          LayoutViewerModule,
+          ToolbarModule
         ]
       }).compileComponents();
     })
