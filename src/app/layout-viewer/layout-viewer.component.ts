@@ -35,6 +35,7 @@ export class LayoutViewerComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit() {
     this.subscriptions.push(
       this.route.data.subscribe((data: { layout: LayoutModel }) => {
+        console.log('new layout model', data);
         this.layoutModel = data.layout;
         this.changeDetector.markForCheck();
       })
@@ -42,6 +43,7 @@ export class LayoutViewerComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log('changes', changes);
     if (changes.layout && changes.layout.currentValue) {
     }
   }

@@ -18,6 +18,7 @@ export class EditorCellModel implements MwEditorComponentModel {
   toEditorModel(cellModel: CellModel): EditorCellModel {
     this.id = cellModel.id;
     this.backgroundColor = cellModel.backgroundColor;
+    this.width = cellModel.width;
     if (cellModel.component) {
       switch (cellModel.component.type) {
         case 'MwTextComponent':
@@ -37,6 +38,7 @@ export class EditorCellModel implements MwEditorComponentModel {
       cellModel.component = this.component.toViewerModel();
     }
     cellModel.backgroundColor = this.backgroundColor;
+    cellModel.width = this.width;
     return cellModel;
   }
 }

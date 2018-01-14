@@ -16,6 +16,7 @@ export class EditorLayoutModel implements MwEditorComponentModel {
   toEditorModel(layoutModel: LayoutModel): EditorLayoutModel {
     this.id = layoutModel.id;
     this.name = layoutModel.name;
+    this.isNew = layoutModel.isNew;
     if (!layoutModel.isNew && layoutModel.grid) {
       this.grid = new EditorGridModel().toEditorModel(layoutModel.grid);
     }
@@ -27,6 +28,7 @@ export class EditorLayoutModel implements MwEditorComponentModel {
     if (this.grid) {
       layoutModel.grid = this.grid.toViewerModel();
     }
+    layoutModel.isNew = this.isNew;
     layoutModel.type = MwLayoutComponent.name;
     return layoutModel;
   }

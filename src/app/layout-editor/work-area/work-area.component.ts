@@ -37,6 +37,7 @@ import { EditorCellMessage } from '../../core/messages/editor-cell.message';
 import { MwGridComponent } from '../../../lib/grid/grid.component';
 import { ToolbarMessage } from '../../core/messages/toolbar.message';
 import { Constants } from '../../core';
+import { Guid } from '../../core/utils';
 
 @Component({
   selector: 'mw-work-area',
@@ -119,7 +120,10 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     console.log('drop', event);
     if (event.dragData === MwGridComponent.name) {
       const grid = new EditorGridModel();
-      grid.cells = [new EditorCellModel(), new EditorCellModel()];
+      grid.cells = [
+        new EditorCellModel(Guid.create(), 50),
+        new EditorCellModel(Guid.create(), 50)
+      ];
       this.layoutModel.grid = grid;
       this.changeDetector.markForCheck();
       this.save();
@@ -137,6 +141,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   }
 
   private save() {
+    console.log('saving', this.layoutModel);
     if (this.layoutModel.isNew) {
       this.layoutModel.name = this.layoutListService.getUniqueLayoutName(
         Constants.newLayoutBaseName

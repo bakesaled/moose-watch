@@ -2,9 +2,13 @@ import { LayoutModel } from '../../../lib/core/models/layout.model';
 import { EditorLayoutModel } from './editor-layout.model';
 import { MwLayoutComponent } from '../../../lib/layout/layout.component';
 import { GridModel } from '../../../lib/core/models/grid.model';
+import { forEach } from '@angular/router/src/utils/collection';
 
 describe('EditorLayoutModel', () => {
-  const model = new EditorLayoutModel();
+  let model: EditorLayoutModel;
+  beforeEach(() => {
+    model = new EditorLayoutModel();
+  });
 
   it('should be created', () => {
     expect(model).toBeTruthy();
@@ -15,6 +19,7 @@ describe('EditorLayoutModel', () => {
     const result = model.toEditorModel(layoutModel);
     expect(result.id).toBe(layoutModel.id);
     expect(result.grid).toBeNull();
+    expect(result.isNew).toBe(layoutModel.isNew);
   });
 
   it('should convert EditorLayoutModel to LayoutModel', () => {
@@ -22,5 +27,6 @@ describe('EditorLayoutModel', () => {
     expect(result.id).toBe(model.id);
     expect(result.grid).toEqual(new GridModel());
     expect(result.type).toBe(MwLayoutComponent.name);
+    expect(result.isNew).toBe(model.isNew);
   });
 });
