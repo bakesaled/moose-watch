@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { LayoutRetrievalStrategy } from './layout-retrieval-strategy';
 import { LayoutModel } from '../core/models/layout.model';
 import 'rxjs/add/observable/of';
 import { LocalStorageService } from '../core/services/local-storage.service';
@@ -23,6 +21,6 @@ export class LayoutService {
   }
 
   loadFromFileSystem(layout: LayoutModel, baseUrl: string = '') {
-    return this.http.get<LayoutModel>(baseUrl + layout.name + '.json');
+    return this.http.get<LayoutModel>(`${baseUrl + layout.name}.json`);
   }
 }

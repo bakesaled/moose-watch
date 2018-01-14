@@ -19,7 +19,6 @@ import {
   MessageService,
   SaveService
 } from '../../core/services';
-import { ToolPanelMessage } from '../../core';
 import { Subscription } from 'rxjs/Subscription';
 import { LayoutModel } from '../../../lib/core/models/layout.model';
 import { Command } from '../../core/enums';
@@ -36,6 +35,8 @@ import {
 } from '../../core/models';
 import { EditorCellMessage } from '../../core/messages/editor-cell.message';
 import { MwGridComponent } from '../../../lib/grid/grid.component';
+import { ToolbarMessage } from '../../core/messages/toolbar.message';
+import { Constants } from '../../core';
 
 @Component({
   selector: 'mw-work-area',
@@ -100,6 +101,12 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
         console.log('cell msg', msg);
       })
     );
+
+    this.subscriptions.push(
+      this.messageService
+        .channel(ToolbarMessage)
+        .subscribe(msg => this.deleteLayout(msg))
+    );
   }
 
   ngOnDestroy() {
@@ -132,16 +139,23 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   private save() {
     if (this.layoutModel.isNew) {
       this.layoutModel.name = this.layoutListService.getUniqueLayoutName(
-        'new-layout'
+        Constants.newLayoutBaseName
       );
     }
     this.layoutModel.isNew = false;
-    console.log('saving', this.layoutModel.toViewerModel());
     this.saveService.save(this.layoutModel.toViewerModel());
 
     this.messageService.publish(WorkAreaMessage, {
-      command: Command.edit,
-      data: undefined
+      command: Command.edit
     });
+  }
+
+  private deleteLayout(msg: ToolbarMessage) {
+    if (msg.command === Command.delete) {
+      this.saveService.delete(this.layoutModel.id);
+      this.messageService.publish(WorkAreaMessage, {
+        command: Command.delete
+      });
+    }
   }
 }

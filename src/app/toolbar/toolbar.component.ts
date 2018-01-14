@@ -7,6 +7,9 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { MessageService } from '../core/services';
+import { ToolbarMessage } from '../core/messages/toolbar.message';
+import { Command } from '../core/enums';
 
 @Component({
   selector: 'mw-toolbar',
@@ -20,9 +23,17 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
+  constructor(private messageService: MessageService) {}
+
   ngOnInit() {}
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  onDeleteClick() {
+    this.messageService.publish(ToolbarMessage, {
+      command: Command.delete
+    });
   }
 }

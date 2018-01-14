@@ -34,6 +34,7 @@ export class LayoutPreLoadResolver implements Resolve<any> {
             './assets/layouts/'
           )
           .subscribe(layout => {
+            console.log('got it', localStorage.getItem('layout-list'));
             this.saveService.save(layout);
             return Observable.of(null);
           });

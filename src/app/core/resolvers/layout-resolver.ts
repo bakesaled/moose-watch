@@ -8,6 +8,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { LayoutService } from '../../../lib/layout/layout.service';
+import { Constants } from '../constants';
 
 @Injectable()
 export class LayoutResolver implements Resolve<LayoutModel> {
@@ -25,7 +26,7 @@ export class LayoutResolver implements Resolve<LayoutModel> {
     const id = route.paramMap.get('id');
     console.log('params', isNew, id);
     if (isNew) {
-      return Observable.of(new LayoutModel(id, 'new-layout'));
+      return Observable.of(new LayoutModel(id, Constants.newLayoutBaseName));
     } else {
       const layout = new LayoutModel(id, route.queryParamMap.get('name'));
       const result = this.layoutService.loadFromStorage(layout);

@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { WorkAreaMessage } from '../core/messages/work-area.message';
 import { Command } from '../core/enums';
 import { Guid } from '../core/utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'mw-navigation',
@@ -43,15 +44,23 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   constructor(
     public layoutListService: LayoutListService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.subscriptions.push(
       this.messageService.channel(WorkAreaMessage).subscribe(msg => {
-        if (msg.command === Command.edit) {
-          console.log('edit command');
-          this.loadNavItems();
+        switch (msg.command) {
+          case Command.edit:
+            console.log('edit command');
+            this.loadNavItems();
+            break;
+          case Command.delete:
+            console.log('delete command');
+            this.loadNavItems();
+            this.router.navigate(['/']);
+            break;
         }
       })
     );

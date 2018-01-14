@@ -1,9 +1,4 @@
-import {
-  async,
-  ComponentFixture,
-  inject,
-  TestBed
-} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MwWorkAreaComponent } from './work-area.component';
 import { DndModule } from 'ng2-dnd';
@@ -84,8 +79,7 @@ describe('MwWorkAreaComponent', () => {
     const savedLayout = JSON.parse(localStorage.getItem('testId'));
     expect(savedLayout).toBeTruthy();
     expect(spy).toHaveBeenCalledWith(WorkAreaMessage, {
-      command: Command.edit,
-      data: undefined
+      command: Command.edit
     });
   });
 
@@ -93,5 +87,18 @@ describe('MwWorkAreaComponent', () => {
     component.layoutModel.isNew = true;
     component['save']();
     expect(component.layoutModel.name).toBe('new-layout-0');
+  });
+
+  it('should call delete and publish WorkAreaMessage', () => {
+    const spy = spyOn(component['messageService'], 'publish');
+    component['deleteLayout']({
+      command: Command.delete,
+      data: undefined
+    });
+    const deletedLayout = localStorage.getItem('testId');
+    expect(deletedLayout).toBeUndefined();
+    expect(spy).toHaveBeenCalledWith(WorkAreaMessage, {
+      command: Command.delete
+    });
   });
 });

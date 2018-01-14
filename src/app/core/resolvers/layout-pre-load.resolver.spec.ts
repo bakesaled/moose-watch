@@ -10,6 +10,7 @@ import { LocalStorageService } from '../../../lib/core/services/local-storage.se
 import { LayoutService } from '../../../lib/layout/layout.service';
 import { MockLayoutListService } from '../mocks/layout-list-service.mock';
 import { MockLayoutService } from '../mocks/layout-service.mock';
+import { Constants } from '../constants';
 
 describe('LayoutPreLoadResolver', () => {
   beforeEach(() => {
@@ -38,6 +39,10 @@ describe('LayoutPreLoadResolver', () => {
     spyOn(localStorage, 'clear').and.callFake(mockLocalStorage.clear);
   });
 
+  afterEach(() => {
+    mockLocalStorage.clear();
+  });
+
   it(
     'should be created',
     inject([LayoutPreLoadResolver], (service: LayoutPreLoadResolver) => {
@@ -48,9 +53,12 @@ describe('LayoutPreLoadResolver', () => {
   it(
     'should load default layouts into storage',
     inject([LayoutPreLoadResolver], (service: LayoutPreLoadResolver) => {
+      const mockList: LayoutListModel = new LayoutListModel();
+      localStorage.setItem(Constants.layoutListId, JSON.stringify(mockList));
+
       service.preloadDefaultLayouts().subscribe(() => {
         const list = JSON.parse(
-          localStorage.getItem('layout-list')
+          localStorage.getItem(Constants.layoutListId)
         ) as LayoutListModel;
         expect(list.items.length).toBe(1);
 

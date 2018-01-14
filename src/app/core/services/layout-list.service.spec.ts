@@ -6,7 +6,9 @@ import {
   HttpClientTestingModule,
   HttpTestingController
 } from '@angular/common/http/testing';
-import { LayoutListModel } from '../models';
+import { LayoutListItemModel, LayoutListModel } from '../models';
+import { Constants } from '../constants';
+import { mockLocalStorage } from '../mocks/local-storage.mock';
 
 describe('LayoutListService', () => {
   beforeEach(() => {
@@ -14,6 +16,17 @@ describe('LayoutListService', () => {
       imports: [HttpClientModule, HttpClientTestingModule],
       providers: [LayoutListService, LocalStorageService]
     });
+  });
+
+  beforeEach(() => {
+    spyOn(localStorage, 'getItem').and.callFake(mockLocalStorage.getItem);
+    spyOn(localStorage, 'setItem').and.callFake(mockLocalStorage.setItem);
+    spyOn(localStorage, 'removeItem').and.callFake(mockLocalStorage.removeItem);
+    spyOn(localStorage, 'clear').and.callFake(mockLocalStorage.clear);
+  });
+
+  afterEach(() => {
+    mockLocalStorage.clear();
   });
 
   it(
@@ -41,7 +54,7 @@ describe('LayoutListService', () => {
         });
 
         backend
-          .expectOne('./assets/layouts/layouts-list.json')
+          .expectOne('./assets/layouts/layout-list.json')
           .flush(mockList, { status: 200, statusText: 'Ok' });
       }
     )
@@ -58,7 +71,7 @@ describe('LayoutListService', () => {
           }
         ]
       };
-      localStorage.setItem('layout-list', JSON.stringify(mockList));
+      localStorage.setItem(Constants.layoutListId, JSON.stringify(mockList));
       const list = service.loadFromStorage();
       expect(list).toEqual(mockList);
     })
@@ -101,6 +114,39 @@ describe('LayoutListService', () => {
       };
       const name = service['getNextUniqueName'](mockList);
       expect(name).toEqual('new-layout-0');
+    })
+  );
+
+  it(
+    'should delete list item',
+    inject([LayoutListService], (service: LayoutListService) => {
+      const mockList: LayoutListModel = {
+        items: [
+          {
+            name: 'test1',
+            id: 'test1Id'
+          }
+        ]
+      };
+      localStorage.setItem(Constants.layoutListId, JSON.stringify(mockList));
+      service.deleteItem('test1Id');
+
+      const list = JSON.parse(localStorage.getItem(Constants.layoutListId));
+      expect(list.items.length).toBe(0);
+    })
+  );
+
+  it(
+    'should save list item',
+    inject([LayoutListService], (service: LayoutListService) => {
+      const mockListItem: LayoutListItemModel = {
+        name: 'test1',
+        id: 'test1Id'
+      };
+      service.saveItem(mockListItem);
+
+      const list = JSON.parse(localStorage.getItem(Constants.layoutListId));
+      expect(list.items[0]).toEqual(mockListItem);
     })
   );
 });
