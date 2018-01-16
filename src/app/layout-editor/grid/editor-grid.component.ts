@@ -30,6 +30,8 @@ export class MwEditorGridComponent
   @HostBinding('attr.fxLayout') fxLayout = 'row';
   @HostBinding('attr.style') style;
   @HostBinding('style.backgroundColor') backgroundColor;
+  @HostBinding('attr.data-before')
+  dataBefore = '<i class="material-icons">accessibility</i>Grid';
 
   private gridModel: EditorGridModel;
 

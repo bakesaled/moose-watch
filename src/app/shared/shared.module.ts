@@ -9,6 +9,7 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import { MwModule } from '../../lib/public.module';
+import { SelectionTagModule } from './selection-tag/selection-tag.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { MwModule } from '../../lib/public.module';
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
+    SelectionTagModule,
     DndModule.forRoot()
   ],
   exports: [
@@ -28,6 +30,7 @@ import { MwModule } from '../../lib/public.module';
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
+    SelectionTagModule,
     DndModule
   ],
   entryComponents: []

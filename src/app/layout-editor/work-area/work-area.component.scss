@@ -1,18 +1,24 @@
-.mw-work-area-target {
+.mw-work-area {
   display: block;
-  height: 100%;
-  width: 100%;
-  background-color: #1e1e1e;
-  color: #e6e6e6;
-}
-.mw-work-area-message-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  height: calc(100% - 20px);
-  .mw-work-area-message {
-    text-align: center;
-    color: #898467;
+  border: #5c5c5c solid 1px;
+  margin: 20px;
+  height: calc(100% - 42px);
+  .mw-work-area-target {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: #1e1e1e;
+    color: #e6e6e6;
+  }
+  .mw-work-area-message-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: calc(100% - 20px);
+    .mw-work-area-message {
+      text-align: center;
+      color: #898467;
+    }
   }
 }

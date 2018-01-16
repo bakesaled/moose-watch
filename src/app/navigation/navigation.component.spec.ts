@@ -13,7 +13,7 @@ import { mockLocalStorage } from '../core/mocks/local-storage.mock';
 import { LayoutListModel } from '../core/models';
 import { MockLayoutListService } from '../core/mocks/layout-list-service.mock';
 
-describe('NavigationComponent', () => {
+describe('SelectionTagComponent', () => {
   let component: NavigationComponent;
   let fixture: ComponentFixture<NavigationComponent>;
   let route: ActivatedRoute;

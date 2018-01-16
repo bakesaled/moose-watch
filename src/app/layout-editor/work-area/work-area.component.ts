@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
+  HostBinding,
   Inject,
   OnDestroy,
   OnInit,
@@ -47,6 +48,8 @@ import { Guid } from '../../core/utils';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MwWorkAreaComponent implements OnInit, OnDestroy {
+  @HostBinding('class.mw-work-area') workAreaClass = true;
+
   private subscriptions: Subscription[] = [];
 
   @ViewChild('dynamic', { read: ViewContainerRef })
