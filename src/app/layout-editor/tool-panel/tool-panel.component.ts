@@ -4,10 +4,11 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { DropEvent } from '../../core/interfaces';
+import { DropEvent, MwEditorComponentModel } from '../../core/interfaces';
 import { MessageService } from '../../core/services';
 import { ToolPanelMessage } from '../../core';
 import { Command } from '../../core/enums';
+import { EditorGridModel, EditorTextModel } from '../../core/models';
 
 @Component({
   selector: 'mw-tool-panel',
@@ -17,6 +18,11 @@ import { Command } from '../../core/enums';
 })
 export class MwToolPanelComponent implements OnInit {
   @HostBinding('class.mw-tool-panel') toolPanelClass = true;
+
+  tools: Array<MwEditorComponentModel> = [
+    new EditorGridModel(),
+    new EditorTextModel()
+  ];
 
   constructor(private messageService: MessageService) {}
 

@@ -12,6 +12,7 @@ import { LayoutModel } from '../../lib/core/models/layout.model';
 import { mockLocalStorage } from '../core/mocks/local-storage.mock';
 import { LayoutListModel } from '../core/models';
 import { MockLayoutListService } from '../core/mocks/layout-list-service.mock';
+import { Command } from '../core/enums';
 
 describe('SelectionTagComponent', () => {
   let component: NavigationComponent;
@@ -80,5 +81,28 @@ describe('SelectionTagComponent', () => {
       '.mat-list-item.active-route'
     );
     expect(activatedItem.length).toBe(1);
+  });
+
+  it('should reload navItems and navigate home on work area delete', () => {
+    const spy = spyOn(component, 'loadNavItems');
+    const navSpy = spyOn(component['router'], 'navigate');
+    component['handleWorkAreaMessage']({
+      command: Command.delete
+    });
+    expect(spy).toHaveBeenCalled();
+    expect(navSpy).toHaveBeenCalledWith(['/']);
+  });
+
+  it('should reload navItems and navigate to new page on work area edit', () => {
+    const spy = spyOn(component, 'loadNavItems');
+    const navSpy = spyOn(component['router'], 'navigate');
+    component['handleWorkAreaMessage']({
+      command: Command.edit,
+      data: { id: 'testId', name: 'testName' }
+    });
+    expect(spy).toHaveBeenCalled();
+    expect(navSpy).toHaveBeenCalledWith(['/layout-editor/testId'], {
+      queryParams: { name: 'testName' }
+    });
   });
 });

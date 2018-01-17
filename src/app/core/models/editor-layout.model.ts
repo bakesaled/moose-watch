@@ -11,7 +11,8 @@ export class EditorLayoutModel implements MwEditorComponentModel {
     public name: string = 'NO_NAME',
     public isNew: boolean = true,
     public grid: EditorGridModel = null,
-    public type: string = 'MwNoComponent'
+    public type: string = 'MwNoComponent',
+    public icon: string = ''
   ) {}
 
   toEditorModel(layoutModel: LayoutModel): EditorLayoutModel {

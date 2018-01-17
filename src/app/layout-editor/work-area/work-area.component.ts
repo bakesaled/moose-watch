@@ -35,10 +35,10 @@ import {
   EditorLayoutModel
 } from '../../core/models';
 import { EditorCellMessage } from '../../core/messages/editor-cell.message';
-import { MwGridComponent } from '../../../lib/grid/grid.component';
 import { ToolbarMessage } from '../../core/messages/toolbar.message';
 import { Constants } from '../../core';
 import { Guid } from '../../core/utils';
+import { MwEditorGridComponent } from '../grid';
 
 @Component({
   selector: 'mw-work-area',
@@ -56,7 +56,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   viewContainerRef: ViewContainerRef;
   @ViewChildren(MwEditorCellComponent)
   cellComponents: QueryList<MwEditorCellComponent>;
-  allowedDropType = MwGridComponent.name;
+  allowedDropType = MwEditorGridComponent.name;
   layoutModel: EditorLayoutModel;
 
   constructor(
@@ -121,7 +121,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
 
   handleDrop(event: DropEvent) {
     console.log('drop', event);
-    if (event.dragData === MwGridComponent.name) {
+    if (event.dragData === MwEditorGridComponent.name) {
       const grid = new EditorGridModel();
       grid.cells = [
         new EditorCellModel(Guid.create(), 50),
@@ -145,7 +145,9 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
 
   private save() {
     console.log('saving', this.layoutModel);
+    let isNew = false;
     if (this.layoutModel.isNew) {
+      isNew = true;
       this.layoutModel.name = this.layoutListService.getUniqueLayoutName(
         Constants.newLayoutBaseName
       );
@@ -154,7 +156,10 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     this.saveService.save(this.layoutModel.toViewerModel());
 
     this.messageService.publish(WorkAreaMessage, {
-      command: Command.edit
+      command: Command.edit,
+      data: isNew
+        ? { id: this.layoutModel.id, name: this.layoutModel.name }
+        : undefined
     });
   }
 

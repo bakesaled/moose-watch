@@ -9,7 +9,9 @@ export class EditorGridModel implements MwEditorComponentModel {
     public id: string = Guid.create(),
     public cells: EditorCellModel[] = [],
     public backgroundColor: string = '',
-    public type: string = 'MwEditorGridComponent'
+    public type: string = 'MwEditorGridComponent',
+    public name: string = 'Grid',
+    public icon: string = 'grid_on'
   ) {}
 
   toEditorModel(gridModel: GridModel) {

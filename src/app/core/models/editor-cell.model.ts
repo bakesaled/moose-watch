@@ -13,7 +13,9 @@ export class EditorCellModel implements MwEditorComponentModel {
     public backgroundColor?: string,
     public margin: number = 0,
     public type: string = 'MwEditorCellComponent',
-    public component: MwEditorComponentModel = null
+    public component: MwEditorComponentModel = null,
+    public name: string = 'cell',
+    public icon: string = ''
   ) {}
 
   toEditorModel(cellModel: CellModel): EditorCellModel {

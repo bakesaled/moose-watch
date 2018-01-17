@@ -3,16 +3,10 @@
     <h3>
       Tool Panel
     </h3>
-    <mat-list-item>
-      <div dnd-draggable dragData="MwGridComponent">
-        <mat-icon>grid_on</mat-icon>
-        grid
-      </div>
-    </mat-list-item>
-    <mat-list-item>
-      <div dnd-draggable dragData="text">
-        <mat-icon>text_fields</mat-icon>
-        text
+    <mat-list-item *ngFor="let tool of tools">
+      <div dnd-draggable [dragData]="tool.type">
+        <mat-icon>{{tool.icon}}</mat-icon>
+        {{tool.name}}
       </div>
     </mat-list-item>
   </mat-list>

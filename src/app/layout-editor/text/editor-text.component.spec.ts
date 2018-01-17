@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MwEditorTextComponent } from './editor-text.component';
 import { DndModule } from 'ng2-dnd';
+import { SelectionTagModule } from '../../shared/selection-tag/selection-tag.module';
 
 describe('MwEditorTextComponent', () => {
   let component: MwEditorTextComponent;
@@ -10,7 +11,7 @@ describe('MwEditorTextComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        imports: [DndModule.forRoot()],
+        imports: [DndModule.forRoot(), SelectionTagModule],
         declarations: [MwEditorTextComponent]
       }).compileComponents();
     })

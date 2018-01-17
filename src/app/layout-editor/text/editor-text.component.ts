@@ -17,6 +17,8 @@ import { EditorTextModel } from '../../core/models';
 })
 export class MwEditorTextComponent implements OnInit, MwEditorComponent {
   @HostBinding('class.mw-editor-text') editorTextClass = true;
+  // @HostBinding('attr.dnd-draggable') draggable = true;
+  // @HostBinding('drag-data') dragData;
 
   private textModel: EditorTextModel;
 
@@ -27,6 +29,7 @@ export class MwEditorTextComponent implements OnInit, MwEditorComponent {
   set model(newValue: EditorTextModel) {
     this.textModel = newValue;
     this.model.value = '[text]';
+    // this.dragData = this.model.id;
     console.log('newValue', newValue);
     this.changeDetector.markForCheck();
   }

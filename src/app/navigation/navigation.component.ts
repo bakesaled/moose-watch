@@ -50,19 +50,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.push(
-      this.messageService.channel(WorkAreaMessage).subscribe(msg => {
-        switch (msg.command) {
-          case Command.edit:
-            console.log('edit command');
-            this.loadNavItems();
-            break;
-          case Command.delete:
-            console.log('delete command');
-            this.loadNavItems();
-            this.router.navigate(['/']);
-            break;
-        }
-      })
+      this.messageService
+        .channel(WorkAreaMessage)
+        .subscribe(msg => this.handleWorkAreaMessage(msg))
     );
     this.loadNavItems();
   }
@@ -86,6 +76,25 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.layoutEditListSubject.next(storageModel);
     if (model) {
       this.layoutViewListSubject.next(model);
+    }
+  }
+
+  private handleWorkAreaMessage(msg) {
+    switch (msg.command) {
+      case Command.edit:
+        console.log('edit command');
+        this.loadNavItems();
+        if (msg.data) {
+          this.router.navigate(['/layout-editor/' + msg.data.id], {
+            queryParams: { name: msg.data.name }
+          });
+        }
+        break;
+      case Command.delete:
+        console.log('delete command');
+        this.loadNavItems();
+        this.router.navigate(['/']);
+        break;
     }
   }
 }

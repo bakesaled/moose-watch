@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -7,7 +6,6 @@ import {
   HostBinding,
   Input,
   OnInit,
-  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 
@@ -18,7 +16,7 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectionTagComponent implements OnInit, AfterViewInit {
+export class SelectionTagComponent implements OnInit {
   private parentEl: HTMLElement;
 
   @HostBinding('class.mw-selection-tag') selectionTagClass = true;
@@ -39,25 +37,33 @@ export class SelectionTagComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.parentEl = this.el.nativeElement.parentElement;
-    this.parentEl.onmouseenter = () => {
-      this.visible = true;
+    this.parentEl.onmouseenter = (event: MouseEvent) => {
+      const parentRect: any = this.parentEl.getBoundingClientRect();
+
+      // adjust for border
+      parentRect.width = parentRect.width - 2;
+      parentRect.height = parentRect.height - 2;
+
+      this.borderRect = parentRect;
+      if (event.target === this.parentEl) {
+        this.visible = true;
+      }
       this.changeDetector.markForCheck();
     };
-    this.parentEl.onmouseleave = () => {
-      this.visible = false;
+    this.parentEl.onmouseout = (event: MouseEvent) => {
+      let found = false;
+      for (let i = 0; i < this.parentEl.children.length; i++) {
+        if (event.target === this.parentEl.children[i]) {
+          found = true;
+          break;
+        }
+      }
+      if (found && event.toElement === this.parentEl) {
+        this.visible = true;
+      } else {
+        this.visible = false;
+      }
       this.changeDetector.markForCheck();
     };
-  }
-
-  ngAfterViewInit() {
-    const parentRect: any = this.parentEl.getBoundingClientRect();
-
-    // adjust for border
-    parentRect.width = parentRect.width - 2;
-    parentRect.height = parentRect.height - 2;
-
-    this.borderRect = parentRect;
-    this.changeDetector.markForCheck();
-    this.changeDetector.detectChanges();
   }
 }

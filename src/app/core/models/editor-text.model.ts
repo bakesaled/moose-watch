@@ -7,7 +7,9 @@ export class EditorTextModel implements MwEditorComponentModel {
   constructor(
     public id: string = Guid.create(),
     public value: string = '[text]',
-    public type: string = 'MwEditorTextComponent'
+    public name: string = 'Text',
+    public type: string = 'MwEditorTextComponent',
+    public icon: string = 'text_fields'
   ) {}
 
   toEditorModel(textModel: TextModel): EditorTextModel {

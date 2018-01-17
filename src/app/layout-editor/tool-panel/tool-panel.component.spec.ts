@@ -7,6 +7,7 @@ import {
   MatSidenavModule
 } from '@angular/material';
 import { MessageService } from '../../core/services';
+import { DndModule } from 'ng2-dnd';
 
 describe('MwToolPanelComponent', () => {
   let component: MwToolPanelComponent;
@@ -16,7 +17,12 @@ describe('MwToolPanelComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [MwToolPanelComponent],
-        imports: [MatIconModule, MatSidenavModule, MatListModule],
+        imports: [
+          MatIconModule,
+          MatSidenavModule,
+          MatListModule,
+          DndModule.forRoot()
+        ],
         providers: [MessageService]
       }).compileComponents();
     })

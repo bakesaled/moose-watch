@@ -52,12 +52,12 @@ describe('SelectionTagComponent', () => {
     expect(icon.textContent).toContain('delete');
   });
 
-  it('should show/hide on mouse enter/leave', () => {
+  it('should show/hide on mouse over/out', () => {
     let elem = fixture.nativeElement.querySelector('.mw-selection-tag');
     let styles = getComputedStyle(elem);
     expect(styles.display).toContain('none');
 
-    let event = new Event('mouseenter');
+    let event = new MouseEvent('mouseenter');
     const parentElem = fixture.nativeElement.querySelector('.parentElem');
     parentElem.dispatchEvent(event);
     fixture.detectChanges();
@@ -66,7 +66,7 @@ describe('SelectionTagComponent', () => {
     styles = getComputedStyle(elem);
     expect(styles.display).toContain('block');
 
-    event = new Event('mouseleave');
+    event = new MouseEvent('mouseout');
     parentElem.dispatchEvent(event);
     fixture.detectChanges();
 

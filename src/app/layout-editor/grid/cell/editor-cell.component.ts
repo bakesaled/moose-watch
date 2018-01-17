@@ -22,6 +22,7 @@ import { EditorCellMessage } from '../../../core/messages/editor-cell.message';
 import { ToolPanelMessage } from '../../../core';
 import { Subscription } from 'rxjs/Subscription';
 import { MwFactoryComponent } from '../../../../lib/factory/factory.component';
+import { MwEditorTextComponent } from '../../text';
 
 @Component({
   selector: 'mw-editor-cell',
@@ -88,7 +89,7 @@ export class MwEditorCellComponent
   handleDrop(event: DropEvent) {
     console.log('cell drop', event);
     switch (event.dragData) {
-      case 'text':
+      case MwEditorTextComponent.name:
         this.model.component = new EditorTextModel();
         break;
     }

@@ -79,7 +79,8 @@ describe('MwWorkAreaComponent', () => {
     const savedLayout = JSON.parse(localStorage.getItem('testId'));
     expect(savedLayout).toBeTruthy();
     expect(spy).toHaveBeenCalledWith(WorkAreaMessage, {
-      command: Command.edit
+      command: Command.edit,
+      data: { id: 'testId', name: 'new-layout-0' }
     });
   });
 

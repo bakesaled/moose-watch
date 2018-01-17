@@ -10,7 +10,12 @@ import { MwComponentModel } from '../../../../lib/core/interfaces/mw-component.m
 import { Command } from '../../../core/enums';
 
 class MockComponent implements MwEditorComponentModel {
-  constructor(public id: string = 'testId', public type: string = '') {}
+  constructor(
+    public id: string = 'testId',
+    public type: string = '',
+    public name: string = 'mock',
+    public icon: string = 'mock_icon'
+  ) {}
 
   toEditorModel(model: MwComponentModel) {
     return this;
