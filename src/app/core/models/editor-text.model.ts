@@ -1,10 +1,11 @@
 import { TextModel } from '../../../lib/core/models/text.model';
 import { MwEditorComponentModel } from '../interfaces/';
 import { MwTextComponent } from '../../../lib/text/text.component';
+import { Guid } from '../utils';
 
 export class EditorTextModel implements MwEditorComponentModel {
   constructor(
-    public id: string = 'NONE',
+    public id: string = Guid.create(),
     public value: string = '[text]',
     public type: string = 'MwEditorTextComponent'
   ) {}

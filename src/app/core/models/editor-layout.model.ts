@@ -3,10 +3,11 @@ import { EditorGridModel } from './editor-grid.model';
 import { LayoutModel } from '../../../lib/core/models/layout.model';
 import { MwEditorComponentModel } from '../interfaces';
 import { MwLayoutComponent } from '../../../lib/layout/layout.component';
+import { Guid } from '../utils';
 
 export class EditorLayoutModel implements MwEditorComponentModel {
   constructor(
-    public id: string = 'NONE',
+    public id: string = Guid.create(),
     public name: string = 'NO_NAME',
     public isNew: boolean = true,
     public grid: EditorGridModel = null,

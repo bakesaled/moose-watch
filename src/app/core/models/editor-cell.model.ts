@@ -4,10 +4,11 @@ import { MwTextComponent } from '../../../lib/text/text.component';
 import { EditorTextModel } from './editor-text.model';
 import { TextModel } from '../../../lib/core/models/text.model';
 import { MwCellComponent } from '../../../lib/grid/cell/cell.component';
+import { Guid } from '../utils';
 
 export class EditorCellModel implements MwEditorComponentModel {
   constructor(
-    public id: string = 'NONE',
+    public id: string = Guid.create(),
     public width: number = 0,
     public backgroundColor?: string,
     public margin: number = 0,

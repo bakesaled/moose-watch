@@ -2,10 +2,11 @@ import { EditorCellModel } from './editor-cell.model';
 import { GridModel } from '../../../lib/core/models/grid.model';
 import { MwEditorComponentModel } from '../interfaces';
 import { MwGridComponent } from '../../../lib/grid/grid.component';
+import { Guid } from '../utils';
 
 export class EditorGridModel implements MwEditorComponentModel {
   constructor(
-    public id: string = 'NONE',
+    public id: string = Guid.create(),
     public cells: EditorCellModel[] = [],
     public backgroundColor: string = '',
     public type: string = 'MwEditorGridComponent'
