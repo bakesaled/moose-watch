@@ -1,4 +1,4 @@
-<div class="mw-editor-text-drag-handle" dnd-draggable [dragData]="model.id" (click)="onclick($event)">
+<div class="mw-editor-text-drag-handle" dnd-draggable [dragData]="model.id" (click)="onclick()">
   <mw-selection-tag [icon]="model.icon" [selected]="selected">{{model.name}}</mw-selection-tag>
   {{ model.value }}
 </div>
