@@ -1,10 +1,10 @@
 import { CellModel } from '../../../lib/core/models/cell.model';
-import { MwEditorComponentModel } from '../interfaces';
+import { MwEditorComponentModel } from '../../core/interfaces';
 import { MwTextComponent } from '../../../lib/text/text.component';
 import { EditorTextModel } from './editor-text.model';
 import { TextModel } from '../../../lib/core/models/text.model';
 import { MwCellComponent } from '../../../lib/grid/cell/cell.component';
-import { Guid } from '../utils';
+import { Guid } from '../../core/utils';
 
 export class EditorCellModel implements MwEditorComponentModel {
   constructor(

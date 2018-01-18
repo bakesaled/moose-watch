@@ -8,7 +8,7 @@ import { DropEvent, MwEditorComponentModel } from '../../core/interfaces';
 import { MessageService } from '../../core/services';
 import { ToolPanelMessage } from '../../core';
 import { Command } from '../../core/enums';
-import { EditorGridModel, EditorTextModel } from '../../core/models';
+import { EditorGridModel, EditorTextModel } from '../models';
 
 @Component({
   selector: 'mw-tool-panel',

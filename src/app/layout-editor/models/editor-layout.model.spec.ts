@@ -5,7 +5,6 @@ import { GridModel } from '../../../lib/core/models/grid.model';
 import { EditorGridModel } from './editor-grid.model';
 import { MwGridComponent } from '../../../lib/grid/grid.component';
 import { EditorCellModel } from './editor-cell.model';
-import { MwEditorGridComponent } from '../../layout-editor/grid';
 
 describe('EditorLayoutModel', () => {
   let model: EditorLayoutModel;
@@ -37,7 +36,7 @@ describe('EditorLayoutModel', () => {
       gridModel.id,
       [new EditorCellModel('NONE'), new EditorCellModel('NONE')],
       gridModel.backgroundColor,
-      MwEditorGridComponent.name,
+      'MwEditorGridComponent',
       'Grid',
       'grid_on'
     );

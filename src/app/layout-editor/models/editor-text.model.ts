@@ -1,7 +1,7 @@
 import { TextModel } from '../../../lib/core/models/text.model';
-import { MwEditorComponentModel } from '../interfaces/';
+import { MwEditorComponentModel } from '../../core/interfaces';
 import { MwTextComponent } from '../../../lib/text/text.component';
-import { Guid } from '../utils';
+import { Guid } from '../../core/utils';
 
 export class EditorTextModel implements MwEditorComponentModel {
   constructor(

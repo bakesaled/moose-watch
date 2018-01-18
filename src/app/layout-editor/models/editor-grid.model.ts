@@ -1,8 +1,8 @@
 import { EditorCellModel } from './editor-cell.model';
 import { GridModel } from '../../../lib/core/models/grid.model';
-import { MwEditorComponentModel } from '../interfaces';
+import { MwEditorComponentModel } from '../../core/interfaces';
 import { MwGridComponent } from '../../../lib/grid/grid.component';
-import { Guid } from '../utils';
+import { Guid } from '../../core/utils';
 
 export class EditorGridModel implements MwEditorComponentModel {
   constructor(

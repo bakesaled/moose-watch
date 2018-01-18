@@ -29,11 +29,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/combineLatest';
 import { LayoutService } from '../../../lib/layout/layout.service';
-import {
-  EditorCellModel,
-  EditorGridModel,
-  EditorLayoutModel
-} from '../../core/models';
+import { EditorCellModel, EditorGridModel, EditorLayoutModel } from '../models';
 import { EditorCellMessage } from '../../core/messages/editor-cell.message';
 import { ToolbarMessage } from '../../core/messages/toolbar.message';
 import { Constants, ToolPanelMessage } from '../../core';

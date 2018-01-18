@@ -1,9 +1,9 @@
 import { MwNoComponent } from '../../../lib/no-component/no.component';
 import { EditorGridModel } from './editor-grid.model';
 import { LayoutModel } from '../../../lib/core/models/layout.model';
-import { MwEditorComponentModel } from '../interfaces';
+import { MwEditorComponentModel } from '../../core/interfaces';
 import { MwLayoutComponent } from '../../../lib/layout/layout.component';
-import { Guid } from '../utils';
+import { Guid } from '../../core/utils';
 import { MwGridComponent } from '../../../lib/grid/grid.component';
 import { GridModel } from '../../../lib/core/models/grid.model';
 

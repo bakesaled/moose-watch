@@ -15,7 +15,7 @@ import {
 import { MwEditorCellComponent } from './cell';
 import { MwEditorComponent } from '../../core/interfaces';
 import { FlexLayoutShimService } from '../../../lib/core/services/flex-layout-shim.service';
-import { EditorGridModel } from '../../core/models';
+import { EditorGridModel } from '../models';
 
 @Component({
   selector: 'mw-editor-grid',

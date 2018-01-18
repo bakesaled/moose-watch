@@ -6,6 +6,10 @@ import { MwToolPanelModule } from './tool-panel/tool-panel.module';
 import { MwWorkAreaModule } from './work-area/work-area.module';
 import { LayoutEditorComponent } from './layout-editor.component';
 import { MwEditorTextModule } from './text/editor-text.module';
+import { LayoutEditorRoutingModule } from './layout-editor-routing.module';
+import { MwEditorTextComponent } from './text';
+import { MwComponentRegistry } from '../../lib/factory/component-registry';
+import { MwEditorGridComponent } from './grid';
 
 @NgModule({
   declarations: [LayoutEditorComponent],
@@ -15,7 +19,8 @@ import { MwEditorTextModule } from './text/editor-text.module';
     MwEditorGridModule,
     MwEditorTextModule,
     MwToolPanelModule,
-    MwWorkAreaModule
+    MwWorkAreaModule,
+    LayoutEditorRoutingModule
   ],
   exports: [
     LayoutEditorComponent,
@@ -25,4 +30,12 @@ import { MwEditorTextModule } from './text/editor-text.module';
     MwWorkAreaModule
   ]
 })
-export class LayoutEditorModule {}
+export class LayoutEditorModule {
+  constructor() {
+    // Build custom component registry for editor components
+    MwComponentRegistry.custom = {
+      MwEditorGridComponent: MwEditorGridComponent,
+      MwEditorTextComponent: MwEditorTextComponent
+    };
+  }
+}

@@ -1,6 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutViewerComponent } from './layout-viewer/layout-viewer.component';
-import { LayoutEditorComponent } from './layout-editor';
 import { LandingComponent } from './landing/landing.component';
 import { NgModule } from '@angular/core';
 import { LayoutPreLoadResolver } from './core/resolvers/layout-pre-load.resolver';
@@ -19,7 +18,7 @@ const APP_ROUTES: Routes = [
   },
   {
     path: 'layout-editor/:id',
-    component: LayoutEditorComponent,
+    loadChildren: 'app/layout-editor/layout-editor.module#LayoutEditorModule',
     resolve: { loaded: LayoutPreLoadResolver, layout: LayoutResolver }
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }

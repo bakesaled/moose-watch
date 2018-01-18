@@ -7,9 +7,8 @@ import { CoreModule } from './core/core.module';
 import { NavigationModule } from './navigation/navigation.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
-import { AppRoutingModule } from './app.routing';
+import { AppRoutingModule } from './app-routing.module';
 import { LayoutViewerModule } from './layout-viewer/layout-viewer.module';
-import { LayoutEditorModule } from './layout-editor/layout-editor.module';
 import { LandingModule } from './landing/landing.module';
 import { ToolbarModule } from './toolbar/toolbar.module';
 
@@ -23,7 +22,6 @@ import { ToolbarModule } from './toolbar/toolbar.module';
     SharedModule,
     NavigationModule,
     LayoutViewerModule,
-    LayoutEditorModule,
     LandingModule,
     ToolbarModule,
     AppRoutingModule

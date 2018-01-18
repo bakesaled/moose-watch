@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 import { DropEvent, MwEditorComponent } from '../../../core/interfaces';
 import { FlexLayoutShimService } from '../../../../lib/core/services/flex-layout-shim.service';
-import { EditorCellModel, EditorTextModel } from '../../../core/models';
+import { EditorCellModel, EditorTextModel } from '../../models';
 import { Command } from '../../../core/enums';
 import { MessageService } from '../../../core/services';
 import { EditorCellMessage } from '../../../core/messages/editor-cell.message';

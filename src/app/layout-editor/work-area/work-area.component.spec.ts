@@ -21,7 +21,7 @@ import { WorkAreaMessage } from '../../core/messages/work-area.message';
 import { MwEditorGridComponent } from '../grid';
 import { MockEditorComponent } from '../../core/mocks/editor-component.mock';
 import { Guid } from '../../core/utils';
-import { EditorCellModel, EditorGridModel } from '../../core/models';
+import { EditorCellModel, EditorGridModel } from '../models';
 
 describe('MwWorkAreaComponent', () => {
   let component: MwWorkAreaComponent;

@@ -1,21 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { MwEditorGridComponent } from './layout-editor/grid';
-import { MwComponentRegistry } from '../lib/factory/component-registry';
-import { MwEditorTextComponent } from './layout-editor/text';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'mw-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   constructor() {}
-
-  ngOnInit() {
-    // Build custom component registry for editor components
-    MwComponentRegistry.custom = {
-      MwEditorGridComponent: MwEditorGridComponent,
-      MwEditorTextComponent: MwEditorTextComponent
-    };
-  }
 }
