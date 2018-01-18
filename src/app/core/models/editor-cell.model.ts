@@ -29,6 +29,12 @@ export class EditorCellModel implements MwEditorComponentModel {
             <TextModel>cellModel.component
           );
           break;
+        default:
+          throw new Error(
+            `Component type '${
+              cellModel.component.type
+            }' is not supported by cell.`
+          );
       }
     }
     return this;

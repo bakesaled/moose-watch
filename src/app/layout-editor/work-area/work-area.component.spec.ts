@@ -18,6 +18,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Command } from '../../core/enums';
 import { WorkAreaMessage } from '../../core/messages/work-area.message';
+import { MwEditorGridComponent } from '../grid';
+import { MockEditorComponent } from '../../core/mocks/editor-component.mock';
 
 describe('MwWorkAreaComponent', () => {
   let component: MwWorkAreaComponent;
@@ -101,5 +103,17 @@ describe('MwWorkAreaComponent', () => {
     expect(spy).toHaveBeenCalledWith(WorkAreaMessage, {
       command: Command.delete
     });
+  });
+
+  it('should delete component', () => {
+    const mockComponent = new MockEditorComponent();
+    component.layoutModel.component = mockComponent;
+    component.handleToolPanelMessage({
+      command: Command.delete,
+      data: {
+        componentId: 'testId'
+      }
+    });
+    expect(component.layoutModel.component).toBeUndefined();
   });
 });

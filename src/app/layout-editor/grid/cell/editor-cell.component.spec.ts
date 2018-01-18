@@ -5,28 +5,8 @@ import { FlexLayoutShimService } from '../../../../lib/core/services/flex-layout
 import { MwFactoryComponent } from '../../../../lib/factory/factory.component';
 import { ComponentFactoryService } from '../../../../lib/factory/component-factory.service';
 import { MessageService } from '../../../core/services';
-import { MwEditorComponentModel } from '../../../core/interfaces';
-import { MwComponentModel } from '../../../../lib/core/interfaces/mw-component.model';
 import { Command } from '../../../core/enums';
-
-class MockComponent implements MwEditorComponentModel {
-  constructor(
-    public id: string = 'testId',
-    public type: string = '',
-    public name: string = 'mock',
-    public icon: string = 'mock_icon'
-  ) {}
-
-  toEditorModel(model: MwComponentModel) {
-    return this;
-  }
-  toViewerModel() {
-    return {
-      id: '',
-      type: ''
-    };
-  }
-}
+import { MockEditorComponent } from '../../../core/mocks/editor-component.mock';
 
 describe('MwEditorCellComponent', () => {
   let component: MwEditorCellComponent;
@@ -56,7 +36,7 @@ describe('MwEditorCellComponent', () => {
   });
 
   it('should delete component', () => {
-    component.model.component = new MockComponent();
+    component.model.component = new MockEditorComponent();
     component.handleToolPanelMessage({
       command: Command.delete,
       data: {

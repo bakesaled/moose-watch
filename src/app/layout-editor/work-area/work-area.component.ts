@@ -36,9 +36,10 @@ import {
 } from '../../core/models';
 import { EditorCellMessage } from '../../core/messages/editor-cell.message';
 import { ToolbarMessage } from '../../core/messages/toolbar.message';
-import { Constants } from '../../core';
+import { Constants, ToolPanelMessage } from '../../core';
 import { Guid } from '../../core/utils';
 import { MwEditorGridComponent } from '../grid';
+import { MwFactoryComponent } from '../../../lib/factory/factory.component';
 
 @Component({
   selector: 'mw-work-area',
@@ -59,6 +60,8 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   allowedDropType = MwEditorGridComponent.name;
   layoutModel: EditorLayoutModel;
 
+  @ViewChild(MwFactoryComponent) factoryComponent: MwFactoryComponent;
+
   constructor(
     @Inject(ComponentFactoryResolver)
     private factoryResolver: ComponentFactoryResolver,
@@ -73,6 +76,9 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscriptions.push(
       this.route.data.subscribe((data: { layout: LayoutModel }) => {
+        if (this.factoryComponent) {
+          this.factoryComponent.destroyComponent();
+        }
         const editorLayoutModel = new EditorLayoutModel().toEditorModel(
           data.layout
         );
@@ -81,21 +87,11 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
       })
     );
 
-    // this.subscriptions.push(
-    //   this.messageService.channel(ToolPanelMessage).subscribe(msg => {
-    //     console.log('toolpanel msg', msg);
-    //     let indexToDelete = -1;
-    //     for (let i = 0; i < this.layoutModel.grid.cells.length; i++) {
-    //       const cell = this.layoutModel.grid.cells[i];
-    //       console.log('check delete', cell.id, msg.data.parentId);
-    //       if (cell.id === msg.data.parentId) {
-    //         indexToDelete = i;
-    //         break;
-    //       }
-    //     }
-    //     this.layoutModel.grid.cells.splice(indexToDelete, 1);
-    //   })
-    // );
+    this.subscriptions.push(
+      this.messageService
+        .channel(ToolPanelMessage)
+        .subscribe(msg => this.handleToolPanelMessage(msg))
+    );
 
     this.subscriptions.push(
       this.messageService.channel(EditorCellMessage).subscribe(msg => {
@@ -127,7 +123,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
         new EditorCellModel(Guid.create(), 50),
         new EditorCellModel(Guid.create(), 50)
       ];
-      this.layoutModel.grid = grid;
+      this.layoutModel.component = grid;
       this.changeDetector.markForCheck();
       this.save();
     }
@@ -169,6 +165,29 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
       this.messageService.publish(WorkAreaMessage, {
         command: Command.delete
       });
+    }
+  }
+
+  handleToolPanelMessage(msg: ToolPanelMessage) {
+    console.log('toolpanel msg', msg, this.layoutModel.component);
+    if (msg.command === Command.delete) {
+      if (
+        this.layoutModel.component &&
+        this.layoutModel.component.id === msg.data.componentId
+      ) {
+        this.layoutModel.component = undefined;
+        if (this.factoryComponent) {
+          this.factoryComponent.destroyComponent();
+        }
+        this.changeDetector.markForCheck();
+
+        console.log(
+          'delete layout component',
+          this.layoutModel.component,
+          msg.data.componentId
+        );
+        this.save();
+      }
     }
   }
 }

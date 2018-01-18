@@ -97,7 +97,6 @@ export class MwEditorCellComponent
       command: Command.drop,
       data: event
     });
-    // this.dropSuccessEmitter.emit(event);
   }
 
   handleToolPanelMessage(msg: ToolPanelMessage) {
@@ -111,7 +110,11 @@ export class MwEditorCellComponent
         this.factoryComponent.destroyComponent();
         this.changeDetector.markForCheck();
 
-        console.log('delete', this.model.component, msg.data.componentId);
+        console.log(
+          'delete cell component',
+          this.model.component,
+          msg.data.componentId
+        );
         this.messageService.publish(EditorCellMessage, {
           command: Command.delete
         });

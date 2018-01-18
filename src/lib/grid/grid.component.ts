@@ -36,8 +36,10 @@ export class MwGridComponent implements OnChanges, MwComponent, AfterViewInit {
   }
   set model(value: GridModel) {
     this.gridModel = value;
-    this.style = this.flexShim.getStyle('fxLayout', 'row');
-    this.backgroundColor = this.gridModel.backgroundColor;
+    if (this.gridModel) {
+      this.style = this.flexShim.getStyle('fxLayout', 'row');
+      this.backgroundColor = this.gridModel.backgroundColor;
+    }
   }
 
   @HostBinding('attr.fxLayout') fxLayout = 'row';

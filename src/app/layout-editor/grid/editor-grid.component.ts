@@ -27,11 +27,11 @@ import { EditorGridModel } from '../../core/models';
 export class MwEditorGridComponent
   implements OnInit, AfterViewInit, MwEditorComponent {
   @HostBinding('class.mw-editor-grid') editorGridClass = true;
-  @HostBinding('attr.fxLayout') fxLayout = 'row';
-  @HostBinding('attr.style') style;
   @HostBinding('style.backgroundColor') backgroundColor;
-  @HostBinding('attr.data-before')
-  dataBefore = '<i class="material-icons">accessibility</i>Grid';
+
+  fxLayout = 'row';
+  style;
+  dragEnabled = false;
 
   private gridModel: EditorGridModel;
 
@@ -65,5 +65,13 @@ export class MwEditorGridComponent
 
   ngAfterViewInit() {
     this.afterViewInitEmitter.emit();
+  }
+
+  onMouseEnter() {
+    this.dragEnabled = true;
+  }
+
+  onMouseOut() {
+    this.dragEnabled = false;
   }
 }
