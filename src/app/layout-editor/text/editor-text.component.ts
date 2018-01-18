@@ -20,6 +20,8 @@ export class MwEditorTextComponent implements OnInit, MwEditorComponent {
 
   private textModel: EditorTextModel;
 
+  selected = false;
+
   @Input()
   get model(): EditorTextModel {
     return this.textModel;
@@ -37,5 +39,10 @@ export class MwEditorTextComponent implements OnInit, MwEditorComponent {
     if (!this.model) {
       this.model = new EditorTextModel();
     }
+  }
+
+  onclick() {
+    this.selected = !this.selected;
+    this.changeDetector.markForCheck();
   }
 }

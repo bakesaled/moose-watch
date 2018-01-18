@@ -20,6 +20,8 @@ import { Command } from '../../core/enums';
 import { WorkAreaMessage } from '../../core/messages/work-area.message';
 import { MwEditorGridComponent } from '../grid';
 import { MockEditorComponent } from '../../core/mocks/editor-component.mock';
+import { Guid } from '../../core/utils';
+import { EditorCellModel, EditorGridModel } from '../../core/models';
 
 describe('MwWorkAreaComponent', () => {
   let component: MwWorkAreaComponent;
@@ -115,5 +117,21 @@ describe('MwWorkAreaComponent', () => {
       }
     });
     expect(component.layoutModel.component).toBeUndefined();
+  });
+
+  it('should assign dropped grid to layout', () => {
+    const dropEvent: any = {
+      dragEvent: DragEvent,
+      dragData: MwEditorGridComponent.name
+    };
+    component.handleDrop(dropEvent);
+    const grid = new EditorGridModel();
+    grid.cells = [
+      new EditorCellModel(Guid.create(), 50),
+      new EditorCellModel(Guid.create(), 50)
+    ];
+    expect(component.layoutModel.component.type).toBe(
+      MwEditorGridComponent.name
+    );
   });
 });

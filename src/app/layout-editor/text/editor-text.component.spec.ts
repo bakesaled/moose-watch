@@ -26,4 +26,22 @@ describe('MwEditorTextComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should be selected when clicked', () => {
+    expect(component.selected).toBeFalsy();
+    const el = fixture.nativeElement.querySelector(
+      '.mw-editor-text-drag-handle'
+    );
+    event = new MouseEvent('click');
+    el.dispatchEvent(event);
+    fixture.detectChanges();
+
+    expect(component.selected).toBeTruthy();
+
+    event = new MouseEvent('click');
+    el.dispatchEvent(event);
+    fixture.detectChanges();
+
+    expect(component.selected).toBeFalsy();
+  });
 });

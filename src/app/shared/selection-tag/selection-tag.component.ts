@@ -24,6 +24,8 @@ export class SelectionTagComponent implements OnInit {
   @Input()
   visible: boolean;
 
+  @Input() selected: boolean;
+
   @Input() icon: string;
 
   @Input() text: string;
@@ -38,11 +40,13 @@ export class SelectionTagComponent implements OnInit {
   ngOnInit() {
     this.parentEl = this.el.nativeElement.parentElement;
     this.parentEl.onmouseenter = (event: MouseEvent) => {
+      if (this.selected) {
+        return;
+      }
       const parentRect: any = this.parentEl.getBoundingClientRect();
 
-      // adjust for border
-      parentRect.width = parentRect.width - 2;
-      parentRect.height = parentRect.height - 2;
+      parentRect.width = parentRect.width;
+      parentRect.height = parentRect.height;
 
       this.borderRect = parentRect;
       if (event.target === this.parentEl) {
@@ -51,6 +55,9 @@ export class SelectionTagComponent implements OnInit {
       this.changeDetector.markForCheck();
     };
     this.parentEl.onmouseout = (event: MouseEvent) => {
+      if (this.selected) {
+        return;
+      }
       let found = false;
       for (let i = 0; i < this.parentEl.children.length; i++) {
         if (event.target === this.parentEl.children[i]) {

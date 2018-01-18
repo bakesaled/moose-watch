@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SelectionTagComponent } from './selection-tag.component';
 import { SelectionTagModule } from './selection-tag.module';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   template: `
@@ -13,6 +13,8 @@ import { Component } from '@angular/core';
 })
 class SelectionTagTestComponent {
   icon: string;
+  @ViewChild(SelectionTagComponent)
+  selectionTagComponent: SelectionTagComponent;
 }
 
 describe('SelectionTagComponent', () => {
@@ -73,5 +75,17 @@ describe('SelectionTagComponent', () => {
     elem = fixture.nativeElement.querySelector('.mw-selection-tag');
     styles = getComputedStyle(elem);
     expect(styles.display).toContain('none');
+  });
+
+  it('should not hide on mouseout when selected', () => {
+    const parentElem = fixture.nativeElement.querySelector('.parentElem');
+    const originalVisible = component.selectionTagComponent.visible;
+
+    component.selectionTagComponent.selected = true;
+    fixture.detectChanges();
+    event = new MouseEvent('mouseout');
+    parentElem.dispatchEvent(event);
+    fixture.detectChanges();
+    expect(component.selectionTagComponent.visible).toBe(originalVisible);
   });
 });
