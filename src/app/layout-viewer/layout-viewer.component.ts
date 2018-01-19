@@ -3,15 +3,12 @@ import {
   ChangeDetectorRef,
   Component,
   HostBinding,
-  OnChanges,
   OnDestroy,
   OnInit,
-  SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LayoutModel } from '../../lib/core/models/layout.model';
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -21,7 +18,7 @@ import { Subscription } from 'rxjs/Subscription';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LayoutViewerComponent implements OnInit, OnChanges, OnDestroy {
+export class LayoutViewerComponent implements OnInit, OnDestroy {
   @HostBinding('class.mw-layout-viewer') layoutViewerClass = true;
 
   private subscriptions: Subscription[] = [];
@@ -35,17 +32,10 @@ export class LayoutViewerComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit() {
     this.subscriptions.push(
       this.route.data.subscribe((data: { layout: LayoutModel }) => {
-        console.log('new layout model', data);
         this.layoutModel = data.layout;
         this.changeDetector.markForCheck();
       })
     );
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    console.log('changes', changes);
-    if (changes.layout && changes.layout.currentValue) {
-    }
   }
 
   ngOnDestroy() {
