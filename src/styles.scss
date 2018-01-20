@@ -1,7 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-// Removed '~' per @angular/cli issue:
-// https://github.com/angular/angular-cli/issues/9185
-@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 // Not sure why this breaks dnd with dynamic components
 //@import "ng2-dnd/bundles/style.css";

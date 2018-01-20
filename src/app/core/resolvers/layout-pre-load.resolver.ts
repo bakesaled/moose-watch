@@ -8,7 +8,8 @@ import {
   RouterStateSnapshot
 } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/of';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class LayoutPreLoadResolver implements Resolve<any> {
@@ -26,19 +27,21 @@ export class LayoutPreLoadResolver implements Resolve<any> {
   }
 
   preloadDefaultLayouts() {
-    return this.layoutListService.loadFromFileSystem().map(list => {
-      list.items.forEach(item => {
-        this.layoutService
-          .loadFromFileSystem(
-            new LayoutModel(item.id, item.name),
-            './assets/layouts/'
-          )
-          .subscribe(layout => {
-            console.log('got it', localStorage.getItem('layout-list'));
-            this.saveService.save(layout);
-            return Observable.of(null);
-          });
-      });
-    });
+    return this.layoutListService.loadFromFileSystem().pipe(
+      map(list => {
+        list.items.forEach(item => {
+          this.layoutService
+            .loadFromFileSystem(
+              new LayoutModel(item.id, item.name),
+              './assets/layouts/'
+            )
+            .subscribe(layout => {
+              console.log('got it', localStorage.getItem('layout-list'));
+              this.saveService.save(layout);
+              return Observable.of(null);
+            });
+        });
+      })
+    );
   }
 }

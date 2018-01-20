@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LayoutModel } from '../core/models/layout.model';
-import 'rxjs/add/observable/of';
 import { LocalStorageService } from '../core/services/local-storage.service';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class LayoutService {
@@ -20,7 +20,10 @@ export class LayoutService {
     }
   }
 
-  loadFromFileSystem(layout: LayoutModel, baseUrl: string = '') {
+  loadFromFileSystem(
+    layout: LayoutModel,
+    baseUrl: string = ''
+  ): Observable<LayoutModel> {
     return this.http.get<LayoutModel>(`${baseUrl + layout.name}.json`);
   }
 }
