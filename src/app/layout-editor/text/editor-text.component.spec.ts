@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MwEditorTextComponent } from './editor-text.component';
 import { DndModule } from 'ng2-dnd';
-import { SelectionTagModule } from '../../shared/selection-tag/selection-tag.module';
+import { SelectionTagModule } from '../selection-tag/selection-tag.module';
 
 describe('MwEditorTextComponent', () => {
   let component: MwEditorTextComponent;

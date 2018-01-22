@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MwEditorGridComponent } from './editor-grid.component';
 import { MwEditorCellModule } from './cell/editor-cell.module';
 import { FlexLayoutShimService } from '../../../lib/core/services/flex-layout-shim.service';
-import { SelectionTagModule } from '../../shared/selection-tag/selection-tag.module';
+import { SelectionTagModule } from '../selection-tag/selection-tag.module';
 import { DndModule } from 'ng2-dnd';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
