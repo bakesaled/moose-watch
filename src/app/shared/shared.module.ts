@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DndModule } from 'ng2-dnd';
 import {
   MatButtonModule,
+  MatButtonToggleModule,
   MatIconModule,
   MatListModule,
   MatSidenavModule,
@@ -19,6 +20,7 @@ import { MwModule } from '../../lib/public.module';
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
+    MatButtonToggleModule,
     DndModule.forRoot()
   ],
   exports: [
@@ -28,6 +30,7 @@ import { MwModule } from '../../lib/public.module';
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
+    MatButtonToggleModule,
     DndModule
   ],
   entryComponents: []

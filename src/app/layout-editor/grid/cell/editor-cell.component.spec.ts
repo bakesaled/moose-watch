@@ -6,7 +6,7 @@ import { MwFactoryComponent } from '../../../../lib/factory/factory.component';
 import { ComponentFactoryService } from '../../../../lib/factory/component-factory.service';
 import { MessageService } from '../../../core/services';
 import { Command } from '../../../core/enums';
-import { MockEditorComponent } from '../../../core/mocks/editor-component.mock';
+import { MockEditorComponentModel } from '../../../core/mocks/editor-component-model.mock';
 
 describe('MwEditorCellComponent', () => {
   let component: MwEditorCellComponent;
@@ -36,7 +36,7 @@ describe('MwEditorCellComponent', () => {
   });
 
   it('should delete component', () => {
-    component.model.component = new MockEditorComponent();
+    component.model.component = new MockEditorComponentModel();
     component.handleToolPanelMessage({
       command: Command.delete,
       data: {

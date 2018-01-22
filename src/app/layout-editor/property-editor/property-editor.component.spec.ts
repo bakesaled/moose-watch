@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PropertyEditorComponent } from './property-editor.component';
 import { MessageService } from '../../core/services';
+import { MatButtonToggleModule, MatIconModule } from '@angular/material';
 
 describe('PropertyEditorComponent', () => {
   let component: PropertyEditorComponent;
@@ -11,7 +12,7 @@ describe('PropertyEditorComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [PropertyEditorComponent],
-        imports: [],
+        imports: [MatIconModule, MatButtonToggleModule],
         providers: [MessageService]
       }).compileComponents();
     })

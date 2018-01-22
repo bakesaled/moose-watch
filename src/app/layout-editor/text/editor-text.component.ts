@@ -33,7 +33,7 @@ export class MwEditorTextComponent implements OnInit, MwEditorComponent {
     this.isSelected = newValue;
     this.messageService.publish(EditorComponentMessage, {
       command: Command.select,
-      data: this.model
+      data: this.isSelected ? this.model : undefined
     });
     this.changeDetector.markForCheck();
   }

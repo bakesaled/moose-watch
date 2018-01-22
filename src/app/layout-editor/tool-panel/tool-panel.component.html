@@ -12,7 +12,7 @@
     <h3>
       Properties
     </h3>
-    <mw-property-editor></mw-property-editor>
+    <mw-property-editor *ngIf="selectedComponentModel" [componentModel]="selectedComponentModel"></mw-property-editor>
   </mat-list>
   <div dnd-droppable (onDropSuccess)="handleDropSuccess($event)">
     <mat-icon class="mat-tool-panel-trash">delete</mat-icon>

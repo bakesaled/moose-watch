@@ -1,7 +1,7 @@
 import { MwEditorComponentModel } from '../interfaces';
 import { MwComponentModel } from '../../../lib/core/interfaces/mw-component.model';
 
-export class MockEditorComponent implements MwEditorComponentModel {
+export class MockEditorComponentModel implements MwEditorComponentModel {
   constructor(
     public id: string = 'testId',
     public type: string = '',

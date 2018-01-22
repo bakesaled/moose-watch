@@ -9,6 +9,8 @@ import {
 import { MessageService } from '../../core/services';
 import { DndModule } from 'ng2-dnd';
 import { PropertyEditorModule } from '../property-editor/property-editor.module';
+import { MockEditorComponentModel } from '../../core/mocks/editor-component-model.mock';
+import { Command } from '../../core/enums';
 
 describe('MwToolPanelComponent', () => {
   let component: MwToolPanelComponent;
@@ -38,5 +40,15 @@ describe('MwToolPanelComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should set selected component model', () => {
+    const mockComponentModel = new MockEditorComponentModel();
+    component.selectedComponentModel = mockComponentModel;
+    component['handleEditorComponentMessage']({
+      command: Command.select,
+      data: mockComponentModel
+    });
+    expect(component.selectedComponentModel).toBe(mockComponentModel);
   });
 });
