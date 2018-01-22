@@ -14,7 +14,7 @@ import { LayoutListModel } from '../core/models';
 import { MockLayoutListService } from '../core/mocks/layout-list-service.mock';
 import { Command } from '../core/enums';
 
-describe('SelectionTagComponent', () => {
+describe('NavigationComponent', () => {
   let component: NavigationComponent;
   let fixture: ComponentFixture<NavigationComponent>;
   let route: ActivatedRoute;

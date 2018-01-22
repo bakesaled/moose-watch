@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MwEditorTextComponent } from './editor-text.component';
 import { DndModule } from 'ng2-dnd';
 import { SelectionTagModule } from '../selection-tag/selection-tag.module';
+import { MessageService } from '../../core/services';
 
 describe('MwEditorTextComponent', () => {
   let component: MwEditorTextComponent;
@@ -12,7 +13,8 @@ describe('MwEditorTextComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         imports: [DndModule.forRoot(), SelectionTagModule],
-        declarations: [MwEditorTextComponent]
+        declarations: [MwEditorTextComponent],
+        providers: [MessageService]
       }).compileComponents();
     })
   );

@@ -8,6 +8,7 @@ import {
 } from '@angular/material';
 import { MessageService } from '../../core/services';
 import { DndModule } from 'ng2-dnd';
+import { PropertyEditorModule } from '../property-editor/property-editor.module';
 
 describe('MwToolPanelComponent', () => {
   let component: MwToolPanelComponent;
@@ -21,7 +22,8 @@ describe('MwToolPanelComponent', () => {
           MatIconModule,
           MatSidenavModule,
           MatListModule,
-          DndModule.forRoot()
+          DndModule.forRoot(),
+          PropertyEditorModule
         ],
         providers: [MessageService]
       }).compileComponents();

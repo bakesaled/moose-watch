@@ -1,7 +1,7 @@
 <div class="mat-tool-panel-container" fxLayout="column" fxLayoutAlign="space-between stretch">
   <mat-list>
     <h3>
-      Tool Panel
+      Components
     </h3>
     <mat-list-item *ngFor="let tool of tools">
       <div dnd-draggable [dragData]="tool.type">
@@ -9,6 +9,10 @@
         {{tool.name}}
       </div>
     </mat-list-item>
+    <h3>
+      Properties
+    </h3>
+    <mw-property-editor></mw-property-editor>
   </mat-list>
   <div dnd-droppable (onDropSuccess)="handleDropSuccess($event)">
     <mat-icon class="mat-tool-panel-trash">delete</mat-icon>
