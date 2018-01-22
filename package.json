@@ -42,7 +42,6 @@
     "@angular/platform-browser-dynamic": "^5.2.1",
     "@angular/router": "^5.2.1",
     "core-js": "^2.5.3",
-    "flex-layout-srcs": "github:angular/flex-layout",
     "ng2-dnd": "^5.0.2",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.20"
