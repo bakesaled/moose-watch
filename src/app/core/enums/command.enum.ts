@@ -3,5 +3,6 @@ export enum Command {
   delete,
   edit,
   drop,
-  select
+  select,
+  propertyChange
 }

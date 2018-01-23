@@ -5,6 +5,7 @@ export class TextModel implements MwComponentModel {
   constructor(
     public id: string = 'NONE',
     public value: string = '',
-    public type: string = MwNoComponent.name
+    public type: string = MwNoComponent.name,
+    public fontStyle: 'normal' | 'italic' = 'normal'
   ) {}
 }

@@ -1,3 +1,6 @@
 <form>
-  <mat-button-toggle><mat-icon>format_italic</mat-icon></mat-button-toggle>
+  <mat-button-toggle class="mw-property-editor-italic" [checked]="componentModel?.fontStyle === 'italic'"
+                     (change)="onChange($event)">
+    <mat-icon>format_italic</mat-icon>
+  </mat-button-toggle>
 </form>

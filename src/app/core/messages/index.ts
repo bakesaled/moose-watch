@@ -3,3 +3,4 @@ export * from './editor-cell.message';
 export * from './toolbar.message';
 export * from './work-area.message';
 export * from './editor-component.message';
+export * from './property-change.message';

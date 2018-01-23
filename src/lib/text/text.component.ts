@@ -1,14 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  HostBinding,
+  Input,
+  OnInit
+} from '@angular/core';
 import { TextModel } from '../core/models/text.model';
 import { MwComponent } from '../core/interfaces/mw.component';
 
 @Component({
   selector: 'mw-text',
   templateUrl: './text.component.html',
-  styleUrls: ['./text.component.scss']
+  styleUrls: ['./text.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MwTextComponent implements OnInit, MwComponent {
   private textModel: TextModel = new TextModel();
+
+  @HostBinding('class.mw-text') textClass = true;
+  @HostBinding('style.font-style') fontStyle: string;
 
   @Input()
   get model(): TextModel {
@@ -16,9 +27,13 @@ export class MwTextComponent implements OnInit, MwComponent {
   }
   set model(value: TextModel) {
     this.textModel = value;
+    if (this.textModel) {
+      this.fontStyle = this.textModel.fontStyle;
+    }
+    this.changeDetector.markForCheck();
   }
 
-  constructor() {}
+  constructor(private changeDetector: ChangeDetectorRef) {}
 
   ngOnInit() {}
 }

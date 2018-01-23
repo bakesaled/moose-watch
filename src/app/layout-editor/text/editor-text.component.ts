@@ -4,25 +4,32 @@ import {
   Component,
   HostBinding,
   Input,
+  OnDestroy,
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
 import { MwEditorComponent } from '../../core/interfaces';
 import { EditorTextModel } from '../models';
 import { MessageService } from '../../core/services';
-import { EditorComponentMessage } from '../../core/messages';
+import {
+  EditorComponentMessage,
+  PropertyEditorMessage
+} from '../../core/messages';
 import { Command } from '../../core/enums';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'mw-text',
+  selector: 'mw-editor-text',
   templateUrl: './editor-text.component.html',
   styleUrls: ['./editor-text.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MwEditorTextComponent implements OnInit, MwEditorComponent {
+export class MwEditorTextComponent
+  implements OnInit, MwEditorComponent, OnDestroy {
   @HostBinding('class.mw-editor-text') editorTextClass = true;
 
+  private subscriptions: Subscription[] = [];
   private textModel: EditorTextModel;
   private isSelected = false;
 
@@ -45,7 +52,9 @@ export class MwEditorTextComponent implements OnInit, MwEditorComponent {
   set model(newValue: EditorTextModel) {
     this.textModel = newValue;
     this.model.value = '[text]';
-    console.log('newValue', newValue);
+    if (this.textModel) {
+      this.model.fontStyle = this.textModel.fontStyle;
+    }
     this.changeDetector.markForCheck();
   }
 
@@ -58,10 +67,30 @@ export class MwEditorTextComponent implements OnInit, MwEditorComponent {
     if (!this.model) {
       this.model = new EditorTextModel();
     }
+
+    this.subscriptions.push(
+      this.messageService.channel(PropertyEditorMessage).subscribe(msg => {
+        if (msg.command === Command.propertyChange) {
+          this.model = msg.data;
+          this.notify();
+        }
+        console.log('propertyChange msg', msg);
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   onclick() {
     this.selected = !this.selected;
     this.changeDetector.markForCheck();
+  }
+
+  private notify() {
+    this.messageService.publish(EditorComponentMessage, {
+      command: Command.propertyChange
+    });
   }
 }

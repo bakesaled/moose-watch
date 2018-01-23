@@ -10,6 +10,7 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import { MwModule } from '../../lib/public.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { MwModule } from '../../lib/public.module';
     MatToolbarModule,
     MatButtonModule,
     MatButtonToggleModule,
+    FormsModule,
     DndModule.forRoot()
   ],
   exports: [
@@ -31,6 +33,7 @@ import { MwModule } from '../../lib/public.module';
     MatToolbarModule,
     MatButtonModule,
     MatButtonToggleModule,
+    FormsModule,
     DndModule
   ],
   entryComponents: []
