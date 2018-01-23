@@ -89,7 +89,7 @@ export class MwEditorCellComponent
   handleDrop(event: DropEvent) {
     console.log('cell drop', event);
     switch (event.dragData) {
-      case MwEditorTextComponent.name:
+      case 'MwEditorTextComponent':
         this.model.component = new EditorTextModel();
         break;
     }

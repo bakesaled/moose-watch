@@ -53,7 +53,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   viewContainerRef: ViewContainerRef;
   @ViewChildren(MwEditorCellComponent)
   cellComponents: QueryList<MwEditorCellComponent>;
-  allowedDropType = MwEditorGridComponent.name;
+  allowedDropType = 'MwEditorGridComponent';
   layoutModel: EditorLayoutModel;
 
   @ViewChild(MwFactoryComponent) factoryComponent: MwFactoryComponent;
@@ -122,7 +122,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
 
   handleDrop(event: DropEvent) {
     console.log('drop', event);
-    if (event.dragData === MwEditorGridComponent.name) {
+    if (event.dragData === 'MwEditorGridComponent') {
       const grid = new EditorGridModel();
       grid.cells = [
         new EditorCellModel(Guid.create(), 50),

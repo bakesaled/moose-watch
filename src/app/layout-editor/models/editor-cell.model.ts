@@ -42,7 +42,7 @@ export class EditorCellModel implements MwEditorComponentModel {
 
   toViewerModel(): CellModel {
     const cellModel = new CellModel(this.id);
-    cellModel.type = MwCellComponent.name;
+    cellModel.type = 'MwCellComponent';
     if (this.component) {
       cellModel.component = this.component.toViewerModel();
     }

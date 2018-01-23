@@ -22,7 +22,7 @@ export class EditorTextModel implements MwEditorComponentModel {
 
   toViewerModel(): TextModel {
     const textModel = new TextModel(this.id, this.value);
-    textModel.type = MwTextComponent.name;
+    textModel.type = 'MwTextComponent';
     textModel.fontStyle = this.fontStyle;
     return textModel;
   }
