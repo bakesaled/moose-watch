@@ -25,10 +25,6 @@ env:
     - GITHUB_NAME="Brandon Eleuterio"
     - GITHUB_EMAIL="eleuterio@railroad19.com"
 
-branches:
-  only:
-    - master
-
 before_install:
   - export CHROME_BIN=/usr/bin/google-chrome
   - export DISPLAY=:99.0
