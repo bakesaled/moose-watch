@@ -41,5 +41,6 @@ script:
   - npm run build:ci
 
 after_success:
-  - ngh --repo=https://$GH_TOKEN@github.com/bakesaled/moose-watch.git --name="$GITHUB_NAME" --email="$GITHUB_EMAIL"
   - npm run coveralls
+  - test $TRAVIS_BRANCH = "master"
+  - ngh --repo=https://$GH_TOKEN@github.com/bakesaled/moose-watch.git --name="$GITHUB_NAME" --email="$GITHUB_EMAIL"
