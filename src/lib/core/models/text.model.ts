@@ -6,6 +6,7 @@ export class TextModel implements MwComponentModel {
     public id: string = 'NONE',
     public value: string = '',
     public type: string = MwNoComponent.name,
-    public fontStyle: 'normal' | 'italic' = 'normal'
+    public fontStyle: 'normal' | 'italic' = 'normal',
+    public fontWeight: '400' | '900' = '400'
   ) {}
 }

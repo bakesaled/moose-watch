@@ -49,8 +49,14 @@ export class PropertyEditorComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  onChange(event: MatButtonToggleChange) {
+  onFontStyleChange(event: MatButtonToggleChange) {
     this.componentModel.fontStyle = event.source.checked ? 'italic' : 'normal';
+    this.notify();
+    this.changeDetector.markForCheck();
+  }
+
+  onFontWeightChange(event: MatButtonToggleChange) {
+    this.componentModel.fontWeight = event.source.checked ? '900' : '400';
     this.notify();
     this.changeDetector.markForCheck();
   }

@@ -43,7 +43,7 @@ export class EditorLayoutModel implements MwEditorComponentModel {
       ? this.component.toViewerModel()
       : undefined;
     layoutModel.isNew = this.isNew;
-    layoutModel.type = 'MwLayoutComponen';
+    layoutModel.type = 'MwLayoutComponent';
     return layoutModel;
   }
 }

@@ -61,18 +61,33 @@ describe('PropertyEditorComponent', () => {
     });
   });
 
-  it('should change fontStyle when italic button clicked', () => {
+  it('should change fontStyle when italic button is clicked', () => {
     expect(component.propertyEditorComponent.componentModel.fontStyle).toBe(
       'normal'
     );
     const el = fixture.nativeElement.querySelector(
-      '.mw-property-editor-italic label'
+      '.mw-property-editor-font-style label'
     ) as HTMLElement;
     el.click();
     fixture.detectChanges();
 
     expect(component.propertyEditorComponent.componentModel.fontStyle).toBe(
       'italic'
+    );
+  });
+
+  it('should change fontWeight when bold button is clicked', () => {
+    expect(component.propertyEditorComponent.componentModel.fontWeight).toBe(
+      '400'
+    );
+    const el = fixture.nativeElement.querySelector(
+      '.mw-property-editor-font-weight label'
+    ) as HTMLElement;
+    el.click();
+    fixture.detectChanges();
+
+    expect(component.propertyEditorComponent.componentModel.fontWeight).toBe(
+      '900'
     );
   });
 });

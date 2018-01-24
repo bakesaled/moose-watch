@@ -20,6 +20,7 @@ export class MwTextComponent implements OnInit, MwComponent {
 
   @HostBinding('class.mw-text') textClass = true;
   @HostBinding('style.font-style') fontStyle: string;
+  @HostBinding('style.font-weight') fontWeight: string;
 
   @Input()
   get model(): TextModel {
@@ -29,6 +30,7 @@ export class MwTextComponent implements OnInit, MwComponent {
     this.textModel = value;
     if (this.textModel) {
       this.fontStyle = this.textModel.fontStyle;
+      this.fontWeight = this.textModel.fontWeight;
     }
     this.changeDetector.markForCheck();
   }
