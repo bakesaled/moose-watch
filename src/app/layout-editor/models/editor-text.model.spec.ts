@@ -10,6 +10,7 @@ describe('EditorTextModel', () => {
     expect(model.fontStyle).toBe('normal');
     expect(model.fontWeight).toBe('400');
     expect(model.fontSize).toBe('inherit');
+    expect(model.color).toBe('inherit');
   });
 
   it('should convert TextModel to EditorTextModel', () => {
@@ -17,18 +18,21 @@ describe('EditorTextModel', () => {
     textModel.fontStyle = 'italic';
     textModel.fontWeight = '900';
     textModel.fontSize = '12px';
+    textModel.color = 'red';
     const result = model.toEditorModel(textModel);
     expect(result.id).toBe(textModel.id);
     expect(result.value).toBe(textModel.value);
     expect(result.fontStyle).toBe('italic');
     expect(result.fontWeight).toBe('900');
     expect(result.fontSize).toBe('12px');
+    expect(result.color).toBe('red');
   });
 
   it('should convert EditorTextModel to TextModel', () => {
     model.fontStyle = 'italic';
     model.fontWeight = '900';
     model.fontSize = '12px';
+    model.color = 'red';
     const result = model.toViewerModel();
     expect(result.id).toBe(model.id);
     expect(result.value).toBe(model.value);
@@ -36,5 +40,6 @@ describe('EditorTextModel', () => {
     expect(result.fontStyle).toBe('italic');
     expect(result.fontWeight).toBe('900');
     expect(result.fontSize).toBe('12px');
+    expect(result.color).toBe('red');
   });
 });

@@ -73,8 +73,13 @@ export class PropertyEditorComponent implements OnInit, OnDestroy, OnChanges {
     this.changeDetector.markForCheck();
   }
 
-  onInput(event: InputEvent) {
+  onFontSizeInput(event: InputEvent) {
     this.componentModel.fontSize = event.target.value + 'px';
+    this.notify();
+  }
+
+  onColorInput(event: InputEvent) {
+    this.componentModel.color = event.target.value;
     this.notify();
   }
 

@@ -82,4 +82,15 @@ describe('TextComponent', () => {
     const style = getComputedStyle(el);
     expect(style.fontSize).toBe('20px');
   });
+
+  it('should render red text', () => {
+    const model = new TextModel();
+    model.color = 'red';
+    component.model = model;
+    fixture.detectChanges();
+
+    const el = document.querySelector('.mw-text') as HTMLElement;
+    const style = getComputedStyle(el);
+    expect(style.color).toBe('rgb(255, 0, 0)');
+  });
 });

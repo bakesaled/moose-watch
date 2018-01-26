@@ -8,6 +8,7 @@ export class TextModel implements MwComponentModel {
     public type: string = MwNoComponent.name,
     public fontStyle: 'normal' | 'italic' = 'normal',
     public fontWeight: '400' | '900' = '400',
-    public fontSize: string = 'inherit'
+    public fontSize: string = 'inherit',
+    public color: string = 'inherit'
   ) {}
 }

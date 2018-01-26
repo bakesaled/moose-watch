@@ -122,4 +122,19 @@ describe('PropertyEditorComponent', () => {
       '12px'
     );
   });
+
+  it('should change color', () => {
+    expect(component.propertyEditorComponent.componentModel.color).toBe(
+      'inherit'
+    );
+    const el = fixture.nativeElement.querySelector(
+      '.mw-property-editor-color'
+    ) as HTMLInputElement;
+    el.value = 'red';
+    event = new MouseEvent('input');
+    el.dispatchEvent(event);
+    fixture.detectChanges();
+
+    expect(component.propertyEditorComponent.componentModel.color).toBe('red');
+  });
 });

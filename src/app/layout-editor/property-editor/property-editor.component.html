@@ -8,7 +8,12 @@
     <mat-icon>format_bold</mat-icon>
   </mat-button-toggle>
   <mat-form-field>
-    <input class="mw-property-editor-font-size" matInput type="number" placeholder="size" [value]="componentModel.fontSize?.replace('px', '')" (input)="onInput($event)">
+    <input class="mw-property-editor-font-size" matInput type="number" placeholder="size"
+           [value]="componentModel.fontSize?.replace('px', '')" (input)="onFontSizeInput($event)">
     <span matSuffix>px</span>
+  </mat-form-field>
+  <mat-form-field>
+    <input class="mw-property-editor-color" matInput placeholder="size"
+           [value]="componentModel.color ? componentModel.color : 'inherit'" (input)="onColorInput($event)">
   </mat-form-field>
 </div>
