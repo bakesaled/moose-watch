@@ -14,8 +14,8 @@ export class MockEditorComponentModel implements MwEditorComponentModel {
   }
   toViewerModel() {
     return {
-      id: '',
-      type: ''
+      id: this.id,
+      type: this.type
     };
   }
 }
