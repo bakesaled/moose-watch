@@ -4,8 +4,10 @@ import {
   Component,
   HostBinding,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
+  SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
@@ -15,6 +17,12 @@ import { PropertyEditorMessage } from '../../core/messages';
 import { Command } from '../../core/enums';
 import { MessageService } from '../../core/services';
 
+interface InputEvent {
+  target: {
+    value: string;
+  };
+}
+
 @Component({
   selector: 'mw-property-editor',
   templateUrl: './property-editor.component.html',
@@ -22,7 +30,7 @@ import { MessageService } from '../../core/services';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PropertyEditorComponent implements OnInit, OnDestroy {
+export class PropertyEditorComponent implements OnInit, OnDestroy, OnChanges {
   @HostBinding('class.mw-property-editor') propertyEditorClass = true;
 
   private subscriptions: Subscription[] = [];
@@ -35,7 +43,7 @@ export class PropertyEditorComponent implements OnInit, OnDestroy {
   set componentModel(newValue: EditorTextModel) {
     this.model = newValue;
     this.changeDetector.markForCheck();
-    console.log('property changed', newValue);
+    console.log('property editor model set', newValue);
   }
 
   constructor(
@@ -49,6 +57,10 @@ export class PropertyEditorComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('changes', changes);
+  }
+
   onFontStyleChange(event: MatButtonToggleChange) {
     this.componentModel.fontStyle = event.source.checked ? 'italic' : 'normal';
     this.notify();
@@ -59,6 +71,11 @@ export class PropertyEditorComponent implements OnInit, OnDestroy {
     this.componentModel.fontWeight = event.source.checked ? '900' : '400';
     this.notify();
     this.changeDetector.markForCheck();
+  }
+
+  onInput(event: InputEvent) {
+    this.componentModel.fontSize = event.target.value + 'px';
+    this.notify();
   }
 
   private notify() {

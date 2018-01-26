@@ -4,13 +4,15 @@ import { DndModule } from 'ng2-dnd';
 import {
   MatButtonModule,
   MatButtonToggleModule,
+  MatFormFieldModule,
   MatIconModule,
+  MatInputModule,
   MatListModule,
   MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
 import { MwModule } from '../../lib/public.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -23,6 +25,9 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     MatButtonToggleModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
     DndModule.forRoot()
   ],
   exports: [
@@ -34,6 +39,9 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     MatButtonToggleModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
     DndModule
   ],
   entryComponents: []

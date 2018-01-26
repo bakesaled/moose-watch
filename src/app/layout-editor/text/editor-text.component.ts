@@ -55,6 +55,7 @@ export class MwEditorTextComponent
     if (this.textModel) {
       this.model.fontStyle = this.textModel.fontStyle;
       this.model.fontWeight = this.textModel.fontWeight;
+      this.model.fontSize = this.textModel.fontSize;
     }
     this.changeDetector.markForCheck();
   }

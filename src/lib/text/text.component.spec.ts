@@ -60,4 +60,26 @@ describe('TextComponent', () => {
     const style = getComputedStyle(el);
     expect(style.fontStyle).toBe('italic');
   });
+
+  it('should render bold', () => {
+    const model = new TextModel();
+    model.fontWeight = '900';
+    component.model = model;
+    fixture.detectChanges();
+
+    const el = document.querySelector('.mw-text') as HTMLElement;
+    const style = getComputedStyle(el);
+    expect(style.fontWeight).toBe('900');
+  });
+
+  it('should render large text', () => {
+    const model = new TextModel();
+    model.fontSize = '20px';
+    component.model = model;
+    fixture.detectChanges();
+
+    const el = document.querySelector('.mw-text') as HTMLElement;
+    const style = getComputedStyle(el);
+    expect(style.fontSize).toBe('20px');
+  });
 });

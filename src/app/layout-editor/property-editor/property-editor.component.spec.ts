@@ -2,11 +2,18 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PropertyEditorComponent } from './property-editor.component';
 import { MessageService } from '../../core/services';
-import { MatButtonToggleModule, MatIconModule } from '@angular/material';
+import {
+  MatButtonToggleModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule
+} from '@angular/material';
 import { PropertyEditorMessage } from '../../core/messages';
 import { Command } from '../../core/enums';
 import { EditorTextModel } from '../models';
 import { Component, ViewChild } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   template: `
@@ -27,7 +34,15 @@ describe('PropertyEditorComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [PropertyEditorComponent, MockPropertyEditorComponent],
-        imports: [MatIconModule, MatButtonToggleModule],
+        imports: [
+          MatIconModule,
+          MatButtonToggleModule,
+          FormsModule,
+          ReactiveFormsModule,
+          MatFormFieldModule,
+          MatInputModule,
+          BrowserAnimationsModule
+        ],
         providers: [MessageService]
       }).compileComponents();
     })
@@ -88,6 +103,23 @@ describe('PropertyEditorComponent', () => {
 
     expect(component.propertyEditorComponent.componentModel.fontWeight).toBe(
       '900'
+    );
+  });
+
+  it('should change fontSize', () => {
+    expect(component.propertyEditorComponent.componentModel.fontSize).toBe(
+      'inherit'
+    );
+    const el = fixture.nativeElement.querySelector(
+      '.mw-property-editor-font-size'
+    ) as HTMLInputElement;
+    el.value = '12';
+    event = new MouseEvent('input');
+    el.dispatchEvent(event);
+    fixture.detectChanges();
+
+    expect(component.propertyEditorComponent.componentModel.fontSize).toBe(
+      '12px'
     );
   });
 });

@@ -1,6 +1,6 @@
 <div class="mw-editor-text-drag-handle" dnd-draggable [dragData]="model.id" (click)="onclick()">
   <mw-selection-tag [icon]="model.icon" [selected]="selected">{{model.name}}</mw-selection-tag>
-  <div class="mw-editor-text-wrapper" [style.font-style]="model.fontStyle" [style.font-weight]="model.fontWeight">
+  <div class="mw-editor-text-wrapper" [style.font-style]="model.fontStyle" [style.font-weight]="model.fontWeight" [style.font-size]="model.fontSize">
   {{ model.value }}
   </div>
 </div>

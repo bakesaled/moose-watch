@@ -1,4 +1,4 @@
-<form>
+<div>
   <mat-button-toggle class="mw-property-editor-font-style" [checked]="componentModel?.fontStyle === 'italic'"
                      (change)="onFontStyleChange($event)">
     <mat-icon>format_italic</mat-icon>
@@ -7,4 +7,8 @@
                      (change)="onFontWeightChange($event)">
     <mat-icon>format_bold</mat-icon>
   </mat-button-toggle>
-</form>
+  <mat-form-field>
+    <input class="mw-property-editor-font-size" matInput type="number" placeholder="size" [value]="componentModel.fontSize?.replace('px', '')" (input)="onInput($event)">
+    <span matSuffix>px</span>
+  </mat-form-field>
+</div>

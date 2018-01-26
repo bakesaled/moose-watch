@@ -11,7 +11,8 @@ export class EditorTextModel implements MwEditorComponentModel {
     public type: string = 'MwEditorTextComponent',
     public icon: string = 'text_fields',
     public fontStyle: 'normal' | 'italic' = 'normal',
-    public fontWeight: '400' | '900' = '400'
+    public fontWeight: '400' | '900' = '400',
+    public fontSize: string = 'inherit'
   ) {}
 
   toEditorModel(textModel: TextModel): EditorTextModel {
@@ -19,6 +20,7 @@ export class EditorTextModel implements MwEditorComponentModel {
     this.value = textModel.value;
     this.fontStyle = textModel.fontStyle;
     this.fontWeight = textModel.fontWeight;
+    this.fontSize = textModel.fontSize;
     return this;
   }
 
@@ -27,6 +29,7 @@ export class EditorTextModel implements MwEditorComponentModel {
     textModel.type = 'MwTextComponent';
     textModel.fontStyle = this.fontStyle;
     textModel.fontWeight = this.fontWeight;
+    textModel.fontSize = this.fontSize;
     return textModel;
   }
 }
