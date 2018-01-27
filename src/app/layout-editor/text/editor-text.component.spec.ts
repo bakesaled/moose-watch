@@ -101,4 +101,15 @@ describe('MwEditorTextComponent', () => {
       command: Command.propertyChange
     });
   });
+
+  it('should set model and send a notification when a property changes', () => {
+    const spy = spyOn(<any>component.editorTextComponent, 'notify');
+    const model = new EditorTextModel();
+    component.editorTextComponent['handlePropertyEditorMessage']({
+      command: Command.propertyChange,
+      data: model
+    });
+    expect(component.editorTextComponent.model).toBe(model);
+    expect(spy).toHaveBeenCalled();
+  });
 });

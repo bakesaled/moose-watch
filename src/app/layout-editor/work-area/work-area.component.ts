@@ -100,7 +100,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(
       this.messageService.channel(EditorComponentMessage).subscribe(msg => {
-        if (msg.command === Command.propertyChange ) {
+        if (msg.command === Command.propertyChange) {
           this.save();
         }
         console.log('component msg', msg);
@@ -136,10 +136,6 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
 
   handleAllowDrop(data: any) {
     return (dragData: any) => {
-      if (dragData !== data) {
-        console.log('drop not allowed', dragData);
-      }
-
       return dragData === data;
     };
   }

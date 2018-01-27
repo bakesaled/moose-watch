@@ -72,13 +72,7 @@ export class MwEditorTextComponent
     }
 
     this.subscriptions.push(
-      this.messageService.channel(PropertyEditorMessage).subscribe(msg => {
-        if (msg.command === Command.propertyChange) {
-          this.model = msg.data;
-          this.notify();
-        }
-        console.log('propertyChange msg', msg);
-      })
+      this.messageService.channel(PropertyEditorMessage).subscribe(msg => this.handlePropertyEditorMessage(msg))
     );
   }
 
@@ -89,6 +83,13 @@ export class MwEditorTextComponent
   onclick() {
     this.selected = !this.selected;
     this.changeDetector.markForCheck();
+  }
+
+  private handlePropertyEditorMessage(msg: PropertyEditorMessage) {
+    if (msg.command === Command.propertyChange) {
+      this.model = msg.data;
+      this.notify();
+    }
   }
 
   private notify() {
