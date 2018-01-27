@@ -3,12 +3,16 @@ import { CommonModule } from '@angular/common';
 import { DndModule } from 'ng2-dnd';
 import {
   MatButtonModule,
+  MatButtonToggleModule,
+  MatFormFieldModule,
   MatIconModule,
+  MatInputModule,
   MatListModule,
   MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
 import { MwModule } from '../../lib/public.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -19,6 +23,11 @@ import { MwModule } from '../../lib/public.module';
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
+    MatButtonToggleModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
     DndModule.forRoot()
   ],
   exports: [
@@ -28,6 +37,11 @@ import { MwModule } from '../../lib/public.module';
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
+    MatButtonToggleModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
     DndModule
   ],
   entryComponents: []

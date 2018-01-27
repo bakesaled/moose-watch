@@ -25,10 +25,6 @@ env:
     - GITHUB_NAME="Brandon Eleuterio"
     - GITHUB_EMAIL="eleuterio@railroad19.com"
 
-branches:
-  only:
-    - master
-
 before_install:
   - export CHROME_BIN=/usr/bin/google-chrome
   - export DISPLAY=:99.0
@@ -45,5 +41,5 @@ script:
   - npm run build:ci
 
 after_success:
-  - ngh --repo=https://$GH_TOKEN@github.com/bakesaled/moose-watch.git --name="$GITHUB_NAME" --email="$GITHUB_EMAIL"
+  - test $TRAVIS_BRANCH = "master" && test $TRAVIS_PULL_REQUEST = "false" && ngh --repo=https://$GH_TOKEN@github.com/bakesaled/moose-watch.git --name="$GITHUB_NAME" --email="$GITHUB_EMAIL"
   - npm run coveralls

@@ -11,7 +11,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { LayoutListModel } from '../core/models';
 import { LayoutListService, MessageService } from '../core/services';
 import { Subscription } from 'rxjs/Subscription';
-import { WorkAreaMessage } from '../core/messages/work-area.message';
+import { WorkAreaMessage } from '../core/messages';
 import { Command } from '../core/enums';
 import { Guid } from '../core/utils';
 import { Router } from '@angular/router';

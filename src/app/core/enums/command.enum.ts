@@ -2,5 +2,7 @@ export enum Command {
   none,
   delete,
   edit,
-  drop
+  drop,
+  select,
+  propertyChange
 }

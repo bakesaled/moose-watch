@@ -28,7 +28,7 @@ export class EditorGridModel implements MwEditorComponentModel {
 
   toViewerModel(): GridModel {
     const gridModel = new GridModel(this.id, []);
-    gridModel.type = MwGridComponent.name;
+    gridModel.type = 'MwGridComponent';
     this.cells.forEach(cell => {
       gridModel.cells.push(cell.toViewerModel());
     });

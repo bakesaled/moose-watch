@@ -23,15 +23,15 @@ import {
 import { Subscription } from 'rxjs/Subscription';
 import { LayoutModel } from '../../../lib/core/models/layout.model';
 import { Command } from '../../core/enums';
-import { WorkAreaMessage } from '../../core/messages/work-area.message';
+import { EditorComponentMessage, WorkAreaMessage } from '../../core/messages';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/combineLatest';
 import { LayoutService } from '../../../lib/layout/layout.service';
 import { EditorCellModel, EditorGridModel, EditorLayoutModel } from '../models';
-import { EditorCellMessage } from '../../core/messages/editor-cell.message';
-import { ToolbarMessage } from '../../core/messages/toolbar.message';
+import { EditorCellMessage } from '../../core/messages';
+import { ToolbarMessage } from '../../core/messages';
 import { Constants, ToolPanelMessage } from '../../core';
 import { Guid } from '../../core/utils';
 import { MwEditorGridComponent } from '../grid';
@@ -53,7 +53,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   viewContainerRef: ViewContainerRef;
   @ViewChildren(MwEditorCellComponent)
   cellComponents: QueryList<MwEditorCellComponent>;
-  allowedDropType = MwEditorGridComponent.name;
+  allowedDropType = 'MwEditorGridComponent';
   layoutModel: EditorLayoutModel;
 
   @ViewChild(MwFactoryComponent) factoryComponent: MwFactoryComponent;
@@ -99,6 +99,15 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.push(
+      this.messageService.channel(EditorComponentMessage).subscribe(msg => {
+        if (msg.command === Command.propertyChange) {
+          this.save();
+        }
+        console.log('component msg', msg);
+      })
+    );
+
+    this.subscriptions.push(
       this.messageService
         .channel(ToolbarMessage)
         .subscribe(msg => this.deleteLayout(msg))
@@ -113,7 +122,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
 
   handleDrop(event: DropEvent) {
     console.log('drop', event);
-    if (event.dragData === MwEditorGridComponent.name) {
+    if (event.dragData === 'MwEditorGridComponent') {
       const grid = new EditorGridModel();
       grid.cells = [
         new EditorCellModel(Guid.create(), 50),
@@ -127,10 +136,6 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
 
   handleAllowDrop(data: any) {
     return (dragData: any) => {
-      if (dragData !== data) {
-        console.log('drop not allowed', dragData);
-      }
-
       return dragData === data;
     };
   }

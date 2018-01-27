@@ -19,7 +19,7 @@ import { Observable } from 'rxjs/Observable';
 import { Command } from '../../core/enums';
 import { WorkAreaMessage } from '../../core/messages/work-area.message';
 import { MwEditorGridComponent } from '../grid';
-import { MockEditorComponent } from '../../core/mocks/editor-component.mock';
+import { MockEditorComponentModel } from '../../core/mocks/editor-component-model.mock';
 import { Guid } from '../../core/utils';
 import { EditorCellModel, EditorGridModel } from '../models';
 
@@ -108,7 +108,7 @@ describe('MwWorkAreaComponent', () => {
   });
 
   it('should delete component', () => {
-    const mockComponent = new MockEditorComponent();
+    const mockComponent = new MockEditorComponentModel();
     component.layoutModel.component = mockComponent;
     component.handleToolPanelMessage({
       command: Command.delete,

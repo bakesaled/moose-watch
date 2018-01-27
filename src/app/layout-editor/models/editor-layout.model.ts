@@ -23,7 +23,7 @@ export class EditorLayoutModel implements MwEditorComponentModel {
     this.isNew = layoutModel.isNew;
     if (!layoutModel.isNew && layoutModel.component) {
       switch (layoutModel.component.type) {
-        case MwGridComponent.name:
+        case 'MwGridComponent':
           this.component = new EditorGridModel().toEditorModel(
             <GridModel>layoutModel.component
           );
@@ -43,7 +43,7 @@ export class EditorLayoutModel implements MwEditorComponentModel {
       ? this.component.toViewerModel()
       : undefined;
     layoutModel.isNew = this.isNew;
-    layoutModel.type = MwLayoutComponent.name;
+    layoutModel.type = 'MwLayoutComponent';
     return layoutModel;
   }
 }
