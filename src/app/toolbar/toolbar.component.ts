@@ -36,4 +36,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       command: Command.delete
     });
   }
+
+  onNavToggleClick() {
+    this.messageService.publish(ToolbarMessage, {
+      command: Command.navToggle
+    });
+  }
 }

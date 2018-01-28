@@ -38,4 +38,12 @@ describe('ToolbarComponent', () => {
       command: Command.delete
     });
   });
+
+  it('should publish a message on nav toggle button click', () => {
+    const spy = spyOn(component['messageService'], 'publish');
+    component.onNavToggleClick();
+    expect(spy).toHaveBeenCalledWith(ToolbarMessage, {
+      command: Command.navToggle
+    });
+  });
 });
