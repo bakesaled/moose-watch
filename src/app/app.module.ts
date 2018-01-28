@@ -11,6 +11,7 @@ import { LayoutViewerModule } from './layout-viewer/layout-viewer.module';
 import { LandingModule } from './landing/landing.module';
 import { ToolbarModule } from './toolbar/toolbar.module';
 import { MainSidenavContainerModule } from './main-sidenav-container/main-sidenav-container.module';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +25,8 @@ import { MainSidenavContainerModule } from './main-sidenav-container/main-sidena
     LayoutViewerModule,
     LandingModule,
     ToolbarModule,
-    AppRoutingModule
+    AppRoutingModule,
+    LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

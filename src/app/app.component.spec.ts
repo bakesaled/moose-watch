@@ -8,6 +8,7 @@ import { LayoutViewerModule } from './layout-viewer/layout-viewer.module';
 import { CoreModule } from './core/core.module';
 import { ToolbarModule } from './toolbar/toolbar.module';
 import { MainSidenavContainerModule } from './main-sidenav-container/main-sidenav-container.module';
+import { LayoutModule } from '@angular/cdk/layout';
 
 describe('AppComponent', () => {
   beforeEach(
@@ -22,7 +23,8 @@ describe('AppComponent', () => {
           HttpClientModule,
           LayoutViewerModule,
           ToolbarModule,
-          MainSidenavContainerModule
+          MainSidenavContainerModule,
+          LayoutModule
         ]
       }).compileComponents();
     })

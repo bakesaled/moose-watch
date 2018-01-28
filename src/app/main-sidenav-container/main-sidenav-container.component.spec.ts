@@ -8,6 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { LayoutListService, MessageService } from '../core/services';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MockLayoutListService } from '../core/mocks/layout-list-service.mock';
+import { LayoutModule } from '@angular/cdk/layout';
 
 describe('MainSidenavContainerComponent', () => {
   let component: MainSidenavContainerComponent;
@@ -21,7 +22,8 @@ describe('MainSidenavContainerComponent', () => {
           MatSidenavModule,
           NavigationModule,
           RouterTestingModule,
-          BrowserAnimationsModule
+          BrowserAnimationsModule,
+          LayoutModule
         ],
         providers: [
           {
