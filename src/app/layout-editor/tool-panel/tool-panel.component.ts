@@ -1,6 +1,7 @@
 import {
   Component,
-  HostBinding, OnDestroy,
+  HostBinding,
+  OnDestroy,
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
@@ -11,6 +12,7 @@ import { Command } from '../../core/enums';
 import { EditorGridModel, EditorTextModel } from '../models';
 import { EditorComponentMessage } from '../../core/messages';
 import { Subscription } from 'rxjs/Subscription';
+import { ToolbarMessage } from '../../core/messages/toolbar.message';
 
 @Component({
   selector: 'mw-tool-panel',
@@ -59,5 +61,11 @@ export class MwToolPanelComponent implements OnInit, OnDestroy {
         this.selectedComponentModel = msg.data;
         break;
     }
+  }
+
+  onToolNavToggleClick() {
+    this.messageService.publish(ToolPanelMessage, {
+      command: Command.toolNavToggle
+    });
   }
 }

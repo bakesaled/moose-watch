@@ -11,6 +11,8 @@ import { DndModule } from 'ng2-dnd';
 import { PropertyEditorModule } from '../property-editor/property-editor.module';
 import { MockEditorComponentModel } from '../../core/mocks/editor-component-model.mock';
 import { Command } from '../../core/enums';
+import { ToolbarMessage } from '../../core/messages/toolbar.message';
+import { ToolPanelMessage } from '../../core/messages';
 
 describe('MwToolPanelComponent', () => {
   let component: MwToolPanelComponent;
@@ -50,5 +52,13 @@ describe('MwToolPanelComponent', () => {
       data: mockComponentModel
     });
     expect(component.selectedComponentModel).toBe(mockComponentModel);
+  });
+
+  it('should publish a message on tool nav toggle button click', () => {
+    const spy = spyOn(component['messageService'], 'publish');
+    component.onToolNavToggleClick();
+    expect(spy).toHaveBeenCalledWith(ToolPanelMessage, {
+      command: Command.toolNavToggle
+    });
   });
 });

@@ -17,6 +17,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { LayoutModel } from '../../lib/core/models/layout.model';
 import { mockLocalStorage } from '../core/mocks/local-storage.mock';
+import { LayoutModule } from '@angular/cdk/layout';
+import { Command } from '../core/enums';
 
 describe('LayoutEditorComponent', () => {
   let component: LayoutEditorComponent;
@@ -32,7 +34,8 @@ describe('LayoutEditorComponent', () => {
           MwWorkAreaModule,
           MwToolPanelModule,
           MwTextModule,
-          RouterTestingModule
+          RouterTestingModule,
+          LayoutModule
         ],
         providers: [
           MessageService,
@@ -71,5 +74,13 @@ describe('LayoutEditorComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should toggle collapsed state of sidenav when tool panel button is toggled', () => {
+    expect(component.collapsed).toBeFalsy();
+    component['handleToolPanelMessage']({
+      command: Command.toolNavToggle
+    });
+    expect(component.collapsed).toBeTruthy();
   });
 });

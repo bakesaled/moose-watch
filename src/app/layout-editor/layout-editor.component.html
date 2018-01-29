@@ -1,6 +1,9 @@
 <mat-sidenav-container>
-  <mat-sidenav mode="side" opened="true" position="end"><mw-tool-panel></mw-tool-panel></mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav disableClose="true" class="mw-layout-editor-sidenav" [class.mw-layout-editor-sidenav--collapsed]="collapsed"
+               mode="side" opened="true" position="end">
+    <mw-tool-panel></mw-tool-panel>
+  </mat-sidenav>
+  <mat-sidenav-content [class.mw-layout-editor-sidenav-content--collapsed]="collapsed">
     <mw-work-area></mw-work-area>
   </mat-sidenav-content>
 </mat-sidenav-container>

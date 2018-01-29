@@ -5,9 +5,17 @@
     height: 100%;
     background: #1e1e1e;
   }
+}
 
-  mat-sidenav {
-    width: 240px;
-    background: #3c3f41;
-  }
+.mw-layout-editor-sidenav {
+  width: 240px;
+  background: #3c3f41;
+}
+
+.mw-layout-editor-sidenav--collapsed {
+  width: 32px;
+}
+
+.mw-layout-editor-sidenav-content--collapsed {
+  margin-right: 32px !important;
 }

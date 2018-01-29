@@ -41,6 +41,7 @@ export class MainSidenavContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.opened = !this.mobileQuery.matches;
     this.subscriptions.push(
       this.messageService
         .channel(ToolbarMessage)

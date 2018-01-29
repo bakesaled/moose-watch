@@ -5,5 +5,6 @@ export enum Command {
   drop,
   select,
   propertyChange,
-  navToggle
+  navToggle,
+  toolNavToggle,
 }

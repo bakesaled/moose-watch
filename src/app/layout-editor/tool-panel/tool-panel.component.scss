@@ -1,18 +1,17 @@
 .mw-tool-panel {
   .mat-icon {
-    vertical-align: middle;
-    margin-right: 5px;
     color: #a9bbbb;
   }
 
-  .mat-tool-panel-container {
+  .mw-tool-panel-container {
     height: 100%;
   }
 
-  .mat-tool-panel-trash {
+  .mw-tool-panel-trash {
     font-size: 128px;
     width: 128px;
     height: 128px;
+    padding: 4px;
   }
 
   h3 {
@@ -30,5 +29,45 @@
 
   .mat-list-item {
     color: #a9bbbb;
+  }
+}
+
+.mw-tool-panel-toggle-icon--left {
+  display: none;
+}
+.mw-tool-panel-toggle-icon--right {
+  display: inline-block;
+}
+
+.mw-layout-editor-sidenav--collapsed {
+  h3, .mat-list .mat-list-item .mat-list-text {
+    display: none;
+  }
+  .mat-list .mat-list-item .mat-list-item-content {
+    padding: 0;
+  }
+
+  .mat-list .mat-list-item {
+    height: 32px;
+  }
+
+  .mw-tool-panel-trash {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .mw-tool-panel-toggle-button {
+    width: 24px;
+    height: 24px;
+    padding: 4px;
+    margin-bottom: 20px;
+  }
+
+  .mw-tool-panel-toggle-icon--left {
+    display: inline-block;
+  }
+  .mw-tool-panel-toggle-icon--right {
+    display: none;
   }
 }
