@@ -1,5 +1,6 @@
 <mat-toolbar>
-  <a mat-button [routerLink]="['/']"><img src="./assets/moose-light.png" class="mw-logo">Moose Watch</a>
+  <button mat-icon-button (click)="onNavToggleClick()"><mat-icon>menu</mat-icon></button>
+  <a mat-button [routerLink]="['/']"><img *ngIf="!mobileQuery.matches" src="./assets/moose-light.png" class="mw-logo">Moose Watch</a>
   <span class="mw-spacer"></span>
   <button mat-button (click)="onDeleteClick()"><mat-icon>clear</mat-icon></button>
 </mat-toolbar>

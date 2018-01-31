@@ -8,30 +8,27 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { ToolbarMessage } from '../core/messages';
 import { MessageService } from '../core/services';
-import { ToolbarMessage } from '../core/messages/toolbar.message';
 import { Command } from '../core/enums';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Constants } from '../core';
 
 @Component({
-  selector: 'mw-toolbar',
-  templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss'],
+  selector: 'mw-main-sidenav-container',
+  templateUrl: './main-sidenav-container.component.html',
+  styleUrls: ['./main-sidenav-container.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToolbarComponent implements OnInit, OnDestroy {
-  @HostBinding('class.mw-toolbar') toolbarClass = true;
+export class MainSidenavContainerComponent implements OnInit, OnDestroy {
+  @HostBinding('class.mw-main-sidenav-container') mainSideNavClass = true;
 
   private subscriptions: Subscription[] = [];
   private mobileQueryListener: () => void;
 
+  opened = true;
   mobileQuery: MediaQueryList;
-  @HostBinding('class.mw-is-mobile')
-  get toolbarIsMobile(): boolean {
-    return this.mobileQuery && this.mobileQuery.matches;
-  }
 
   constructor(
     private messageService: MessageService,
@@ -43,22 +40,26 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.mobileQuery.addListener(this.mobileQueryListener);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.opened = !this.mobileQuery.matches;
+    this.subscriptions.push(
+      this.messageService
+        .channel(ToolbarMessage)
+        .subscribe(msg => this.handleToolbarMessage(msg))
+    );
+  }
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
     this.mobileQuery.removeListener(this.mobileQueryListener);
   }
 
-  onDeleteClick() {
-    this.messageService.publish(ToolbarMessage, {
-      command: Command.delete
-    });
-  }
-
-  onNavToggleClick() {
-    this.messageService.publish(ToolbarMessage, {
-      command: Command.navToggle
-    });
+  private handleToolbarMessage(msg) {
+    switch (msg.command) {
+      case Command.navToggle:
+        this.opened = !this.opened;
+        this.changeDetector.markForCheck();
+        break;
+    }
   }
 }

@@ -6,6 +6,7 @@ import { MatIconModule, MatToolbarModule } from '@angular/material';
 import { ToolbarMessage } from '../core/messages/toolbar.message';
 import { Command } from '../core/enums';
 import { MessageService } from '../core/services';
+import { LayoutModule } from '@angular/cdk/layout';
 
 describe('ToolbarComponent', () => {
   let component: ToolbarComponent;
@@ -15,7 +16,12 @@ describe('ToolbarComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [ToolbarComponent],
-        imports: [RouterTestingModule, MatToolbarModule, MatIconModule],
+        imports: [
+          RouterTestingModule,
+          MatToolbarModule,
+          MatIconModule,
+          LayoutModule
+        ],
         providers: [MessageService]
       }).compileComponents();
     })
@@ -36,6 +42,14 @@ describe('ToolbarComponent', () => {
     component.onDeleteClick();
     expect(spy).toHaveBeenCalledWith(ToolbarMessage, {
       command: Command.delete
+    });
+  });
+
+  it('should publish a message on nav toggle button click', () => {
+    const spy = spyOn(component['messageService'], 'publish');
+    component.onNavToggleClick();
+    expect(spy).toHaveBeenCalledWith(ToolbarMessage, {
+      command: Command.navToggle
     });
   });
 });

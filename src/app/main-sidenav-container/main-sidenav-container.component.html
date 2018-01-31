@@ -1,0 +1,7 @@
+<mat-sidenav-container class="mw-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+  <mat-sidenav class="mw-main-sidenav-container-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'"
+               [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" [(opened)]="opened"><mw-navigation></mw-navigation></mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

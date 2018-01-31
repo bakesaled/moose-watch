@@ -1,20 +1,24 @@
-<div class="mat-tool-panel-container" fxLayout="column" fxLayoutAlign="space-between stretch">
+<div class="mw-tool-panel-container" fxLayout="column" fxLayoutAlign="space-between stretch">
   <mat-list>
+    <button mat-icon-button (click)="onToolNavToggleClick()" class="mw-tool-panel-toggle-button">
+      <mat-icon class="mw-tool-panel-toggle-icon--right">chevron_right</mat-icon>
+      <mat-icon class="mw-tool-panel-toggle-icon--left">chevron_left</mat-icon>
+    </button>
     <h3>
       Components
     </h3>
-    <mat-list-item *ngFor="let tool of tools">
-      <div dnd-draggable [dragData]="tool.type">
-        <mat-icon>{{tool.icon}}</mat-icon>
+    <mat-list-item *ngFor="let tool of tools" dnd-draggable [dragData]="tool.type">
+      <mat-icon matListIcon>{{tool.icon}}</mat-icon>
+      <p matLine>
         {{tool.name}}
-      </div>
+      </p>
     </mat-list-item>
     <h3>
       Properties
     </h3>
     <mw-property-editor *ngIf="selectedComponentModel" [componentModel]="selectedComponentModel"></mw-property-editor>
   </mat-list>
-  <div dnd-droppable (onDropSuccess)="handleDropSuccess($event)">
-    <mat-icon class="mat-tool-panel-trash">delete</mat-icon>
+  <div class="mw-tool-panel-button" dnd-droppable (onDropSuccess)="handleDropSuccess($event)">
+    <mat-icon class="mw-tool-panel-trash">delete</mat-icon>
   </div>
 </div>
