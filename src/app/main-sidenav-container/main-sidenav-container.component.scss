@@ -1,3 +1,5 @@
+@import "dark";
+
 .mw-main-sidenav-container {
   display: flex;
   height: 100%;
@@ -23,5 +25,5 @@
 
 .mw-main-sidenav-container-sidenav {
   width: 240px;
-  background: #3c3f41;
+  background: $nav-list-background-color;
 }

@@ -1,15 +1,17 @@
+@import "dark";
+
 .mw-layout-editor {
   mat-sidenav-container {
     margin: 0;
     width: 100%;
     height: 100%;
-    background: #1e1e1e;
+    background: $main-content-background-color;
   }
 }
 
 .mw-layout-editor-sidenav {
   width: 240px;
-  background: #3c3f41;
+  background: $nav-list-background-color;
 }
 
 .mw-layout-editor-sidenav--collapsed {

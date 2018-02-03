@@ -1,7 +1,9 @@
+@import "dark";
+
 .mw-layout-viewer {
   display: block;
   height: 100%;
   width: 100%;
-  background: #1e1e1e;
+  background: $main-content-background-color;
   color: #898467;
 }
