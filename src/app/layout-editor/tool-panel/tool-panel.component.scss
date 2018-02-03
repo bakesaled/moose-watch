@@ -1,6 +1,8 @@
+@import "dark";
+
 .mw-tool-panel {
   .mat-icon {
-    color: #a9bbbb;
+    color: $nav-list-color;
   }
 
   .mw-tool-panel-container {
@@ -23,12 +25,12 @@
     font-weight: 400;
     margin: 0;
     padding: 0 16px;
-    background: rgba(0, 0, 0, .32);
-    color: hsla(0, 0%, 100%, .87);
+    background: $nav-list-header-background-color;
+    color: $nav-list-header-color;
   }
 
   .mat-list-item {
-    color: #a9bbbb;
+    color: $nav-list-color;
   }
 }
 
