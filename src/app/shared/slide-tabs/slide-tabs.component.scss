@@ -1,0 +1,30 @@
+@import "dark";
+
+.mw-slide-tabs {
+  display: block;
+}
+
+.mw-slide-tabs-container {
+  display: flex;
+  height: 100%;
+  color: $nav-list-color;
+}
+
+.mw-tab-label {
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  height: 100px;
+  &:hover {
+    background: $nav-list-background-color;
+    cursor: pointer;
+  }
+}
+
+.mw-tab-label-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
+  white-space: nowrap;
+}

@@ -1,0 +1,12 @@
+@import "dark";
+
+.mw-tab-header {
+  border-right: $work-area-border solid 1px;
+}
+
+.mw-tab-labels {
+  width: 20px;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}

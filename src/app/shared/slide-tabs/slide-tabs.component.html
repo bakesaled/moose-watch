@@ -1,0 +1,14 @@
+<div class="mw-slide-tabs-container">
+  <mw-tab-header>
+    <div class="mw-tab-label" *ngFor="let tab of tabs">
+      <div class="mw-tab-label-child">
+        {{tab.label}}
+        <ng-template>{{tab.label}}</ng-template>
+      </div>
+    </div>
+  </mw-tab-header>
+  <mw-tab-body>
+
+    hello tabs
+  </mw-tab-body>
+</div>
