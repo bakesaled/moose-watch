@@ -6,6 +6,7 @@
 
 .mw-slide-tabs-container {
   display: flex;
+  justify-content: flex-end;
   height: 100%;
   color: $nav-list-color;
 }
@@ -16,7 +17,7 @@
   position: relative;
   height: 100px;
   &:hover {
-    background: $nav-list-background-color;
+    background: $nav-list-item-hover-background-color;
     cursor: pointer;
   }
 }
@@ -25,6 +26,14 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
+  transform:  translateX(-50%) translateY(-50%) rotate(90deg);
   white-space: nowrap;
+}
+
+.mw-tab-label--selected, .mw-tab-label--selected:hover {
+  background: $nav-list-item-selected-background-color;
+}
+
+.mw-tab-body.mw-tab-body--active {
+  display: block;
 }

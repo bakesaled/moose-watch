@@ -16,9 +16,12 @@
 
   .mat-list-item {
     color: $nav-list-color;
+    &:hover {
+      background: $nav-list-item-hover-background-color;
+    }
   }
 
   .mat-list-item.active-route {
-    background: #0a293f;
+    background: $nav-list-item-selected-background-color;
   }
 }

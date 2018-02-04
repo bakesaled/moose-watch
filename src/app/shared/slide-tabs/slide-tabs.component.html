@@ -1,14 +1,16 @@
 <div class="mw-slide-tabs-container">
-  <mw-tab-header>
-    <div class="mw-tab-label" *ngFor="let tab of tabs">
+
+  <mw-tab-body *ngFor="let tab of tabs; let i = index" [content]="tab.content"
+               [class.mw-tab-body--active]="selectedIndex == i">
+  </mw-tab-body>
+  <mw-tab-header #tabHeader>
+    <div class="mw-tab-label" *ngFor="let tab of tabs; let i = index"
+         [class.mw-tab-label--selected]="selectedIndex == i"
+         (click)="handleClick(tab, tabHeader, i)">
       <div class="mw-tab-label-child">
         {{tab.label}}
         <ng-template>{{tab.label}}</ng-template>
       </div>
     </div>
   </mw-tab-header>
-  <mw-tab-body>
-
-    hello tabs
-  </mw-tab-body>
 </div>
