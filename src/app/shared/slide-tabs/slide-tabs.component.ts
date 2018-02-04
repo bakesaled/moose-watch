@@ -19,14 +19,25 @@ export class SlideTabsComponent implements OnInit {
   @HostBinding('class.mw-slide-tabs') hostClass = true;
   @ContentChildren(TabComponent) tabs: QueryList<TabComponent>;
 
-  private selectedIndex: number;
+  private selectedIdx: number;
+
+  get selectedIndex(): number {
+    return this.selectedIdx;
+  }
+  set selectedIndex(newValue: number) {
+    this.selectedIdx = newValue;
+  }
 
   constructor() {}
 
   ngOnInit() {}
 
   handleClick(tab: TabComponent, tabHeader: TabHeaderComponent, index: number) {
-    this.selectedIndex = index;
-    tabHeader.selectedIndex = index;
+    if (this.selectedIndex === index) {
+      this.selectedIndex = undefined;
+    } else {
+      this.selectedIndex = index;
+      tabHeader.selectedIndex = index;
+    }
   }
 }

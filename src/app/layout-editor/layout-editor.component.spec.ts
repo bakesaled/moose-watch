@@ -19,6 +19,7 @@ import { LayoutModel } from '../../lib/core/models/layout.model';
 import { mockLocalStorage } from '../core/mocks/local-storage.mock';
 import { LayoutModule } from '@angular/cdk/layout';
 import { Command } from '../core/enums';
+import { SlideTabsModule } from '../shared/slide-tabs/slide-tabs.module';
 
 describe('LayoutEditorComponent', () => {
   let component: LayoutEditorComponent;
@@ -35,7 +36,8 @@ describe('LayoutEditorComponent', () => {
           MwToolPanelModule,
           MwTextModule,
           RouterTestingModule,
-          LayoutModule
+          LayoutModule,
+          SlideTabsModule
         ],
         providers: [
           MessageService,
