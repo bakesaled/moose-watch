@@ -13,7 +13,6 @@ import {
 } from '@angular/material';
 import { MwModule } from '../../lib/public.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SlideTabsModule } from './slide-tabs/slide-tabs.module';
 
 @NgModule({
   imports: [
@@ -29,7 +28,6 @@ import { SlideTabsModule } from './slide-tabs/slide-tabs.module';
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
-    SlideTabsModule,
     DndModule.forRoot()
   ],
   exports: [
@@ -44,7 +42,6 @@ import { SlideTabsModule } from './slide-tabs/slide-tabs.module';
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
-    SlideTabsModule,
     DndModule
   ],
   entryComponents: []

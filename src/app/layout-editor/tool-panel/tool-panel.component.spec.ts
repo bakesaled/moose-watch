@@ -13,7 +13,7 @@ import { MockEditorComponentModel } from '../../core/mocks/editor-component-mode
 import { Command } from '../../core/enums';
 import { ToolPanelMessage } from '../../core/messages';
 import { MwComponentPickerModule } from '../component-picker/component-picker.module';
-import { SlideTabsModule } from '../../shared/slide-tabs/slide-tabs.module';
+import { SlideTabsModule } from '../slide-tabs/slide-tabs.module';
 
 describe('MwToolPanelComponent', () => {
   let component: MwToolPanelComponent;
