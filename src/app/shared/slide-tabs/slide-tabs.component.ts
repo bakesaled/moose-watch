@@ -1,8 +1,10 @@
 import {
   Component,
   ContentChildren,
+  EventEmitter,
   HostBinding,
   OnInit,
+  Output,
   QueryList,
   ViewEncapsulation
 } from '@angular/core';
@@ -28,6 +30,12 @@ export class SlideTabsComponent implements OnInit {
     this.selectedIdx = newValue;
   }
 
+  /** Output to enable support for two-way binding on `[(selectedIndex)]` */
+  @Output()
+  readonly selectedIndexChange: EventEmitter<number> = new EventEmitter<
+    number
+  >();
+
   constructor() {}
 
   ngOnInit() {}
@@ -39,5 +47,6 @@ export class SlideTabsComponent implements OnInit {
       this.selectedIndex = index;
       tabHeader.selectedIndex = index;
     }
+    this.selectedIndexChange.emit(this.selectedIndex);
   }
 }

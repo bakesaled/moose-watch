@@ -19,7 +19,6 @@ import { LayoutModel } from '../../lib/core/models/layout.model';
 import { mockLocalStorage } from '../core/mocks/local-storage.mock';
 import { LayoutModule } from '@angular/cdk/layout';
 import { Command } from '../core/enums';
-import { SlideTabsModule } from '../shared/slide-tabs/slide-tabs.module';
 
 describe('LayoutEditorComponent', () => {
   let component: LayoutEditorComponent;
@@ -36,8 +35,7 @@ describe('LayoutEditorComponent', () => {
           MwToolPanelModule,
           MwTextModule,
           RouterTestingModule,
-          LayoutModule,
-          SlideTabsModule
+          LayoutModule
         ],
         providers: [
           MessageService,
@@ -81,7 +79,8 @@ describe('LayoutEditorComponent', () => {
   it('should toggle collapsed state of sidenav when tool panel button is toggled', () => {
     expect(component.collapsed).toBeFalsy();
     component['handleToolPanelMessage']({
-      command: Command.toolNavToggle
+      command: Command.toolNavToggle,
+      data: true
     });
     expect(component.collapsed).toBeTruthy();
   });

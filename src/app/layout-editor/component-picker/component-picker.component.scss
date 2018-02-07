@@ -1,6 +1,6 @@
 @import "dark";
 
-.mw-property-editor {
+.mw-component-picker {
   h3 {
     border: none;
     font-size: 10px;
@@ -12,5 +12,8 @@
     padding: 0 16px;
     background: $nav-list-header-background-color;
     color: $nav-list-header-color;
+  }
+  .mat-list-item {
+    color: $nav-list-color;
   }
 }

@@ -24,11 +24,8 @@ export class MwToolPanelComponent implements OnInit, OnDestroy {
   @HostBinding('class.mw-tool-panel') toolPanelClass = true;
 
   private subscriptions: Subscription[] = [];
+  private selectedTabIndex: number;
 
-  tools: Array<MwEditorComponentModel> = [
-    new EditorGridModel(),
-    new EditorTextModel()
-  ];
   selectedComponentModel: MwEditorComponentModel;
 
   constructor(private messageService: MessageService) {}
@@ -63,9 +60,20 @@ export class MwToolPanelComponent implements OnInit, OnDestroy {
     }
   }
 
-  onToolNavToggleClick() {
-    this.messageService.publish(ToolPanelMessage, {
-      command: Command.toolNavToggle
-    });
+  handleSelectedIndexChange(index: number) {
+    console.log('index', index, this.selectedTabIndex);
+    if (this.selectedTabIndex === undefined && index !== undefined) {
+      this.messageService.publish(ToolPanelMessage, {
+        command: Command.toolNavToggle,
+        data: false // expand
+      });
+    } else if (this.selectedTabIndex !== undefined && index === undefined) {
+      this.messageService.publish(ToolPanelMessage, {
+        command: Command.toolNavToggle,
+        data: true // collapse
+      });
+    }
+
+    this.selectedTabIndex = index;
   }
 }

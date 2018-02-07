@@ -1,0 +1,11 @@
+<mat-list>
+  <h3>
+    Components
+  </h3>
+  <mat-list-item *ngFor="let tool of tools" dnd-draggable [dragData]="tool.type">
+    <mat-icon matListIcon>{{tool.icon}}</mat-icon>
+    <p matLine>
+      {{tool.name}}
+    </p>
+  </mat-list-item>
+</mat-list>

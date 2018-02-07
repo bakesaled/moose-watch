@@ -27,7 +27,7 @@ import { MwEditorGridComponent } from './grid';
     MwEditorGridModule,
     MwEditorTextModule,
     MwToolPanelModule,
-    MwWorkAreaModule
+    MwWorkAreaModule,
   ]
 })
 export class LayoutEditorModule {

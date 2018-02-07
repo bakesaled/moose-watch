@@ -6,7 +6,8 @@ import {
   MatButtonToggleModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule
+  MatInputModule,
+  MatListModule
 } from '@angular/material';
 import { PropertyEditorMessage } from '../../core/messages';
 import { Command } from '../../core/enums';
@@ -41,7 +42,8 @@ describe('PropertyEditorComponent', () => {
           ReactiveFormsModule,
           MatFormFieldModule,
           MatInputModule,
-          BrowserAnimationsModule
+          BrowserAnimationsModule,
+          MatListModule
         ],
         providers: [MessageService]
       }).compileComponents();
