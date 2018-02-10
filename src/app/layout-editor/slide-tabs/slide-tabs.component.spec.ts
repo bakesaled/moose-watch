@@ -8,6 +8,18 @@ import { TabComponent } from './tab/tab.component';
 
 @Component({
   template: `
+    <mw-slide-tabs [selectedIndex]="0">
+      <mw-tab label="tab1">tab1 content</mw-tab>
+      <mw-tab label="tab2">tab2 content</mw-tab>
+    </mw-slide-tabs>
+  `
+})
+class TestSlideTabsInitalSelectionComponent {
+  @ViewChild(SlideTabsComponent) slideTabsComponent: SlideTabsComponent;
+}
+
+@Component({
+  template: `
     <mw-slide-tabs>
       <mw-tab label="tab1">tab1 content</mw-tab>
       <mw-tab label="tab2">tab2 content</mw-tab>
@@ -19,50 +31,90 @@ class TestSlideTabsComponent {
 }
 
 describe('SlideTabsComponent', () => {
-  let component: TestSlideTabsComponent;
-  let fixture: ComponentFixture<TestSlideTabsComponent>;
+  describe('Default', () => {
+    let component: TestSlideTabsComponent;
+    let fixture: ComponentFixture<TestSlideTabsComponent>;
 
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        declarations: [
-          SlideTabsComponent,
-          TabBodyComponent,
-          TabHeaderComponent,
-          TabComponent,
-          TestSlideTabsComponent
-        ]
-      }).compileComponents();
-    })
-  );
+    beforeEach(
+      async(() => {
+        TestBed.configureTestingModule({
+          declarations: [
+            SlideTabsComponent,
+            TabBodyComponent,
+            TabHeaderComponent,
+            TabComponent,
+            TestSlideTabsComponent
+          ]
+        }).compileComponents();
+      })
+    );
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TestSlideTabsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    beforeEach(() => {
+      fixture = TestBed.createComponent(TestSlideTabsComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should set selectedIndex when tab is clicked', () => {
+      expect(component.slideTabsComponent.selectedIndex).toBeUndefined();
+      const tabLabelEl = fixture.nativeElement.querySelectorAll(
+        '.mw-tab-label'
+      )[0] as HTMLElement;
+      tabLabelEl.click();
+
+      expect(component.slideTabsComponent.selectedIndex).toBe(0);
+    });
+
+    it('should set selectedIndex to undefined if a selected tab is clicked', () => {
+      component.slideTabsComponent.selectedIndex = 0;
+      const tabLabelEl = fixture.nativeElement.querySelectorAll(
+        '.mw-tab-label'
+      )[0] as HTMLElement;
+      tabLabelEl.click();
+
+      expect(component.slideTabsComponent.selectedIndex).toBeUndefined();
+    });
   });
+  describe('Initial Selection', () => {
+    let component: TestSlideTabsInitalSelectionComponent;
+    let fixture: ComponentFixture<TestSlideTabsInitalSelectionComponent>;
+    let selectedIndexChangeEmitSpy;
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    beforeEach(
+      async(() => {
+        TestBed.configureTestingModule({
+          declarations: [
+            SlideTabsComponent,
+            TabBodyComponent,
+            TabHeaderComponent,
+            TabComponent,
+            TestSlideTabsInitalSelectionComponent
+          ]
+        }).compileComponents();
+      })
+    );
 
-  it('should set selectedIndex when tab is clicked', () => {
-    expect(component.slideTabsComponent.selectedIndex).toBeUndefined();
-    const tabLabelEl = fixture.nativeElement.querySelectorAll(
-      '.mw-tab-label'
-    )[0] as HTMLElement;
-    tabLabelEl.click();
+    beforeEach(() => {
+      fixture = TestBed.createComponent(TestSlideTabsInitalSelectionComponent);
+      component = fixture.componentInstance;
 
-    expect(component.slideTabsComponent.selectedIndex).toBe(0);
-  });
+      selectedIndexChangeEmitSpy = spyOn(
+        component.slideTabsComponent.selectedIndexChange,
+        'emit'
+      );
+      fixture.detectChanges();
+    });
 
-  it('should set selectedIndex to undefined if a selected tab is clicked', () => {
-    component.slideTabsComponent.selectedIndex = 0;
-    const tabLabelEl = fixture.nativeElement.querySelectorAll(
-      '.mw-tab-label'
-    )[0] as HTMLElement;
-    tabLabelEl.click();
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
 
-    expect(component.slideTabsComponent.selectedIndex).toBeUndefined();
+    it('should emit event if selectedIndex is set', () => {
+      expect(selectedIndexChangeEmitSpy).toHaveBeenCalledWith(0);
+    });
   });
 });

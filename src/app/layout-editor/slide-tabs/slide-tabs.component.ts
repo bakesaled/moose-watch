@@ -3,6 +3,7 @@ import {
   ContentChildren,
   EventEmitter,
   HostBinding,
+  Input,
   OnInit,
   Output,
   QueryList,
@@ -23,6 +24,7 @@ export class SlideTabsComponent implements OnInit {
 
   private selectedIdx: number;
 
+  @Input()
   get selectedIndex(): number {
     return this.selectedIdx;
   }
@@ -38,7 +40,11 @@ export class SlideTabsComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.selectedIndex !== undefined) {
+      this.selectedIndexChange.emit(this.selectedIndex);
+    }
+  }
 
   handleClick(tab: TabComponent, tabHeader: TabHeaderComponent, index: number) {
     if (this.selectedIndex === index) {

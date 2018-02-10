@@ -59,10 +59,10 @@ describe('MwToolPanelComponent', () => {
 
   it('should publish a message on tool nav toggle button click', () => {
     const spy = spyOn(component['messageService'], 'publish');
-    component.handleSelectedIndexChange(1);
+    component.handleSelectedIndexChange(undefined);
     expect(spy).toHaveBeenCalledWith(ToolPanelMessage, {
       command: Command.toolNavToggle,
-      data: false
+      data: true
     });
   });
 });
