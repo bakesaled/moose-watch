@@ -1,6 +1,8 @@
 @import "dark";
 
 .mw-tool-panel {
+  display: block;
+  min-width: 22px;
   .mat-icon {
     color: $nav-list-color;
   }
@@ -14,23 +16,6 @@
     width: 128px;
     height: 128px;
     padding: 4px;
-  }
-
-  h3 {
-    border: none;
-    font-size: 10px;
-    letter-spacing: 1px;
-    line-height: 24px;
-    text-transform: uppercase;
-    font-weight: 400;
-    margin: 0;
-    padding: 0 16px;
-    background: $nav-list-header-background-color;
-    color: $nav-list-header-color;
-  }
-
-  .mat-list-item {
-    color: $nav-list-color;
   }
 }
 
@@ -49,21 +34,11 @@
     padding: 0;
   }
 
-  .mat-list .mat-list-item {
-    height: 32px;
-  }
-
   .mw-tool-panel-trash {
-    font-size: 24px;
-    width: 24px;
-    height: 24px;
-  }
-
-  .mw-tool-panel-toggle-button {
-    width: 24px;
-    height: 24px;
-    padding: 4px;
-    margin-bottom: 20px;
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+    padding: 0;
   }
 
   .mw-tool-panel-toggle-icon--left {

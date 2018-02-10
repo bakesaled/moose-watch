@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
+import { ComponentPickerComponent } from './component-picker.component';
 import { CommonModule } from '@angular/common';
-import { PropertyEditorComponent } from './property-editor.component';
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [CommonModule, SharedModule],
-  declarations: [PropertyEditorComponent],
-  exports: [PropertyEditorComponent]
+  declarations: [ComponentPickerComponent],
+  exports: [ComponentPickerComponent]
 })
-export class MwPropertyEditorModule {}
+export class MwComponentPickerModule {}

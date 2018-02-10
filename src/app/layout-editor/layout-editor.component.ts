@@ -55,9 +55,10 @@ export class LayoutEditorComponent implements OnInit, OnDestroy {
   }
 
   private handleToolPanelMessage(msg) {
+    console.log('collapse', msg);
     switch (msg.command) {
       case Command.toolNavToggle:
-        this.collapsed = !this.collapsed;
+        this.collapsed = msg.data;
         this.changeDetector.markForCheck();
         break;
     }

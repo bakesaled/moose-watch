@@ -8,11 +8,12 @@ import {
 } from '@angular/material';
 import { MessageService } from '../../core/services';
 import { DndModule } from 'ng2-dnd';
-import { PropertyEditorModule } from '../property-editor/property-editor.module';
+import { MwPropertyEditorModule } from '../property-editor/property-editor.module';
 import { MockEditorComponentModel } from '../../core/mocks/editor-component-model.mock';
 import { Command } from '../../core/enums';
-import { ToolbarMessage } from '../../core/messages/toolbar.message';
 import { ToolPanelMessage } from '../../core/messages';
+import { MwComponentPickerModule } from '../component-picker/component-picker.module';
+import { SlideTabsModule } from '../slide-tabs/slide-tabs.module';
 
 describe('MwToolPanelComponent', () => {
   let component: MwToolPanelComponent;
@@ -27,7 +28,9 @@ describe('MwToolPanelComponent', () => {
           MatSidenavModule,
           MatListModule,
           DndModule.forRoot(),
-          PropertyEditorModule
+          MwComponentPickerModule,
+          MwPropertyEditorModule,
+          SlideTabsModule
         ],
         providers: [MessageService]
       }).compileComponents();
@@ -56,9 +59,10 @@ describe('MwToolPanelComponent', () => {
 
   it('should publish a message on tool nav toggle button click', () => {
     const spy = spyOn(component['messageService'], 'publish');
-    component.onToolNavToggleClick();
+    component.handleSelectedIndexChange(undefined);
     expect(spy).toHaveBeenCalledWith(ToolPanelMessage, {
-      command: Command.toolNavToggle
+      command: Command.toolNavToggle,
+      data: true
     });
   });
 });

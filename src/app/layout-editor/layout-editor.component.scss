@@ -12,12 +12,15 @@
 .mw-layout-editor-sidenav {
   width: 240px;
   background: $nav-list-background-color;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
 }
 
 .mw-layout-editor-sidenav--collapsed {
-  width: 32px;
+  width: 22px;
 }
 
 .mw-layout-editor-sidenav-content--collapsed {
-  margin-right: 32px !important;
+  margin-right: 22px !important;
 }

@@ -79,7 +79,8 @@ describe('LayoutEditorComponent', () => {
   it('should toggle collapsed state of sidenav when tool panel button is toggled', () => {
     expect(component.collapsed).toBeFalsy();
     component['handleToolPanelMessage']({
-      command: Command.toolNavToggle
+      command: Command.toolNavToggle,
+      data: true
     });
     expect(component.collapsed).toBeTruthy();
   });

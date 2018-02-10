@@ -1,6 +1,6 @@
 @import "dark";
 
-.mw-navigation {
+.mw-component-picker {
   h3 {
     border: none;
     font-size: 10px;
@@ -13,15 +13,7 @@
     background: $nav-list-header-background-color;
     color: $nav-list-header-color;
   }
-
   .mat-list-item {
     color: $nav-list-color;
-    &:hover {
-      background: $nav-list-item-hover-background-color;
-    }
-  }
-
-  .mat-list-item.active-route {
-    background: $nav-list-item-selected-background-color;
   }
 }
