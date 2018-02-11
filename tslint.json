@@ -39,8 +39,6 @@
         "order": [
           "private-static-field",
           "private-instance-field",
-          "public-static-field",
-          "public-instance-field",
           "private-static-method",
           "private-instance-method"
         ]

@@ -23,7 +23,7 @@ env:
     - NAME="moose-watch"
     - GITHUB_ORG="https://$GH_TOKEN@github.com/bakesaled"
     - GITHUB_NAME="Brandon Eleuterio"
-    - GITHUB_EMAIL="eleuterio@railroad19.com"
+    - GITHUB_EMAIL="brandoneleuterio@hotmail.com"
 
 before_install:
   - export CHROME_BIN=/usr/bin/google-chrome
