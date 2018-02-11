@@ -8,6 +8,7 @@ import { EditorComponentMessage } from '../../core/messages';
 import { Command } from '../../core/enums';
 import { Component, ViewChild } from '@angular/core';
 import { EditorTextModel } from '../models';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   template: `
@@ -26,7 +27,12 @@ describe('MwEditorTextComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        imports: [DndModule.forRoot(), SelectionTagModule],
+        imports: [
+          DndModule.forRoot(),
+          SelectionTagModule,
+          FormsModule,
+          ReactiveFormsModule
+        ],
         declarations: [MwEditorTextComponent, MockEditorTextComponent],
         providers: [MessageService]
       }).compileComponents();
@@ -111,5 +117,17 @@ describe('MwEditorTextComponent', () => {
     });
     expect(component.editorTextComponent.model).toBe(model);
     expect(spy).toHaveBeenCalled();
+  });
+
+  it('should be in edit mode when double clicked', () => {
+    expect(component.editorTextComponent.editMode).toBeFalsy();
+    const el = fixture.nativeElement.querySelector(
+      '.mw-editor-text-drag-handle'
+    );
+    event = new MouseEvent('dblclick');
+    el.dispatchEvent(event);
+    fixture.detectChanges();
+
+    expect(component.editorTextComponent.editMode).toBeTruthy();
   });
 });

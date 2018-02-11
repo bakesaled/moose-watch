@@ -2,10 +2,12 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
+  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import { MwEditorComponent } from '../../core/interfaces';
@@ -61,6 +63,10 @@ export class MwEditorTextComponent
     this.changeDetector.markForCheck();
   }
 
+  editMode = false;
+
+  @ViewChild('input') inputRef: ElementRef;
+
   constructor(
     private changeDetector: ChangeDetectorRef,
     private messageService: MessageService
@@ -72,7 +78,9 @@ export class MwEditorTextComponent
     }
 
     this.subscriptions.push(
-      this.messageService.channel(PropertyEditorMessage).subscribe(msg => this.handlePropertyEditorMessage(msg))
+      this.messageService
+        .channel(PropertyEditorMessage)
+        .subscribe(msg => this.handlePropertyEditorMessage(msg))
     );
   }
 
@@ -83,6 +91,18 @@ export class MwEditorTextComponent
   onclick() {
     this.selected = !this.selected;
     this.changeDetector.markForCheck();
+  }
+
+  ondblclick() {
+    if (!this.editMode) {
+      this.editMode = true;
+      this.changeDetector.markForCheck();
+      setTimeout(() => {
+        const inputEl: HTMLInputElement = this.inputRef.nativeElement;
+        inputEl.setSelectionRange(0, inputEl.value.length);
+        inputEl.focus();
+      });
+    }
   }
 
   private handlePropertyEditorMessage(msg: PropertyEditorMessage) {
