@@ -53,7 +53,7 @@ export class MwEditorTextComponent
   }
   set model(newValue: EditorTextModel) {
     this.textModel = newValue;
-    this.model.value = '[text]';
+    this.model.value = this.model.value ? this.model.value : '[text]';
     if (this.textModel) {
       this.model.fontStyle = this.textModel.fontStyle;
       this.model.fontWeight = this.textModel.fontWeight;
@@ -103,6 +103,10 @@ export class MwEditorTextComponent
         inputEl.focus();
       });
     }
+  }
+
+  handleInput() {
+    this.notify();
   }
 
   private handlePropertyEditorMessage(msg: PropertyEditorMessage) {

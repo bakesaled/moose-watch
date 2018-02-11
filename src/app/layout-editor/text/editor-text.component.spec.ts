@@ -130,4 +130,10 @@ describe('MwEditorTextComponent', () => {
 
     expect(component.editorTextComponent.editMode).toBeTruthy();
   });
+
+  it('should send a notification when text is entered', () => {
+    const spy = spyOn(<any>component.editorTextComponent, 'notify');
+    component.editorTextComponent.handleInput();
+    expect(spy).toHaveBeenCalled();
+  });
 });
