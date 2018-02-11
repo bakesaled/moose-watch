@@ -37,10 +37,10 @@
       true,
       {
         "order": [
-          "static-field",
-          "instance-field",
-          "static-method",
-          "instance-method"
+          "private-static-field",
+          "private-instance-field",
+          "private-static-method",
+          "private-instance-method"
         ]
       }
     ],
@@ -107,7 +107,6 @@
         "variable-declaration": "nospace"
       }
     ],
-    "typeof-compare": true,
     "unified-signatures": true,
     "variable-name": false,
     "whitespace": [

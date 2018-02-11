@@ -1,7 +1,14 @@
-<div class="mw-editor-text-drag-handle" dnd-draggable [dragData]="model.id" (click)="onclick()">
+<div class="mw-editor-text-drag-handle" dnd-draggable [dragData]="model.id" (click)="onclick()"
+     (dblclick)="ondblclick()">
   <mw-selection-tag [icon]="model.icon" [selected]="selected">{{model.name}}</mw-selection-tag>
   <div class="mw-editor-text-wrapper" [style.font-style]="model.fontStyle" [style.font-weight]="model.fontWeight"
        [style.font-size]="model.fontSize" [style.color]="model.color">
-    {{ model.value }}
+    <ng-container *ngIf="!editMode">
+      {{ model.value }}
+    </ng-container>
+    <div [hidden]="!editMode">
+      <textarea matInput matTextareaAutosize matAutosizeMinRows="1" #input
+                matAutosizeMaxRows="500" [(ngModel)]="model.value" (input)="handleInput()"></textarea>
+    </div>
   </div>
 </div>

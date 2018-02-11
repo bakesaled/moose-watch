@@ -3,4 +3,11 @@
   display: block;
   color: #fff;
   cursor: pointer;
+
+  // override default material styles
+  .mat-input-element {
+    vertical-align: top;
+    overflow: hidden;
+    min-height: 20px;
+  }
 }
