@@ -79,13 +79,22 @@ describe('SelectionTagComponent', () => {
 
   it('should not hide on mouseout when selected', () => {
     const parentElem = fixture.nativeElement.querySelector('.parentElem');
-    const originalVisible = component.selectionTagComponent.visible;
-
+    parentElem.dispatchEvent(new MouseEvent('mouseenter'));
+    fixture.detectChanges();
     component.selectionTagComponent.selected = true;
     fixture.detectChanges();
-    event = new MouseEvent('mouseout');
-    parentElem.dispatchEvent(event);
+    parentElem.dispatchEvent(new MouseEvent('mouseout'));
     fixture.detectChanges();
-    expect(component.selectionTagComponent.visible).toBe(originalVisible);
+    expect(component.selectionTagComponent.visible).toBe(true);
+  });
+
+  it('should not change value of visible when selected and mouseout occurs', () => {
+    expect(component.selectionTagComponent.visible).toBeUndefined();
+    const parentElem = fixture.nativeElement.querySelector('.parentElem');
+    component.selectionTagComponent.selected = true;
+    fixture.detectChanges();
+    parentElem.dispatchEvent(new MouseEvent('mouseout'));
+    fixture.detectChanges();
+    expect(component.selectionTagComponent.visible).toBeUndefined();
   });
 });
