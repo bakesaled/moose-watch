@@ -8,6 +8,7 @@ import { Component, ViewChild } from '@angular/core';
   template: `
     <div class="parentElem" style="height: 32px; width: 64px">
       <mw-selection-tag [icon]="icon">red</mw-selection-tag>
+      <div class="childElem" style="height: 32px; width: 64px"></div>
     </div>
   `
 })
@@ -85,7 +86,7 @@ describe('SelectionTagComponent', () => {
     fixture.detectChanges();
     parentElem.dispatchEvent(new MouseEvent('mouseout'));
     fixture.detectChanges();
-    expect(component.selectionTagComponent.visible).toBe(true);
+    expect(component.selectionTagComponent.visible).toBeTruthy();
   });
 
   it('should not change value of visible when selected and mouseout occurs', () => {
@@ -96,5 +97,20 @@ describe('SelectionTagComponent', () => {
     parentElem.dispatchEvent(new MouseEvent('mouseout'));
     fixture.detectChanges();
     expect(component.selectionTagComponent.visible).toBeUndefined();
+  });
+
+  it('should set value of visible to true when mouseout target is a child of the parent element', () => {
+    expect(component.selectionTagComponent.visible).toBeUndefined();
+    const parentElem: HTMLElement = fixture.nativeElement.querySelector(
+      '.parentElem'
+    );
+    const childElem: HTMLElement = fixture.nativeElement.querySelector(
+      '.childElem'
+    );
+
+    const event: any = { target: childElem, toElement: parentElem };
+    parentElem.onmouseout(event);
+    fixture.detectChanges();
+    expect(component.selectionTagComponent.visible).toBeTruthy();
   });
 });
