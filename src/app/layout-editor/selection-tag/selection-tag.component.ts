@@ -43,12 +43,8 @@ export class SelectionTagComponent implements OnInit {
       if (this.selected) {
         return;
       }
-      const parentRect: any = this.parentEl.getBoundingClientRect();
 
-      parentRect.width = parentRect.width;
-      parentRect.height = parentRect.height;
-
-      this.borderRect = parentRect;
+      this.borderRect = this.parentEl.getBoundingClientRect();
       if (event.target === this.parentEl) {
         this.visible = true;
       }

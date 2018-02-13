@@ -7,6 +7,8 @@ $selection-color: #4ab0d8;
   left: -1px;
   cursor: pointer;
   pointer-events: none;
+  height: 100%;
+  width: 100%;
   .mw-selection-tag-block {
     display: flex;
     align-items: center;
@@ -29,6 +31,8 @@ $selection-color: #4ab0d8;
   }
   .mw-selection-tag-border {
     border: $selection-color solid 1px;
+    height: 100%;
+    width: 100%;
   }
 
   &.mw-selection-tag--visible {
