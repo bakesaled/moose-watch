@@ -18,13 +18,22 @@ import {
 })
 export class SelectionTagComponent implements OnInit {
   private parentEl: HTMLElement;
+  private isSelected: boolean;
 
   @HostBinding('class.mw-selection-tag') selectionTagClass = true;
   @HostBinding('class.mw-selection-tag--visible')
   @Input()
   visible: boolean;
 
-  @Input() selected: boolean;
+  @Input()
+  get selected(): boolean {
+    return this.isSelected;
+  }
+  set selected(newValue: boolean) {
+    this.isSelected = newValue;
+    this.visible = this.isSelected;
+    this.changeDetector.markForCheck();
+  }
 
   @Input() icon: string;
 

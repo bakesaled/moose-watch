@@ -94,9 +94,10 @@ describe('SelectionTagComponent', () => {
     const parentElem = fixture.nativeElement.querySelector('.parentElem');
     component.selectionTagComponent.selected = true;
     fixture.detectChanges();
+    expect(component.selectionTagComponent.visible).toBeTruthy();
     parentElem.dispatchEvent(new MouseEvent('mouseout'));
     fixture.detectChanges();
-    expect(component.selectionTagComponent.visible).toBeUndefined();
+    expect(component.selectionTagComponent.visible).toBeTruthy();
   });
 
   it('should set value of visible to true when mouseout target is a child of the parent element', () => {

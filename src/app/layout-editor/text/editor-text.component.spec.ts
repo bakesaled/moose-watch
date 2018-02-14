@@ -136,4 +136,14 @@ describe('MwEditorTextComponent', () => {
     component.editorTextComponent.handleInput();
     expect(spy).toHaveBeenCalled();
   });
+
+  it('should set selected to false when a different component is selected', () => {
+    component.editorTextComponent.selected = true;
+    const model = new EditorTextModel('123');
+    component.editorTextComponent['handleEditorComponentMessage']({
+      command: Command.select,
+      data: model
+    });
+    expect(component.editorTextComponent.selected).toBeFalsy();
+  });
 });
