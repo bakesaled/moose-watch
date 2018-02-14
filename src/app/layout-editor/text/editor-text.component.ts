@@ -40,10 +40,6 @@ export class MwEditorTextComponent
   }
   set selected(newValue: boolean) {
     this.isSelected = newValue;
-    this.messageService.publish(EditorComponentMessage, {
-      command: Command.select,
-      data: this.isSelected ? this.model : undefined
-    });
     this.changeDetector.markForCheck();
   }
 
@@ -82,6 +78,12 @@ export class MwEditorTextComponent
         .channel(PropertyEditorMessage)
         .subscribe(msg => this.handlePropertyEditorMessage(msg))
     );
+
+    this.subscriptions.push(
+      this.messageService
+        .channel(EditorComponentMessage)
+        .subscribe(msg => this.handleEditorComponentMessage(msg))
+    );
   }
 
   ngOnDestroy() {
@@ -90,7 +92,10 @@ export class MwEditorTextComponent
 
   onclick() {
     this.selected = !this.selected;
-    this.changeDetector.markForCheck();
+    this.messageService.publish(EditorComponentMessage, {
+      command: Command.select,
+      data: this.isSelected ? this.model : undefined
+    });
   }
 
   ondblclick() {
@@ -120,5 +125,13 @@ export class MwEditorTextComponent
     this.messageService.publish(EditorComponentMessage, {
       command: Command.propertyChange
     });
+  }
+
+  private handleEditorComponentMessage(msg: EditorComponentMessage) {
+    if (msg.command === Command.select) {
+      if (this.selected && msg.data !== this.model) {
+        this.selected = false;
+      }
+    }
   }
 }
