@@ -10,7 +10,6 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { MwEditorComponent } from '../../core/interfaces';
 import { EditorTextModel } from '../models';
 import { MessageService } from '../../core/services';
 import {
@@ -19,6 +18,7 @@ import {
 } from '../../core/messages';
 import { Command } from '../../core/enums';
 import { Subscription } from 'rxjs/Subscription';
+import { MwSelectableEditorComponent } from '../../core/interfaces/mw-selectable-editor.component';
 
 @Component({
   selector: 'mw-editor-text',
@@ -28,7 +28,7 @@ import { Subscription } from 'rxjs/Subscription';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MwEditorTextComponent
-  implements OnInit, MwEditorComponent, OnDestroy {
+  implements OnInit, MwSelectableEditorComponent, OnDestroy {
   @HostBinding('class.mw-editor-text') editorTextClass = true;
 
   private subscriptions: Subscription[] = [];

@@ -6,15 +6,29 @@ import { FlexLayoutShimService } from '../../../lib/core/services/flex-layout-sh
 import { SelectionTagModule } from '../selection-tag/selection-tag.module';
 import { DndModule } from 'ng2-dnd';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { EditorComponentMessage } from '../../core/messages';
+import { Command } from '../../core/enums';
+import { EditorGridModel, EditorTextModel } from '../models';
+import { Component, ViewChild } from '@angular/core';
+
+@Component({
+  template: `
+    <mw-editor-grid [model]="model"></mw-editor-grid>
+  `
+})
+class MockEditorGridComponent {
+  model: EditorGridModel;
+  @ViewChild(MwEditorGridComponent) editorGridComponent: MwEditorGridComponent;
+}
 
 describe('MwEditorGridComponent', () => {
-  let component: MwEditorGridComponent;
-  let fixture: ComponentFixture<MwEditorGridComponent>;
+  let component: MockEditorGridComponent;
+  let fixture: ComponentFixture<MockEditorGridComponent>;
 
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [MwEditorGridComponent],
+        declarations: [MwEditorGridComponent, MockEditorGridComponent],
         imports: [
           MwEditorCellModule,
           SelectionTagModule,
@@ -27,12 +41,52 @@ describe('MwEditorGridComponent', () => {
   );
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MwEditorGridComponent);
+    fixture = TestBed.createComponent(MockEditorGridComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should be selected when clicked', () => {
+    const spy = spyOn(
+      component.editorGridComponent['messageService'],
+      'publish'
+    );
+    expect(component.editorGridComponent.selected).toBeFalsy();
+    const el: HTMLElement = fixture.nativeElement.querySelector(
+      '.mw-editor-grid-drag-handle'
+    );
+    el.click();
+    fixture.detectChanges();
+
+    expect(component.editorGridComponent.selected).toBeTruthy();
+    expect(spy).toHaveBeenCalledWith(EditorComponentMessage, {
+      command: Command.select,
+      data: component.model
+    });
+  });
+
+  it('should be unselected when already selected and clicked', () => {
+    component.editorGridComponent.selected = true;
+    fixture.detectChanges();
+    expect(component.editorGridComponent.selected).toBeTruthy();
+    const el = fixture.nativeElement.querySelector(
+      '.mw-editor-text-drag-handle'
+    );
+    const spy = spyOn(
+      component.editorGridComponent['messageService'],
+      'publish'
+    );
+    el.click();
+    fixture.detectChanges();
+
+    expect(component.editorGridComponent.selected).toBeFalsy();
+    expect(spy).toHaveBeenCalledWith(EditorComponentMessage, {
+      command: Command.select,
+      data: undefined
+    });
   });
 });
