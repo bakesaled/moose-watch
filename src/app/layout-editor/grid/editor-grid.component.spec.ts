@@ -8,8 +8,9 @@ import { DndModule } from 'ng2-dnd';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { EditorComponentMessage } from '../../core/messages';
 import { Command } from '../../core/enums';
-import { EditorGridModel, EditorTextModel } from '../models';
+import { EditorGridModel } from '../models';
 import { Component, ViewChild } from '@angular/core';
+import { MessageService } from '../../core/services';
 
 @Component({
   template: `
@@ -17,7 +18,7 @@ import { Component, ViewChild } from '@angular/core';
   `
 })
 class MockEditorGridComponent {
-  model: EditorGridModel;
+  model: EditorGridModel = new EditorGridModel();
   @ViewChild(MwEditorGridComponent) editorGridComponent: MwEditorGridComponent;
 }
 
@@ -35,7 +36,7 @@ describe('MwEditorGridComponent', () => {
           DndModule.forRoot(),
           FlexLayoutModule
         ],
-        providers: [FlexLayoutShimService]
+        providers: [FlexLayoutShimService, MessageService]
       }).compileComponents();
     })
   );
@@ -74,7 +75,7 @@ describe('MwEditorGridComponent', () => {
     fixture.detectChanges();
     expect(component.editorGridComponent.selected).toBeTruthy();
     const el = fixture.nativeElement.querySelector(
-      '.mw-editor-text-drag-handle'
+      '.mw-editor-grid-drag-handle'
     );
     const spy = spyOn(
       component.editorGridComponent['messageService'],
