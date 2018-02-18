@@ -22,11 +22,11 @@
     </mat-form-field>
     <mat-form-field *ngIf="componentModel.cells">
       <input class="mw-property-editor-cell-count" matInput type="number" placeholder="cell count" min="1"
-             (input)="onCellCountInput($event)" [formControl]="cellCount" [errorStateMatcher]="matcher">
-      <mat-error *ngIf="cellCount.hasError('min') || cellCount.hasError('max')">
+             (input)="onCellCountInput($event)" [formControl]="cellCountFormControl" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="cellCountFormControl.hasError('min') || cellCountFormControl.hasError('max')">
         Cell count must be between 1 and 8.
       </mat-error>
-      <mat-error *ngIf="cellCount.hasError('cellsAreFull')">
+      <mat-error *ngIf="cellCountFormControl.hasError('cellsAreFull')">
         Cell must be empty before it can be removed.
       </mat-error>
     </mat-form-field>

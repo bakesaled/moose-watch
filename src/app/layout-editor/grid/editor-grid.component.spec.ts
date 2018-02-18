@@ -51,6 +51,11 @@ describe('MwEditorGridComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should render with default model', () => {
+    const el = document.querySelector('.mw-editor-grid') as HTMLElement;
+    expect(el).not.toBeNull();
+  });
+
   it('should be selected when clicked', () => {
     const spy = spyOn(
       component.editorGridComponent['messageService'],
@@ -89,5 +94,41 @@ describe('MwEditorGridComponent', () => {
       command: Command.select,
       data: undefined
     });
+  });
+
+  it('should publish a message when a property has changed', () => {
+    const spy = spyOn(
+      component.editorGridComponent['messageService'],
+      'publish'
+    );
+    component.editorGridComponent['notify']();
+    expect(spy).toHaveBeenCalledWith(EditorComponentMessage, {
+      command: Command.propertyChange
+    });
+  });
+
+  it('should set model and send a notification when a property changes', () => {
+    const spy = spyOn(<any>component.editorGridComponent, 'notify');
+    const model = component.model;
+    component.editorGridComponent['handlePropertyEditorMessage']({
+      command: Command.propertyChange,
+      data: model
+    });
+    expect(component.editorGridComponent.model).toBe(model);
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should enable drag on mouseenter and disable drag on mouseout', () => {
+    expect(component.editorGridComponent.dragEnabled).toBeFalsy();
+    const el = document.querySelector(
+      '.mw-editor-grid-drag-handle'
+    ) as HTMLElement;
+    el.dispatchEvent(new MouseEvent('mouseenter'));
+    fixture.detectChanges();
+    expect(component.editorGridComponent.dragEnabled).toBeTruthy();
+
+    el.dispatchEvent(new MouseEvent('mouseout'));
+    fixture.detectChanges();
+    expect(component.editorGridComponent.dragEnabled).toBeFalsy();
   });
 });

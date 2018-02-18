@@ -44,7 +44,7 @@ export class PropertyEditorComponent implements OnInit, OnDestroy {
     this.model = newValue;
 
     if (this.componentModel instanceof EditorGridModel) {
-      this.cellCount = new FormControl(this.model.cells.length, [
+      this.cellCountFormControl = new FormControl(this.model.cells.length, [
         Validators.min(1),
         Validators.max(EditorGridModel.maxCellCount),
         this.cellsAreFullValidator
@@ -56,7 +56,7 @@ export class PropertyEditorComponent implements OnInit, OnDestroy {
   }
 
   matcher: DirtyErrorStateMatcher = new DirtyErrorStateMatcher();
-  cellCount: FormControl;
+  cellCountFormControl: FormControl;
 
   cellsAreFullValidator = (formControl: FormControl) => {
     const newCount = parseInt(formControl.value, 10);
@@ -111,18 +111,14 @@ export class PropertyEditorComponent implements OnInit, OnDestroy {
   }
 
   onCellCountInput(event: InputEvent) {
-    console.log('input');
     if (this.componentModel instanceof EditorGridModel) {
-      if (this.cellCount.invalid) {
-        console.log('cannot remove any more cells');
+      if (this.cellCountFormControl.invalid) {
         return;
       }
 
-      console.log('cellcount change', event.target.value);
       const newValue = parseInt(event.target.value, 10);
       const changeSucceeded = this.componentModel.changeCellCount(newValue);
       if (!changeSucceeded) {
-        console.error('failure');
         return;
       }
       this.notify();

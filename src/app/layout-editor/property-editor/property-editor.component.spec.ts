@@ -202,9 +202,9 @@ describe('PropertyEditorComponent', () => {
     it('should be invalid cell count if cells are full and new count < current count', () => {
       component.propertyEditorComponent.componentModel.cells[0].component = new MockEditorComponentModel();
       component.propertyEditorComponent.componentModel.cells[1].component = new MockEditorComponentModel();
-      component.propertyEditorComponent.cellCount.patchValue(1);
+      component.propertyEditorComponent.cellCountFormControl.patchValue(1);
       const result = component.propertyEditorComponent.cellsAreFullValidator(
-        component.propertyEditorComponent.cellCount
+        component.propertyEditorComponent.cellCountFormControl
       );
       expect(result).not.toBeNull();
       expect(result.cellsAreFull.valid).toBeFalsy();
@@ -214,7 +214,7 @@ describe('PropertyEditorComponent', () => {
       component.propertyEditorComponent.componentModel.cells[0].component = new MockEditorComponentModel();
       component.propertyEditorComponent.componentModel.cells[1].component = new MockEditorComponentModel();
       const result = component.propertyEditorComponent.cellsAreFullValidator(
-        component.propertyEditorComponent.cellCount
+        component.propertyEditorComponent.cellCountFormControl
       );
       expect(result).toBeNull();
     });
