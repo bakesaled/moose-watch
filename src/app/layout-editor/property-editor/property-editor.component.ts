@@ -4,18 +4,18 @@ import {
   Component,
   HostBinding,
   Input,
-  OnChanges,
   OnDestroy,
   OnInit,
-  SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { EditorTextModel } from '../models';
+import { EditorGridModel, EditorTextModel } from '../models';
 import { MatButtonToggleChange } from '@angular/material';
 import { PropertyEditorMessage } from '../../core/messages';
 import { Command } from '../../core/enums';
 import { MessageService } from '../../core/services';
+import { FormControl, Validators } from '@angular/forms';
+import { DirtyErrorStateMatcher } from '../../core/forms/dirty-error-state-matcher';
 
 interface InputEvent {
   target: {
@@ -30,21 +30,42 @@ interface InputEvent {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PropertyEditorComponent implements OnInit, OnDestroy, OnChanges {
+export class PropertyEditorComponent implements OnInit, OnDestroy {
   @HostBinding('class.mw-property-editor') propertyEditorClass = true;
 
   private subscriptions: Subscription[] = [];
-  private model: EditorTextModel;
+  private model: any;
 
   @Input()
-  get componentModel(): EditorTextModel {
+  get componentModel(): any {
     return this.model;
   }
-  set componentModel(newValue: EditorTextModel) {
+  set componentModel(newValue: any) {
     this.model = newValue;
+
+    if (this.componentModel instanceof EditorGridModel) {
+      this.cellCountFormControl = new FormControl(this.model.cells.length, [
+        Validators.min(1),
+        Validators.max(EditorGridModel.maxCellCount),
+        this.cellsAreFullValidator
+      ]);
+    }
+
     this.changeDetector.markForCheck();
     console.log('property editor model set', newValue);
   }
+
+  matcher: DirtyErrorStateMatcher = new DirtyErrorStateMatcher();
+  cellCountFormControl: FormControl;
+
+  cellsAreFullValidator = (formControl: FormControl) => {
+    const newCount = parseInt(formControl.value, 10);
+    return newCount > 0 &&
+      newCount < this.model.cells.length &&
+      this.model.cellsAreFull()
+      ? { cellsAreFull: { valid: false } }
+      : null;
+  };
 
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -57,30 +78,51 @@ export class PropertyEditorComponent implements OnInit, OnDestroy, OnChanges {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log('changes', changes);
-  }
-
   onFontStyleChange(event: MatButtonToggleChange) {
-    this.componentModel.fontStyle = event.source.checked ? 'italic' : 'normal';
-    this.notify();
-    this.changeDetector.markForCheck();
+    if (this.componentModel instanceof EditorTextModel) {
+      this.componentModel.fontStyle = event.source.checked
+        ? 'italic'
+        : 'normal';
+      this.notify();
+      this.changeDetector.markForCheck();
+    }
   }
 
   onFontWeightChange(event: MatButtonToggleChange) {
-    this.componentModel.fontWeight = event.source.checked ? '900' : '400';
-    this.notify();
-    this.changeDetector.markForCheck();
+    if (this.componentModel instanceof EditorTextModel) {
+      this.componentModel.fontWeight = event.source.checked ? '900' : '400';
+      this.notify();
+      this.changeDetector.markForCheck();
+    }
   }
 
   onFontSizeInput(event: InputEvent) {
-    this.componentModel.fontSize = event.target.value + 'px';
-    this.notify();
+    if (this.componentModel instanceof EditorTextModel) {
+      this.componentModel.fontSize = event.target.value + 'px';
+      this.notify();
+    }
   }
 
   onColorInput(event: InputEvent) {
-    this.componentModel.color = event.target.value;
-    this.notify();
+    if (this.componentModel instanceof EditorTextModel) {
+      this.componentModel.color = event.target.value;
+      this.notify();
+    }
+  }
+
+  onCellCountInput(event: InputEvent) {
+    if (this.componentModel instanceof EditorGridModel) {
+      if (this.cellCountFormControl.invalid) {
+        return;
+      }
+
+      const newValue = parseInt(event.target.value, 10);
+      const changeSucceeded = this.componentModel.changeCellCount(newValue);
+      if (!changeSucceeded) {
+        return;
+      }
+      this.notify();
+    }
   }
 
   private notify() {

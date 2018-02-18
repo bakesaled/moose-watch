@@ -110,7 +110,7 @@ describe('MwEditorTextComponent', () => {
 
   it('should set model and send a notification when a property changes', () => {
     const spy = spyOn(<any>component.editorTextComponent, 'notify');
-    const model = new EditorTextModel();
+    const model = component.model;
     component.editorTextComponent['handlePropertyEditorMessage']({
       command: Command.propertyChange,
       data: model

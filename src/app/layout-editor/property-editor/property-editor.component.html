@@ -3,22 +3,32 @@
     Properties
   </h3>
   <div>
-    <mat-button-toggle class="mw-property-editor-font-style" [checked]="componentModel?.fontStyle === 'italic'"
+    <mat-button-toggle *ngIf="componentModel.fontStyle" class="mw-property-editor-font-style" [checked]="componentModel?.fontStyle === 'italic'"
                        (change)="onFontStyleChange($event)">
       <mat-icon>format_italic</mat-icon>
     </mat-button-toggle>
-    <mat-button-toggle class="mw-property-editor-font-weight" [checked]="componentModel?.fontWeight === '900'"
+    <mat-button-toggle *ngIf="componentModel.fontWeight" class="mw-property-editor-font-weight" [checked]="componentModel?.fontWeight === '900'"
                        (change)="onFontWeightChange($event)">
       <mat-icon>format_bold</mat-icon>
     </mat-button-toggle>
-    <mat-form-field>
+    <mat-form-field *ngIf="componentModel.fontSize">
       <input class="mw-property-editor-font-size" matInput type="number" placeholder="size"
              [value]="componentModel.fontSize?.replace('px', '')" (input)="onFontSizeInput($event)">
       <span matSuffix>px</span>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field *ngIf="componentModel.color">
       <input class="mw-property-editor-color" matInput placeholder="size"
              [value]="componentModel.color ? componentModel.color : 'inherit'" (input)="onColorInput($event)">
+    </mat-form-field>
+    <mat-form-field *ngIf="componentModel.cells">
+      <input class="mw-property-editor-cell-count" matInput type="number" placeholder="cell count" min="1"
+             (input)="onCellCountInput($event)" [formControl]="cellCountFormControl" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="cellCountFormControl.hasError('min') || cellCountFormControl.hasError('max')">
+        Cell count must be between 1 and 8.
+      </mat-error>
+      <mat-error *ngIf="cellCountFormControl.hasError('cellsAreFull')">
+        Cell must be empty before it can be removed.
+      </mat-error>
     </mat-form-field>
   </div>
 </mat-list>
