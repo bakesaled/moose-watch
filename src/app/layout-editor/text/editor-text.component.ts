@@ -115,7 +115,10 @@ export class MwEditorTextComponent
   }
 
   private handlePropertyEditorMessage(msg: PropertyEditorMessage) {
-    if (msg.command === Command.propertyChange) {
+    if (
+      msg.command === Command.propertyChange &&
+      msg.data.id === this.model.id
+    ) {
       this.model = msg.data;
       this.notify();
     }

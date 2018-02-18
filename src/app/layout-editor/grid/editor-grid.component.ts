@@ -18,7 +18,10 @@ import {
 import { MwEditorCellComponent } from './cell';
 import { FlexLayoutShimService } from '../../../lib/core/services/flex-layout-shim.service';
 import { EditorGridModel } from '../models';
-import { EditorComponentMessage } from '../../core/messages';
+import {
+  EditorComponentMessage,
+  PropertyEditorMessage
+} from '../../core/messages';
 import { Command } from '../../core/enums';
 import { MessageService } from '../../core/services';
 import { Subscription } from 'rxjs/Subscription';
@@ -84,6 +87,12 @@ export class MwEditorGridComponent
 
     this.subscriptions.push(
       this.messageService
+        .channel(PropertyEditorMessage)
+        .subscribe(msg => this.handlePropertyEditorMessage(msg))
+    );
+
+    this.subscriptions.push(
+      this.messageService
         .channel(EditorComponentMessage)
         .subscribe(msg => this.handleEditorComponentMessage(msg))
     );
@@ -124,5 +133,21 @@ export class MwEditorGridComponent
         this.selected = false;
       }
     }
+  }
+
+  private handlePropertyEditorMessage(msg: PropertyEditorMessage) {
+    if (
+      msg.command === Command.propertyChange &&
+      msg.data.id === this.model.id
+    ) {
+      this.model = msg.data;
+      this.notify();
+    }
+  }
+
+  private notify() {
+    this.messageService.publish(EditorComponentMessage, {
+      command: Command.propertyChange
+    });
   }
 }
