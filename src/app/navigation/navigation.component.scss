@@ -3,7 +3,6 @@
 .mw-navigation {
   h3 {
     border: none;
-    font-size: 10px;
     letter-spacing: 1px;
     line-height: 24px;
     text-transform: uppercase;
@@ -11,13 +10,14 @@
     margin: 0;
     padding: 0 16px;
     background: $nav-list-header-background-color;
-    color: $nav-list-header-color;
   }
 
-  .mat-list-item {
-    color: $nav-list-color;
-    &:hover {
-      background: $nav-list-item-hover-background-color;
+  .mat-nav-list {
+    .mat-list-item {
+      color: $nav-list-color;
+      &:hover {
+        background: $nav-list-item-hover-background-color;
+      }
     }
   }
 

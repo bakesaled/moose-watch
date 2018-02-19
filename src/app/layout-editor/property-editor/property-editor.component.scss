@@ -3,14 +3,23 @@
 .mw-property-editor {
   h3 {
     border: none;
-    font-size: 10px;
     letter-spacing: 1px;
-    line-height: 24px;
     text-transform: uppercase;
     font-weight: 400;
     margin: 0;
     padding: 0 16px;
     background: $nav-list-header-background-color;
-    color: $nav-list-header-color;
+  }
+  .mw-property-editor-content {
+    padding: 16px;
+    mat-form-field {
+      .mat-input-wrapper {
+        width: 185px;
+      }
+    }
+
+    .mw-property-editor-button-row {
+      padding-bottom: 17.5px;
+    }
   }
 }

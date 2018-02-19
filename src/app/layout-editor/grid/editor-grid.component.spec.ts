@@ -131,4 +131,14 @@ describe('MwEditorGridComponent', () => {
     fixture.detectChanges();
     expect(component.editorGridComponent.dragEnabled).toBeFalsy();
   });
+
+  it('should set selected to false when a different component is selected', () => {
+    component.editorGridComponent.selected = true;
+    const model = new EditorGridModel('123');
+    component.editorGridComponent['handleEditorComponentMessage']({
+      command: Command.select,
+      data: model
+    });
+    expect(component.editorGridComponent.selected).toBeFalsy();
+  });
 });
