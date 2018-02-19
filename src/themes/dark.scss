@@ -1,3 +1,6 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
 // main
 $main-content-background-color: #1e1e1e;
 
@@ -14,3 +17,15 @@ $nav-list-item-hover-background-color: rgba(0,0,0,.2);
 // toolbar
 $toolbar-color: #a1a1a1;
 $toolbar-background-color: #333;
+
+$dark-primary: mat-palette($mat-blue-grey, 100);
+$dark-accent: mat-palette($mat-amber, A200, A100, A400);
+$dark-warn: mat-palette($mat-deep-orange);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+@include angular-material-theme($dark-theme);
+
+.mat-typography h3 {
+  font-size: 10px;
+  color: $nav-list-header-color;
+}
