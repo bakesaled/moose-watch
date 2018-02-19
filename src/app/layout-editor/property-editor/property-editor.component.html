@@ -2,15 +2,17 @@
   <h3>
     Properties
   </h3>
-  <div>
-    <mat-button-toggle *ngIf="componentModel.fontStyle" class="mw-property-editor-font-style" [checked]="componentModel?.fontStyle === 'italic'"
-                       (change)="onFontStyleChange($event)">
-      <mat-icon>format_italic</mat-icon>
-    </mat-button-toggle>
-    <mat-button-toggle *ngIf="componentModel.fontWeight" class="mw-property-editor-font-weight" [checked]="componentModel?.fontWeight === '900'"
-                       (change)="onFontWeightChange($event)">
-      <mat-icon>format_bold</mat-icon>
-    </mat-button-toggle>
+  <div class="mw-property-editor-content">
+    <div class="mw-property-editor-button-row">
+      <mat-button-toggle *ngIf="componentModel.fontStyle" class="mw-property-editor-font-style" [checked]="componentModel?.fontStyle === 'italic'"
+                         (change)="onFontStyleChange($event)">
+        <mat-icon>format_italic</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle *ngIf="componentModel.fontWeight" class="mw-property-editor-font-weight" [checked]="componentModel?.fontWeight === '900'"
+                         (change)="onFontWeightChange($event)">
+        <mat-icon>format_bold</mat-icon>
+      </mat-button-toggle>
+    </div>
     <mat-form-field *ngIf="componentModel.fontSize">
       <input class="mw-property-editor-font-size" matInput type="number" placeholder="size"
              [value]="componentModel.fontSize?.replace('px', '')" (input)="onFontSizeInput($event)">
