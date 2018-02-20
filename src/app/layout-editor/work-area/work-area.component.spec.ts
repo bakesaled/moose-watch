@@ -17,11 +17,11 @@ import { LocalStorageService } from '../../../lib/core/services/local-storage.se
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Command } from '../../core/enums';
-import { WorkAreaMessage } from '../../core/messages/work-area.message';
+import { EditorComponentMessage, WorkAreaMessage } from '../../core/messages';
 import { MwEditorGridComponent } from '../grid';
 import { MockEditorComponentModel } from '../../core/mocks/editor-component-model.mock';
 import { Guid } from '../../core/utils';
-import { EditorCellModel, EditorGridModel } from '../models';
+import { EditorCellModel, EditorGridModel, EditorLayoutModel } from '../models';
 
 describe('MwWorkAreaComponent', () => {
   let component: MwWorkAreaComponent;
@@ -133,5 +133,55 @@ describe('MwWorkAreaComponent', () => {
     expect(component.layoutModel.component.type).toBe(
       MwEditorGridComponent.name
     );
+  });
+
+  it('should be selected when clicked', () => {
+    const spy = spyOn(
+      component['messageService'],
+      'publish'
+    );
+    expect(component.selected).toBeFalsy();
+    const el: HTMLElement = fixture.nativeElement.querySelector(
+      '.mw-work-area-target'
+    );
+    el.click();
+    fixture.detectChanges();
+
+    expect(component.selected).toBeTruthy();
+    expect(spy).toHaveBeenCalledWith(EditorComponentMessage, {
+      command: Command.select,
+      data: component.layoutModel
+    });
+  });
+
+  it('should be unselected when already selected and clicked', () => {
+    component.selected = true;
+    fixture.detectChanges();
+    expect(component.selected).toBeTruthy();
+    const el = fixture.nativeElement.querySelector(
+      '.mw-work-area-target'
+    );
+    const spy = spyOn(
+      component['messageService'],
+      'publish'
+    );
+    el.click();
+    fixture.detectChanges();
+
+    expect(component.selected).toBeFalsy();
+    expect(spy).toHaveBeenCalledWith(EditorComponentMessage, {
+      command: Command.select,
+      data: undefined
+    });
+  });
+
+  it('should set selected to false when a different component is selected', () => {
+    component.selected = true;
+    const model = new EditorLayoutModel('123');
+    component['handleEditorComponentMessage']({
+      command: Command.select,
+      data: model
+    });
+    expect(component.selected).toBeFalsy();
   });
 });

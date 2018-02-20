@@ -1,4 +1,5 @@
-<div class="mw-work-area-target">
+<div class="mw-work-area-target" #workAreaTarget (click)="onclick($event)">
+  <mw-selection-tag [icon]="layoutModel.icon" [selected]="selected">{{layoutModel.name}}</mw-selection-tag>
   <div *ngIf="!layoutModel || !layoutModel.component" class="mw-work-area-message-container" dnd-droppable [allowDrop]="handleAllowDrop(allowedDropType)"
        (onDropSuccess)="handleDrop($event)">
     <div class="mw-work-area-message">Drag a Grid here!</div>
