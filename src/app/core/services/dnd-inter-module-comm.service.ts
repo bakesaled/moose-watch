@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { DragDropData } from 'ng2-dnd';
-import { DropEvent } from '../interfaces';
 
 /**
  * Work-around for loss of dragData using ng2-dnd between modules.
@@ -8,5 +6,5 @@ import { DropEvent } from '../interfaces';
  */
 @Injectable()
 export class DndInterModuleCommService {
-  public dragDropEventData: DragDropData | DropEvent;
+  public dragDropEventData: any;
 }
