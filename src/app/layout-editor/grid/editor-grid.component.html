@@ -1,5 +1,7 @@
-<div #dragHandle class="mw-editor-grid-drag-handle" dnd-draggable [dragData]="model.id" [style]="style" [fxLayout]="fxLayout" [dragEnabled]="dragEnabled"
-     (mouseenter)="onMouseEnter()" (mouseout)="onMouseOut()" (click)="onclick($event)">
+<div #dragHandle class="mw-editor-grid-drag-handle" dnd-draggable [dragData]="model.id" [style]="style"
+     [fxLayout]="fxLayout" [dragEnabled]="dragEnabled"
+     (mouseenter)="onMouseEnter()" (mouseout)="onMouseOut()"
+     (onDragStart)="dndInterModeuleCommService.dragDropEventData = $event" (click)="onclick($event)">
   <mw-selection-tag [icon]="model.icon" [selected]="selected">{{model.name}}</mw-selection-tag>
   <mw-editor-cell *ngFor="let cell of model.cells" [model]="cell"></mw-editor-cell>
 </div>

@@ -96,7 +96,7 @@ describe('MwWorkAreaComponent', () => {
 
   it('should call delete and publish WorkAreaMessage', () => {
     const spy = spyOn(component['messageService'], 'publish');
-    component['deleteLayout']({
+    component['handleToolbarMessage']({
       command: Command.delete,
       data: undefined
     });
@@ -110,7 +110,7 @@ describe('MwWorkAreaComponent', () => {
   it('should delete component', () => {
     const mockComponent = new MockEditorComponentModel();
     component.layoutModel.component = mockComponent;
-    component.handleToolPanelMessage({
+    component['handleToolbarMessage']({
       command: Command.delete,
       data: {
         componentId: 'testId'

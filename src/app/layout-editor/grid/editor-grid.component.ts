@@ -23,7 +23,7 @@ import {
   PropertyEditorMessage
 } from '../../core/messages';
 import { Command } from '../../core/enums';
-import { MessageService } from '../../core/services';
+import { DndInterModuleCommService, MessageService } from '../../core/services';
 import { Subscription } from 'rxjs/Subscription';
 import { MwSelectableEditorComponent } from '../../core/interfaces/mw-selectable-editor.component';
 
@@ -77,7 +77,8 @@ export class MwEditorGridComponent
   constructor(
     private flexShim: FlexLayoutShimService,
     private changeDetector: ChangeDetectorRef,
-    private messageService: MessageService
+    private messageService: MessageService,
+    public dndInterModeuleCommService: DndInterModuleCommService
   ) {}
 
   ngOnInit() {

@@ -2,7 +2,12 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { ErrorInterceptorProvider } from './error.interceptor';
-import { LayoutListService, MessageService, SaveService } from './services';
+import {
+  DndInterModuleCommService,
+  LayoutListService,
+  MessageService,
+  SaveService
+} from './services';
 
 @NgModule({
   imports: [CommonModule],
@@ -10,7 +15,8 @@ import { LayoutListService, MessageService, SaveService } from './services';
     ErrorInterceptorProvider,
     LayoutListService,
     MessageService,
-    SaveService
+    SaveService,
+    DndInterModuleCommService
   ]
 })
 export class CoreModule {
