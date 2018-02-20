@@ -9,10 +9,10 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { DndInterModuleCommService, MessageService } from '../core/services';
-import { ToolbarMessage } from '../core/messages/toolbar.message';
+import { ToolbarMessage } from '../core/messages';
 import { Command } from '../core/enums';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { Constants, ToolPanelMessage } from '../core';
+import { Constants } from '../core';
 import { DropEvent } from '../core/interfaces';
 
 @Component({
