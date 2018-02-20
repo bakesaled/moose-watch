@@ -37,7 +37,7 @@ describe('MwEditorCellComponent', () => {
 
   it('should delete component', () => {
     component.model.component = new MockEditorComponentModel();
-    component.handleToolPanelMessage({
+    component.handleToolbarMessage({
       command: Command.delete,
       data: {
         componentId: 'testId'

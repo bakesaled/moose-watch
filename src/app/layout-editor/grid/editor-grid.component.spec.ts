@@ -10,7 +10,7 @@ import { EditorComponentMessage } from '../../core/messages';
 import { Command } from '../../core/enums';
 import { EditorGridModel } from '../models';
 import { Component, ViewChild } from '@angular/core';
-import { MessageService } from '../../core/services';
+import { DndInterModuleCommService, MessageService } from '../../core/services';
 
 @Component({
   template: `
@@ -36,7 +36,11 @@ describe('MwEditorGridComponent', () => {
           DndModule.forRoot(),
           FlexLayoutModule
         ],
-        providers: [FlexLayoutShimService, MessageService]
+        providers: [
+          FlexLayoutShimService,
+          MessageService,
+          DndInterModuleCommService
+        ]
       }).compileComponents();
     })
   );

@@ -8,11 +8,12 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { MessageService } from '../core/services';
-import { ToolbarMessage } from '../core/messages/toolbar.message';
+import { DndInterModuleCommService, MessageService } from '../core/services';
+import { ToolbarMessage } from '../core/messages';
 import { Command } from '../core/enums';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Constants } from '../core';
+import { DropEvent } from '../core/interfaces';
 
 @Component({
   selector: 'mw-toolbar',
@@ -36,6 +37,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   constructor(
     private messageService: MessageService,
     private changeDetector: ChangeDetectorRef,
+    public dndInterModeuleCommService: DndInterModuleCommService,
     media: MediaMatcher
   ) {
     this.mobileQuery = media.matchMedia(Constants.mobileMediaQuery);
@@ -59,6 +61,16 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   onNavToggleClick() {
     this.messageService.publish(ToolbarMessage, {
       command: Command.navToggle
+    });
+  }
+
+  handleDropSuccess(event: DropEvent) {
+    console.log('deleted', event);
+    this.messageService.publish(ToolbarMessage, {
+      command: Command.delete,
+      data: {
+        componentId: event.dragData
+      }
     });
   }
 }

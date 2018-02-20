@@ -3,9 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ToolbarComponent } from './toolbar.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatIconModule, MatToolbarModule } from '@angular/material';
-import { ToolbarMessage } from '../core/messages/toolbar.message';
+import { ToolbarMessage } from '../core/messages';
 import { Command } from '../core/enums';
-import { MessageService } from '../core/services';
+import { DndInterModuleCommService, MessageService } from '../core/services';
 import { LayoutModule } from '@angular/cdk/layout';
 
 describe('ToolbarComponent', () => {
@@ -22,7 +22,7 @@ describe('ToolbarComponent', () => {
           MatIconModule,
           LayoutModule
         ],
-        providers: [MessageService]
+        providers: [MessageService, DndInterModuleCommService]
       }).compileComponents();
     })
   );

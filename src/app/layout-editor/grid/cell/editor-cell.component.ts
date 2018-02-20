@@ -18,8 +18,7 @@ import { FlexLayoutShimService } from '../../../../lib/core/services/flex-layout
 import { EditorCellModel, EditorTextModel } from '../../models';
 import { Command } from '../../../core/enums';
 import { MessageService } from '../../../core/services';
-import { EditorCellMessage } from '../../../core/messages/editor-cell.message';
-import { ToolPanelMessage } from '../../../core';
+import { EditorCellMessage, ToolbarMessage } from '../../../core/messages';
 import { Subscription } from 'rxjs/Subscription';
 import { MwFactoryComponent } from '../../../../lib/factory/factory.component';
 import { MwEditorTextComponent } from '../../text';
@@ -71,8 +70,8 @@ export class MwEditorCellComponent
 
     this.subscriptions.push(
       this.messageService
-        .channel(ToolPanelMessage)
-        .subscribe(msg => this.handleToolPanelMessage(msg))
+        .channel(ToolbarMessage)
+        .subscribe(msg => this.handleToolbarMessage(msg))
     );
   }
 
@@ -99,8 +98,8 @@ export class MwEditorCellComponent
     });
   }
 
-  handleToolPanelMessage(msg: ToolPanelMessage) {
-    console.log('toolpanel msg', msg, this.model.component);
+  handleToolbarMessage(msg: ToolbarMessage) {
+    console.log('toolbar msg', msg, this.model.component);
     if (msg.command === Command.delete) {
       if (
         this.model.component &&

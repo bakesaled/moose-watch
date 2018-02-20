@@ -84,12 +84,6 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.push(
-      this.messageService
-        .channel(ToolPanelMessage)
-        .subscribe(msg => this.handleToolPanelMessage(msg))
-    );
-
-    this.subscriptions.push(
       this.messageService.channel(EditorCellMessage).subscribe(msg => {
         if (msg.command === Command.drop || msg.command === Command.delete) {
           this.save();
@@ -110,7 +104,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.messageService
         .channel(ToolbarMessage)
-        .subscribe(msg => this.deleteLayout(msg))
+        .subscribe(msg => this.handleToolbarMessage(msg))
     );
   }
 
@@ -160,35 +154,46 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     });
   }
 
-  private deleteLayout(msg: ToolbarMessage) {
+  private handleToolbarMessage(msg: ToolbarMessage) {
     if (msg.command === Command.delete) {
-      this.saveService.delete(this.layoutModel.id);
-      this.messageService.publish(WorkAreaMessage, {
-        command: Command.delete
-      });
+      console.log('work-area delete', msg);
+      if (msg.data) {
+        this.deleteComponent(msg);
+      } else {
+        this.deleteLayout();
+      }
     }
   }
 
-  handleToolPanelMessage(msg: ToolPanelMessage) {
-    console.log('toolpanel msg', msg, this.layoutModel.component);
-    if (msg.command === Command.delete) {
-      if (
-        this.layoutModel.component &&
-        this.layoutModel.component.id === msg.data.componentId
-      ) {
-        this.layoutModel.component = undefined;
-        if (this.factoryComponent) {
-          this.factoryComponent.destroyComponent();
-        }
-        this.changeDetector.markForCheck();
+  private deleteLayout() {
+    this.saveService.delete(this.layoutModel.id);
+    this.messageService.publish(WorkAreaMessage, {
+      command: Command.delete
+    });
+  }
 
-        console.log(
-          'delete layout component',
-          this.layoutModel.component,
-          msg.data.componentId
-        );
-        this.save();
+  private deleteComponent(msg: ToolbarMessage) {
+    console.log(
+      'deleting layout component',
+      this.layoutModel.component,
+      msg.data.componentId
+    );
+    if (
+      this.layoutModel.component &&
+      this.layoutModel.component.id === msg.data.componentId
+    ) {
+      this.layoutModel.component = undefined;
+      if (this.factoryComponent) {
+        this.factoryComponent.destroyComponent();
       }
+      this.changeDetector.markForCheck();
+
+      console.log(
+        'delete layout component',
+        this.layoutModel.component,
+        msg.data.componentId
+      );
+      this.save();
     }
   }
 }

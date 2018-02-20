@@ -5,14 +5,12 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { DropEvent, MwEditorComponentModel } from '../../core/interfaces';
+import { MwEditorComponentModel } from '../../core/interfaces';
 import { MessageService } from '../../core/services';
 import { ToolPanelMessage } from '../../core';
 import { Command } from '../../core/enums';
-import { EditorGridModel, EditorTextModel } from '../models';
 import { EditorComponentMessage } from '../../core/messages';
 import { Subscription } from 'rxjs/Subscription';
-import { ToolbarMessage } from '../../core/messages/toolbar.message';
 
 @Component({
   selector: 'mw-tool-panel',
@@ -40,16 +38,6 @@ export class MwToolPanelComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
-  }
-
-  handleDropSuccess(event: DropEvent) {
-    console.log('deleted', event);
-    this.messageService.publish(ToolPanelMessage, {
-      command: Command.delete,
-      data: {
-        componentId: event.dragData
-      }
-    });
   }
 
   private handleEditorComponentMessage(msg) {

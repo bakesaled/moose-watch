@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MwEditorTextComponent } from './editor-text.component';
 import { DndModule } from 'ng2-dnd';
 import { SelectionTagModule } from '../selection-tag/selection-tag.module';
-import { MessageService } from '../../core/services';
+import { DndInterModuleCommService, MessageService } from '../../core/services';
 import { EditorComponentMessage } from '../../core/messages';
 import { Command } from '../../core/enums';
 import { Component, ViewChild } from '@angular/core';
@@ -34,7 +34,7 @@ describe('MwEditorTextComponent', () => {
           ReactiveFormsModule
         ],
         declarations: [MwEditorTextComponent, MockEditorTextComponent],
-        providers: [MessageService]
+        providers: [MessageService, DndInterModuleCommService]
       }).compileComponents();
     })
   );

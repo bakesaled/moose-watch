@@ -11,7 +11,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { EditorTextModel } from '../models';
-import { MessageService } from '../../core/services';
+import { DndInterModuleCommService, MessageService } from '../../core/services';
 import {
   EditorComponentMessage,
   PropertyEditorMessage
@@ -65,7 +65,8 @@ export class MwEditorTextComponent
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private messageService: MessageService
+    private messageService: MessageService,
+    public dndInterModeuleCommService: DndInterModuleCommService
   ) {}
 
   ngOnInit() {
