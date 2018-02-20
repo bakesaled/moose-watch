@@ -2,7 +2,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ComponentFactoryResolver, ElementRef,
+  ComponentFactoryResolver,
+  ElementRef,
   HostBinding,
   Inject,
   OnDestroy,
@@ -19,7 +20,11 @@ import {
 import { Subscription } from 'rxjs/Subscription';
 import { LayoutModel } from '../../../lib/core/models/layout.model';
 import { Command } from '../../core/enums';
-import { EditorComponentMessage, WorkAreaMessage } from '../../core/messages';
+import {
+  EditorComponentMessage,
+  PropertyEditorMessage,
+  WorkAreaMessage
+} from '../../core/messages';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
@@ -95,13 +100,21 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.push(
-      this.messageService.channel(EditorComponentMessage).subscribe(msg => this.handleEditorComponentMessage(msg))
+      this.messageService
+        .channel(EditorComponentMessage)
+        .subscribe(msg => this.handleEditorComponentMessage(msg))
     );
 
     this.subscriptions.push(
       this.messageService
         .channel(ToolbarMessage)
         .subscribe(msg => this.handleToolbarMessage(msg))
+    );
+
+    this.subscriptions.push(
+      this.messageService
+        .channel(PropertyEditorMessage)
+        .subscribe(msg => this.handlePropertyEditorMessage(msg))
     );
   }
 
@@ -215,6 +228,16 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
       if (this.selected && msg.data !== this.layoutModel) {
         this.selected = false;
       }
+    }
+  }
+
+  private handlePropertyEditorMessage(msg: PropertyEditorMessage) {
+    if (
+      msg.command === Command.propertyChange &&
+      msg.data.id === this.layoutModel.id
+    ) {
+      this.layoutModel = msg.data;
+      this.save();
     }
   }
 }

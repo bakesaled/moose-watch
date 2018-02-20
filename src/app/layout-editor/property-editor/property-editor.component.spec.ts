@@ -11,7 +11,12 @@ import {
 } from '@angular/material';
 import { PropertyEditorMessage } from '../../core/messages';
 import { Command } from '../../core/enums';
-import { EditorCellModel, EditorGridModel, EditorTextModel } from '../models';
+import {
+  EditorCellModel,
+  EditorGridModel,
+  EditorLayoutModel,
+  EditorTextModel
+} from '../models';
 import { Component, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,35 +28,65 @@ import { MockEditorComponentModel } from '../../core/mocks/editor-component-mode
   `
 })
 class MockPropertyEditorComponent {
-  model: EditorTextModel | EditorGridModel;
+  model: EditorTextModel | EditorGridModel | EditorLayoutModel;
   @ViewChild(PropertyEditorComponent)
   propertyEditorComponent: PropertyEditorComponent;
 }
 
 describe('PropertyEditorComponent', () => {
+  let component: MockPropertyEditorComponent;
+  let fixture: ComponentFixture<MockPropertyEditorComponent>;
+
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [PropertyEditorComponent, MockPropertyEditorComponent],
+        imports: [
+          MatIconModule,
+          MatButtonToggleModule,
+          FormsModule,
+          ReactiveFormsModule,
+          MatFormFieldModule,
+          MatInputModule,
+          BrowserAnimationsModule,
+          MatListModule
+        ],
+        providers: [MessageService]
+      }).compileComponents();
+    })
+  );
+
+  describe('layout component', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(MockPropertyEditorComponent);
+      component = fixture.componentInstance;
+      component.model = new EditorLayoutModel();
+      fixture.detectChanges();
+    });
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should change name', () => {
+      expect(component.propertyEditorComponent.componentModel.name).toBe(
+        'NO_NAME'
+      );
+      const el = fixture.nativeElement.querySelector(
+        '.mw-property-editor-name'
+      ) as HTMLInputElement;
+      el.value = 'apple';
+      event = new MouseEvent('input');
+      el.dispatchEvent(event);
+      fixture.detectChanges();
+
+      expect(component.propertyEditorComponent.componentModel.name).toBe(
+        'apple'
+      );
+    });
+  });
+
   describe('text component', () => {
-    let component: MockPropertyEditorComponent;
-    let fixture: ComponentFixture<MockPropertyEditorComponent>;
-
-    beforeEach(
-      async(() => {
-        TestBed.configureTestingModule({
-          declarations: [PropertyEditorComponent, MockPropertyEditorComponent],
-          imports: [
-            MatIconModule,
-            MatButtonToggleModule,
-            FormsModule,
-            ReactiveFormsModule,
-            MatFormFieldModule,
-            MatInputModule,
-            BrowserAnimationsModule,
-            MatListModule
-          ],
-          providers: [MessageService]
-        }).compileComponents();
-      })
-    );
-
     beforeEach(() => {
       fixture = TestBed.createComponent(MockPropertyEditorComponent);
       component = fixture.componentInstance;
@@ -146,28 +181,6 @@ describe('PropertyEditorComponent', () => {
   });
 
   describe('grid component', () => {
-    let component: MockPropertyEditorComponent;
-    let fixture: ComponentFixture<MockPropertyEditorComponent>;
-
-    beforeEach(
-      async(() => {
-        TestBed.configureTestingModule({
-          declarations: [PropertyEditorComponent, MockPropertyEditorComponent],
-          imports: [
-            MatIconModule,
-            MatButtonToggleModule,
-            FormsModule,
-            ReactiveFormsModule,
-            MatFormFieldModule,
-            MatInputModule,
-            BrowserAnimationsModule,
-            MatListModule
-          ],
-          providers: [MessageService]
-        }).compileComponents();
-      })
-    );
-
     beforeEach(() => {
       fixture = TestBed.createComponent(MockPropertyEditorComponent);
       component = fixture.componentInstance;

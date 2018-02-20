@@ -1,4 +1,3 @@
-import { MwNoComponent } from '../../../lib/no-component/no.component';
 import { EditorGridModel } from './editor-grid.model';
 import { LayoutModel } from '../../../lib/core/models/layout.model';
 import { MwEditorComponentModel } from '../../core/interfaces';
@@ -13,7 +12,7 @@ export class EditorLayoutModel implements MwEditorComponentModel {
     public name: string = 'NO_NAME',
     public isNew: boolean = true,
     public component: MwEditorComponentModel = null,
-    public type: string = MwNoComponent.name,
+    public type: string = 'MwLayoutComponent',
     public icon: string = ''
   ) {}
 
