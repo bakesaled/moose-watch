@@ -188,10 +188,12 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   }
 
   private deleteLayout() {
-    this.saveService.delete(this.layoutModel.id);
-    this.messageService.publish(WorkAreaMessage, {
-      command: Command.delete
-    });
+    if (this.selected) {
+      this.saveService.delete(this.layoutModel.id);
+      this.messageService.publish(WorkAreaMessage, {
+        command: Command.delete
+      });
+    }
   }
 
   private deleteComponent(msg: ToolbarMessage) {
