@@ -79,13 +79,12 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscriptions.push(
       this.route.data.subscribe((data: { layout: LayoutModel }) => {
-        if (this.factoryComponent) {
-          this.factoryComponent.destroyComponent();
-        }
+        this.destroyFactoryComponent();
         const editorLayoutModel = new EditorLayoutModel().toEditorModel(
           data.layout
         );
         this.layoutModel = Object.assign(editorLayoutModel, {});
+        this.selected = false;
         this.changeDetector.markForCheck();
       })
     );
@@ -206,9 +205,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
       this.layoutModel.component.id === msg.data.componentId
     ) {
       this.layoutModel.component = undefined;
-      if (this.factoryComponent) {
-        this.factoryComponent.destroyComponent();
-      }
+      this.destroyFactoryComponent();
       this.changeDetector.markForCheck();
 
       console.log(
@@ -238,6 +235,12 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     ) {
       this.layoutModel = msg.data;
       this.save();
+    }
+  }
+
+  private destroyFactoryComponent() {
+    if (this.factoryComponent) {
+      this.factoryComponent.destroyComponent();
     }
   }
 }

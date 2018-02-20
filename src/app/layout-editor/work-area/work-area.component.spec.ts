@@ -136,10 +136,7 @@ describe('MwWorkAreaComponent', () => {
   });
 
   it('should be selected when clicked', () => {
-    const spy = spyOn(
-      component['messageService'],
-      'publish'
-    );
+    const spy = spyOn(component['messageService'], 'publish');
     expect(component.selected).toBeFalsy();
     const el: HTMLElement = fixture.nativeElement.querySelector(
       '.mw-work-area-target'
@@ -158,13 +155,8 @@ describe('MwWorkAreaComponent', () => {
     component.selected = true;
     fixture.detectChanges();
     expect(component.selected).toBeTruthy();
-    const el = fixture.nativeElement.querySelector(
-      '.mw-work-area-target'
-    );
-    const spy = spyOn(
-      component['messageService'],
-      'publish'
-    );
+    const el = fixture.nativeElement.querySelector('.mw-work-area-target');
+    const spy = spyOn(component['messageService'], 'publish');
     el.click();
     fixture.detectChanges();
 
@@ -183,5 +175,16 @@ describe('MwWorkAreaComponent', () => {
       data: model
     });
     expect(component.selected).toBeFalsy();
+  });
+
+  it('should call destroy on factory component', () => {
+    component.factoryComponent = <any>{
+      destroyComponent() {}
+    };
+    expect(component.factoryComponent).toBeDefined();
+    const spy = spyOn(component.factoryComponent, 'destroyComponent');
+
+    component['destroyFactoryComponent']();
+    expect(spy).toHaveBeenCalled();
   });
 });
