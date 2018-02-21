@@ -17,11 +17,11 @@ import { LocalStorageService } from '../../../lib/core/services/local-storage.se
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Command } from '../../core/enums';
-import { WorkAreaMessage } from '../../core/messages/work-area.message';
+import { EditorComponentMessage, WorkAreaMessage } from '../../core/messages';
 import { MwEditorGridComponent } from '../grid';
 import { MockEditorComponentModel } from '../../core/mocks/editor-component-model.mock';
 import { Guid } from '../../core/utils';
-import { EditorCellModel, EditorGridModel } from '../models';
+import { EditorCellModel, EditorGridModel, EditorLayoutModel } from '../models';
 
 describe('MwWorkAreaComponent', () => {
   let component: MwWorkAreaComponent;
@@ -95,6 +95,7 @@ describe('MwWorkAreaComponent', () => {
   });
 
   it('should call delete and publish WorkAreaMessage', () => {
+    component.selected = true;
     const spy = spyOn(component['messageService'], 'publish');
     component['handleToolbarMessage']({
       command: Command.delete,
@@ -133,5 +134,74 @@ describe('MwWorkAreaComponent', () => {
     expect(component.layoutModel.component.type).toBe(
       MwEditorGridComponent.name
     );
+  });
+
+  it('should be selected when clicked', () => {
+    const spy = spyOn(component['messageService'], 'publish');
+    expect(component.selected).toBeFalsy();
+    const el: HTMLElement = fixture.nativeElement.querySelector(
+      '.mw-work-area-target'
+    );
+    el.click();
+    fixture.detectChanges();
+
+    expect(component.selected).toBeTruthy();
+    expect(spy).toHaveBeenCalledWith(EditorComponentMessage, {
+      command: Command.select,
+      data: component.layoutModel
+    });
+  });
+
+  it('should be unselected when already selected and clicked', () => {
+    component.selected = true;
+    fixture.detectChanges();
+    expect(component.selected).toBeTruthy();
+    const el = fixture.nativeElement.querySelector('.mw-work-area-target');
+    const spy = spyOn(component['messageService'], 'publish');
+    el.click();
+    fixture.detectChanges();
+
+    expect(component.selected).toBeFalsy();
+    expect(spy).toHaveBeenCalledWith(EditorComponentMessage, {
+      command: Command.select,
+      data: undefined
+    });
+  });
+
+  it('should set selected to false when a different component is selected', () => {
+    component.selected = true;
+    const model = new EditorLayoutModel('123');
+    component['handleEditorComponentMessage']({
+      command: Command.select,
+      data: model
+    });
+    expect(component.selected).toBeFalsy();
+  });
+
+  it('should call destroy on factory component', () => {
+    component.factoryComponent = <any>{
+      destroyComponent() {}
+    };
+    expect(component.factoryComponent).toBeDefined();
+    const spy = spyOn(component.factoryComponent, 'destroyComponent');
+
+    component['destroyFactoryComponent']();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should not be selected when child element is clicked', () => {
+    const spy = spyOn(component['messageService'], 'publish');
+    expect(component.selected).toBeFalsy();
+    const childEl: HTMLElement = document.createElement('div');
+    childEl.className = '.childEl';
+
+    const event: any = { target: childEl };
+    component.onclick(event);
+
+    expect(component.selected).toBeFalsy();
+    expect(spy).not.toHaveBeenCalledWith(EditorComponentMessage, {
+      command: Command.select,
+      data: component.layoutModel
+    });
   });
 });

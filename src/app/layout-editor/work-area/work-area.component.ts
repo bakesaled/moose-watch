@@ -3,17 +3,14 @@ import {
   ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
+  ElementRef,
   HostBinding,
   Inject,
   OnDestroy,
   OnInit,
-  QueryList,
   ViewChild,
-  ViewChildren,
-  ViewContainerRef,
   ViewEncapsulation
 } from '@angular/core';
-import { MwEditorCellComponent } from '../grid/cell';
 import { DropEvent } from '../../core/interfaces';
 import {
   LayoutListService,
@@ -23,7 +20,11 @@ import {
 import { Subscription } from 'rxjs/Subscription';
 import { LayoutModel } from '../../../lib/core/models/layout.model';
 import { Command } from '../../core/enums';
-import { EditorComponentMessage, WorkAreaMessage } from '../../core/messages';
+import {
+  EditorComponentMessage,
+  PropertyEditorMessage,
+  WorkAreaMessage
+} from '../../core/messages';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
@@ -32,7 +33,7 @@ import { LayoutService } from '../../../lib/layout/layout.service';
 import { EditorCellModel, EditorGridModel, EditorLayoutModel } from '../models';
 import { EditorCellMessage } from '../../core/messages';
 import { ToolbarMessage } from '../../core/messages';
-import { Constants, ToolPanelMessage } from '../../core';
+import { Constants } from '../../core';
 import { Guid } from '../../core/utils';
 import { MwEditorGridComponent } from '../grid';
 import { MwFactoryComponent } from '../../../lib/factory/factory.component';
@@ -48,15 +49,21 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   @HostBinding('class.mw-work-area') workAreaClass = true;
 
   private subscriptions: Subscription[] = [];
+  private isSelected = false;
 
-  @ViewChild('dynamic', { read: ViewContainerRef })
-  viewContainerRef: ViewContainerRef;
-  @ViewChildren(MwEditorCellComponent)
-  cellComponents: QueryList<MwEditorCellComponent>;
+  get selected(): boolean {
+    return this.isSelected;
+  }
+  set selected(newValue: boolean) {
+    this.isSelected = newValue;
+    this.changeDetector.markForCheck();
+  }
+
   allowedDropType = 'MwEditorGridComponent';
   layoutModel: EditorLayoutModel;
 
   @ViewChild(MwFactoryComponent) factoryComponent: MwFactoryComponent;
+  @ViewChild('workAreaTarget') workAreaTargetRef: ElementRef;
 
   constructor(
     @Inject(ComponentFactoryResolver)
@@ -72,13 +79,12 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscriptions.push(
       this.route.data.subscribe((data: { layout: LayoutModel }) => {
-        if (this.factoryComponent) {
-          this.factoryComponent.destroyComponent();
-        }
+        this.destroyFactoryComponent();
         const editorLayoutModel = new EditorLayoutModel().toEditorModel(
           data.layout
         );
         this.layoutModel = Object.assign(editorLayoutModel, {});
+        this.selected = false;
         this.changeDetector.markForCheck();
       })
     );
@@ -93,18 +99,21 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.push(
-      this.messageService.channel(EditorComponentMessage).subscribe(msg => {
-        if (msg.command === Command.propertyChange) {
-          this.save();
-        }
-        console.log('component msg', msg);
-      })
+      this.messageService
+        .channel(EditorComponentMessage)
+        .subscribe(msg => this.handleEditorComponentMessage(msg))
     );
 
     this.subscriptions.push(
       this.messageService
         .channel(ToolbarMessage)
         .subscribe(msg => this.handleToolbarMessage(msg))
+    );
+
+    this.subscriptions.push(
+      this.messageService
+        .channel(PropertyEditorMessage)
+        .subscribe(msg => this.handlePropertyEditorMessage(msg))
     );
   }
 
@@ -132,6 +141,19 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
     return (dragData: any) => {
       return dragData === data;
     };
+  }
+
+  onclick(event: MouseEvent) {
+    // ignore clicks on child elements.
+    if (event.target !== this.workAreaTargetRef.nativeElement) {
+      return;
+    }
+
+    this.selected = !this.selected;
+    this.messageService.publish(EditorComponentMessage, {
+      command: Command.select,
+      data: this.isSelected ? this.layoutModel : undefined
+    });
   }
 
   private save() {
@@ -166,10 +188,12 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
   }
 
   private deleteLayout() {
-    this.saveService.delete(this.layoutModel.id);
-    this.messageService.publish(WorkAreaMessage, {
-      command: Command.delete
-    });
+    if (this.selected) {
+      this.saveService.delete(this.layoutModel.id);
+      this.messageService.publish(WorkAreaMessage, {
+        command: Command.delete
+      });
+    }
   }
 
   private deleteComponent(msg: ToolbarMessage) {
@@ -183,9 +207,7 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
       this.layoutModel.component.id === msg.data.componentId
     ) {
       this.layoutModel.component = undefined;
-      if (this.factoryComponent) {
-        this.factoryComponent.destroyComponent();
-      }
+      this.destroyFactoryComponent();
       this.changeDetector.markForCheck();
 
       console.log(
@@ -194,6 +216,33 @@ export class MwWorkAreaComponent implements OnInit, OnDestroy {
         msg.data.componentId
       );
       this.save();
+    }
+  }
+
+  private handleEditorComponentMessage(msg: EditorComponentMessage) {
+    console.log('component msg', msg);
+    if (msg.command === Command.propertyChange) {
+      this.save();
+    } else if (msg.command === Command.select) {
+      if (this.selected && msg.data !== this.layoutModel) {
+        this.selected = false;
+      }
+    }
+  }
+
+  private handlePropertyEditorMessage(msg: PropertyEditorMessage) {
+    if (
+      msg.command === Command.propertyChange &&
+      msg.data.id === this.layoutModel.id
+    ) {
+      this.layoutModel = msg.data;
+      this.save();
+    }
+  }
+
+  private destroyFactoryComponent() {
+    if (this.factoryComponent) {
+      this.factoryComponent.destroyComponent();
     }
   }
 }

@@ -103,6 +103,7 @@ export class MwEditorCellComponent
     if (msg.command === Command.delete) {
       if (
         this.model.component &&
+        msg.data &&
         this.model.component.id === msg.data.componentId
       ) {
         this.model.component = undefined;

@@ -9,7 +9,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { EditorGridModel, EditorTextModel } from '../models';
+import { EditorGridModel, EditorLayoutModel, EditorTextModel } from '../models';
 import { MatButtonToggleChange } from '@angular/material';
 import { PropertyEditorMessage } from '../../core/messages';
 import { Command } from '../../core/enums';
@@ -121,6 +121,13 @@ export class PropertyEditorComponent implements OnInit, OnDestroy {
       if (!changeSucceeded) {
         return;
       }
+      this.notify();
+    }
+  }
+
+  onNameInput(event: InputEvent) {
+    if (this.componentModel instanceof EditorLayoutModel) {
+      this.componentModel.name = event.target.value;
       this.notify();
     }
   }

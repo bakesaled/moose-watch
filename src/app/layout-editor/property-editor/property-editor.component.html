@@ -3,12 +3,18 @@
     Properties
   </h3>
   <div class="mw-property-editor-content">
-    <div class="mw-property-editor-button-row">
-      <mat-button-toggle *ngIf="componentModel.fontStyle" class="mw-property-editor-font-style" [checked]="componentModel?.fontStyle === 'italic'"
+    <mat-form-field *ngIf="componentModel.type === 'MwLayoutComponent'">
+      <input class="mw-property-editor-name" matInput placeholder="name" [value]="componentModel.name"
+             (input)="onNameInput($event)">
+    </mat-form-field>
+    <div class="mw-property-editor-button-row" *ngIf="componentModel.fontStyle || componentModel.fontWeight">
+      <mat-button-toggle *ngIf="componentModel.fontStyle" class="mw-property-editor-font-style"
+                         [checked]="componentModel?.fontStyle === 'italic'"
                          (change)="onFontStyleChange($event)">
         <mat-icon>format_italic</mat-icon>
       </mat-button-toggle>
-      <mat-button-toggle *ngIf="componentModel.fontWeight" class="mw-property-editor-font-weight" [checked]="componentModel?.fontWeight === '900'"
+      <mat-button-toggle *ngIf="componentModel.fontWeight" class="mw-property-editor-font-weight"
+                         [checked]="componentModel?.fontWeight === '900'"
                          (change)="onFontWeightChange($event)">
         <mat-icon>format_bold</mat-icon>
       </mat-button-toggle>
