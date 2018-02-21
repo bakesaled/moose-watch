@@ -95,6 +95,7 @@ describe('MwWorkAreaComponent', () => {
   });
 
   it('should call delete and publish WorkAreaMessage', () => {
+    component.selected = true;
     const spy = spyOn(component['messageService'], 'publish');
     component['handleToolbarMessage']({
       command: Command.delete,
