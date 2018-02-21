@@ -36,6 +36,7 @@ class MockPropertyEditorComponent {
 describe('PropertyEditorComponent', () => {
   let component: MockPropertyEditorComponent;
   let fixture: ComponentFixture<MockPropertyEditorComponent>;
+  let subSpy;
 
   beforeEach(
     async(() => {
@@ -61,11 +62,16 @@ describe('PropertyEditorComponent', () => {
       fixture = TestBed.createComponent(MockPropertyEditorComponent);
       component = fixture.componentInstance;
       component.model = new EditorLayoutModel();
+      subSpy = spyOn(
+        component.propertyEditorComponent['subscriptions'],
+        'push'
+      );
       fixture.detectChanges();
     });
 
     it('should create', () => {
       expect(component).toBeTruthy();
+      expect(subSpy).toHaveBeenCalled();
     });
 
     it('should change name', () => {
@@ -231,5 +237,14 @@ describe('PropertyEditorComponent', () => {
       );
       expect(result).toBeNull();
     });
+  });
+
+  it('should clear model when component is deleted', () => {
+    component.propertyEditorComponent.componentModel = new MockEditorComponentModel();
+    component.propertyEditorComponent['handleToolbarMessage']({
+      command: Command.delete,
+      data: undefined
+    });
+    expect(component.propertyEditorComponent.componentModel).toBeUndefined();
   });
 });
