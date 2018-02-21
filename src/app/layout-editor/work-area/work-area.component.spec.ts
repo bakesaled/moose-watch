@@ -188,4 +188,20 @@ describe('MwWorkAreaComponent', () => {
     component['destroyFactoryComponent']();
     expect(spy).toHaveBeenCalled();
   });
+
+  it('should not be selected when child element is clicked', () => {
+    const spy = spyOn(component['messageService'], 'publish');
+    expect(component.selected).toBeFalsy();
+    const childEl: HTMLElement = document.createElement('div');
+    childEl.className = '.childEl';
+
+    const event: any = { target: childEl };
+    component.onclick(event);
+
+    expect(component.selected).toBeFalsy();
+    expect(spy).not.toHaveBeenCalledWith(EditorComponentMessage, {
+      command: Command.select,
+      data: component.layoutModel
+    });
+  });
 });
