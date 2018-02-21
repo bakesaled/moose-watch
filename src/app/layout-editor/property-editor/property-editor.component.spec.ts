@@ -232,4 +232,13 @@ describe('PropertyEditorComponent', () => {
       expect(result).toBeNull();
     });
   });
+
+  it('should clear model when component is deleted', () => {
+    component.propertyEditorComponent.componentModel = new MockEditorComponentModel();
+    component.propertyEditorComponent['handleToolbarMessage']({
+      command: Command.delete,
+      data: undefined
+    });
+    expect(component.propertyEditorComponent.componentModel).toBeUndefined();
+  });
 });

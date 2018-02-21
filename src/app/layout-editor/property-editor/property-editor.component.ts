@@ -11,7 +11,10 @@ import {
 import { Subscription } from 'rxjs/Subscription';
 import { EditorGridModel, EditorLayoutModel, EditorTextModel } from '../models';
 import { MatButtonToggleChange } from '@angular/material';
-import { PropertyEditorMessage } from '../../core/messages';
+import {
+  PropertyEditorMessage,
+  ToolbarMessage
+} from '../../core/messages';
 import { Command } from '../../core/enums';
 import { MessageService } from '../../core/services';
 import { FormControl, Validators } from '@angular/forms';
@@ -72,7 +75,13 @@ export class PropertyEditorComponent implements OnInit, OnDestroy {
     private messageService: MessageService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.subscriptions.push(
+      this.messageService
+        .channel(ToolbarMessage)
+        .subscribe(msg => this.handleToolbarMessage(msg))
+    );
+  }
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
@@ -137,5 +146,11 @@ export class PropertyEditorComponent implements OnInit, OnDestroy {
       command: Command.propertyChange,
       data: this.componentModel
     });
+  }
+
+  private handleToolbarMessage(msg: ToolbarMessage) {
+    if (msg.command === Command.delete) {
+      this.componentModel = undefined;
+    }
   }
 }
