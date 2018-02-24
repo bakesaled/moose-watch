@@ -118,6 +118,34 @@ describe('LayoutListService', () => {
   );
 
   it(
+    'should get next unique name when list contains many items',
+    inject([LayoutListService], (service: LayoutListService) => {
+      const mockList: LayoutListModel = {
+        items: [
+          {
+            name: 'my-favorite-layout',
+            id: 'test1Id'
+          },
+          {
+            name: 'my-favorite-layout',
+            id: 'test1Id'
+          },
+          {
+            name: 'my-worst-layout',
+            id: 'test1Id'
+          },
+          {
+            name: 'my-best-layout',
+            id: 'test1Id'
+          }
+        ]
+      };
+      const name = service['getNextUniqueName'](mockList);
+      expect(name).toEqual('new-layout-0');
+    })
+  );
+
+  it(
     'should delete list item',
     inject([LayoutListService], (service: LayoutListService) => {
       const mockList: LayoutListModel = {
