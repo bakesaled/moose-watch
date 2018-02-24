@@ -26,8 +26,8 @@ export class MwToolPanelComponent implements OnInit, OnDestroy {
   @HostBinding('class.mw-tool-panel') toolPanelClass = true;
 
   private subscriptions: Subscription[] = [];
-  private selectedTabIndex = 0;
 
+  selectedTabIndex = 0;
   selectedComponentModel: MwEditorComponentModel;
 
   constructor(
