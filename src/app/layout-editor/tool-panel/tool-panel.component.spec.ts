@@ -14,6 +14,7 @@ import { Command } from '../../core/enums';
 import { ToolPanelMessage } from '../../core/messages';
 import { MwComponentPickerModule } from '../component-picker/component-picker.module';
 import { SlideTabsModule } from '../slide-tabs/slide-tabs.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('MwToolPanelComponent', () => {
   let component: MwToolPanelComponent;
@@ -30,7 +31,8 @@ describe('MwToolPanelComponent', () => {
           DndModule.forRoot(),
           MwComponentPickerModule,
           MwPropertyEditorModule,
-          SlideTabsModule
+          SlideTabsModule,
+          RouterTestingModule
         ],
         providers: [MessageService]
       }).compileComponents();
@@ -47,22 +49,47 @@ describe('MwToolPanelComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set selected component model', () => {
+  it('should set selected component model and set selected index to 1', () => {
     const mockComponentModel = new MockEditorComponentModel();
     component.selectedComponentModel = mockComponentModel;
+    const spy = spyOn(component, 'handleSelectedIndexChange');
     component['handleEditorComponentMessage']({
       command: Command.select,
       data: mockComponentModel
     });
     expect(component.selectedComponentModel).toBe(mockComponentModel);
+    expect(spy).toHaveBeenCalledWith(1);
   });
 
-  it('should publish a message on tool nav toggle button click', () => {
+  it('should set selected component model and set selected index to 0', () => {
+    const mockComponentModel = new MockEditorComponentModel();
+    component.selectedComponentModel = mockComponentModel;
+    component['selectedTabIndex'] = 1;
+    const spy = spyOn(component, 'handleSelectedIndexChange');
+    component['handleEditorComponentMessage']({
+      command: Command.select,
+      data: undefined
+    });
+    expect(component.selectedComponentModel).toBeUndefined();
+    expect(spy).toHaveBeenCalledWith(0);
+  });
+
+  it('should publish a message to expand on selected index change', () => {
     const spy = spyOn(component['messageService'], 'publish');
     component.handleSelectedIndexChange(undefined);
     expect(spy).toHaveBeenCalledWith(ToolPanelMessage, {
       command: Command.toolNavToggle,
       data: true
+    });
+  });
+
+  it('should publish a message to collapse on selected index change', () => {
+    const spy = spyOn(component['messageService'], 'publish');
+    component.selectedTabIndex = undefined;
+    component.handleSelectedIndexChange(1);
+    expect(spy).toHaveBeenCalledWith(ToolPanelMessage, {
+      command: Command.toolNavToggle,
+      data: false
     });
   });
 });

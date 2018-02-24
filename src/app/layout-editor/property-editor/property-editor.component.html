@@ -7,24 +7,24 @@
       <input class="mw-property-editor-name" matInput placeholder="name" [value]="componentModel.name"
              (input)="onNameInput($event)">
     </mat-form-field>
-    <div class="mw-property-editor-button-row" *ngIf="componentModel.fontStyle || componentModel.fontWeight">
-      <mat-button-toggle *ngIf="componentModel.fontStyle" class="mw-property-editor-font-style"
+    <div class="mw-property-editor-button-row" *ngIf="componentModel.type === 'MwEditorTextComponent'">
+      <mat-button-toggle *ngIf="componentModel.type === 'MwEditorTextComponent'" class="mw-property-editor-font-style"
                          [checked]="componentModel?.fontStyle === 'italic'"
                          (change)="onFontStyleChange($event)">
         <mat-icon>format_italic</mat-icon>
       </mat-button-toggle>
-      <mat-button-toggle *ngIf="componentModel.fontWeight" class="mw-property-editor-font-weight"
+      <mat-button-toggle *ngIf="componentModel.type === 'MwEditorTextComponent'" class="mw-property-editor-font-weight"
                          [checked]="componentModel?.fontWeight === '900'"
                          (change)="onFontWeightChange($event)">
         <mat-icon>format_bold</mat-icon>
       </mat-button-toggle>
     </div>
-    <mat-form-field *ngIf="componentModel.fontSize">
+    <mat-form-field *ngIf="componentModel.type === 'MwEditorTextComponent'">
       <input class="mw-property-editor-font-size" matInput type="number" placeholder="size"
              [value]="componentModel.fontSize?.replace('px', '')" (input)="onFontSizeInput($event)">
       <span matSuffix>px</span>
     </mat-form-field>
-    <mat-form-field *ngIf="componentModel.color">
+    <mat-form-field *ngIf="componentModel.type === 'MwEditorTextComponent'">
       <input class="mw-property-editor-color" matInput placeholder="size"
              [value]="componentModel.color ? componentModel.color : 'inherit'" (input)="onColorInput($event)">
     </mat-form-field>
