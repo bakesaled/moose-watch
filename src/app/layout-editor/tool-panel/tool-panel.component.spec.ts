@@ -74,12 +74,22 @@ describe('MwToolPanelComponent', () => {
     expect(spy).toHaveBeenCalledWith(0);
   });
 
-  it('should publish a message on tool nav toggle button click', () => {
+  it('should publish a message to expand on selected index change', () => {
     const spy = spyOn(component['messageService'], 'publish');
     component.handleSelectedIndexChange(undefined);
     expect(spy).toHaveBeenCalledWith(ToolPanelMessage, {
       command: Command.toolNavToggle,
       data: true
+    });
+  });
+
+  it('should publish a message to collapse on selected index change', () => {
+    const spy = spyOn(component['messageService'], 'publish');
+    component.selectedTabIndex = undefined;
+    component.handleSelectedIndexChange(1);
+    expect(spy).toHaveBeenCalledWith(ToolPanelMessage, {
+      command: Command.toolNavToggle,
+      data: false
     });
   });
 });
