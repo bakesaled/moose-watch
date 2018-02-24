@@ -123,25 +123,25 @@ describe('LayoutListService', () => {
       const mockList: LayoutListModel = {
         items: [
           {
-            name: 'my-favorite-layout',
+            name: 'new-layout-1',
             id: 'test1Id'
           },
           {
-            name: 'my-favorite-layout',
+            name: 'new-layout-1',
             id: 'test1Id'
           },
           {
-            name: 'my-worst-layout',
+            name: 'new-layout-2',
             id: 'test1Id'
           },
           {
-            name: 'my-best-layout',
+            name: 'new-layout-0',
             id: 'test1Id'
           }
         ]
       };
       const name = service['getNextUniqueName'](mockList);
-      expect(name).toEqual('new-layout-0');
+      expect(name).toEqual('new-layout-3');
     })
   );
 
