@@ -18,7 +18,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 export class TabBodyComponent implements OnInit {
   @HostBinding('class.mw-tab-body') hostClass = true;
 
-  @Input('content') content: TemplatePortal;
+  @Input() content: TemplatePortal;
 
   constructor() {
   }
