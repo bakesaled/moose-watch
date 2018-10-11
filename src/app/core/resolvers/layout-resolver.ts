@@ -9,6 +9,7 @@ import {
 import { Observable } from 'rxjs/Observable';
 import { LayoutService } from '../../../lib/layout/layout.service';
 import { Constants } from '../constants';
+import { of } from 'rxjs';
 
 @Injectable()
 export class LayoutResolver implements Resolve<LayoutModel> {
@@ -26,15 +27,15 @@ export class LayoutResolver implements Resolve<LayoutModel> {
     const id = route.paramMap.get('id');
     console.log('params', isNew, id);
     if (isNew) {
-      return Observable.of(new LayoutModel(id, Constants.newLayoutBaseName));
+      return of(new LayoutModel(id, Constants.newLayoutBaseName));
     } else {
       const layout = new LayoutModel(id, route.queryParamMap.get('name'));
       const result = this.layoutService.loadFromStorage(layout);
       if (result) {
-        return Observable.of(result);
+        return of(result);
       } else {
         this.router.navigate(['/landing']);
-        return Observable.of(null);
+        return of(null);
       }
     }
   }

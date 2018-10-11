@@ -10,6 +10,7 @@ import {
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable()
 export class LayoutPreLoadResolver implements Resolve<any> {
@@ -38,7 +39,7 @@ export class LayoutPreLoadResolver implements Resolve<any> {
             .subscribe(layout => {
               console.log('got it', localStorage.getItem('layout-list'));
               this.saveService.save(layout);
-              return Observable.of(null);
+              return of(null);
             });
         });
       })
